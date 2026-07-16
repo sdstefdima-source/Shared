@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#071a2d" />
+  <title>Mastermind — Signal Vault</title>
+  <style>
+    :root {
+      --bg: #061625;
+      --bg-2: #09253a;
+      --panel: rgba(10, 39, 58, 0.88);
+      --panel-2: rgba(12, 49, 70, 0.94);
+      --line: rgba(88, 221, 155, 0.22);
+      --line-strong: rgba(88, 221, 155, 0.48);
+      --green: #58dd9b;
+      --green-bright: #7af7b8;
+      --green-dark: #1b9b68;
+      --text: #e7f5ee;
+      --muted: #9cb9b0;
+      --danger: #ff7f7f;
+      --warning: #ffd27a;
+      --shadow: 0 18px 45px rgba(0, 0, 0, 0.35);
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 18% 10%, rgba(38, 132, 115, 0.16), transparent 30%),
+        radial-gradient(circle at 82% 20%, rgba(0, 96, 165, 0.20), transparent 34%),
+        linear-gradient(145deg, var(--bg), #04111d 65%);
+    }
+
+    button, select, input { font: inherit; }
+
+    button {
+      color: var(--text);
+      border: 1px solid var(--line-strong);
+      background: linear-gradient(180deg, rgba(38, 132, 100, 0.28), rgba(18, 77, 67, 0.34));
+      border-radius: 10px;
+      padding: 0.72rem 1rem;
+      cursor: pointer;
+      transition: transform 120ms ease, border-color 120ms ease, background 120ms ease;
+    }
+
+    button:hover { transform: translateY(-1px); border-color: var(--green-bright); }
+    button:active { transform: translateY(0); }
+    button:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+
+    .secondary {
+      background: rgba(9, 36, 54, 0.65);
+      border-color: rgba(156, 185, 176, 0.28);
+    }
+
+    .danger {
+      border-color: rgba(255, 127, 127, 0.4);
+      background: rgba(130, 39, 48, 0.24);
+    }
+
+    .shell {
+      width: min(1320px, calc(100% - 28px));
+      margin: 0 auto;
+      padding: 24px 0 34px;
+    }
+
+    header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 18px;
+      padding: 4px 2px;
+    }
+
+    .eyebrow {
+      color: var(--green);
+      letter-spacing: 0.17em;
+      text-transform: uppercase;
+      font-size: 0.76rem;
+      font-weight: 800;
+      margin-bottom: 7px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(1.9rem, 3vw, 3.2rem);
+      letter-spacing: -0.04em;
+      line-height: 1;
+    }
+
+    .subtitle {
+      margin: 10px 0 0;
+      color: var(--muted);
+      max-width: 760px;
+      line-height: 1.5;
+    }
+
+    .status-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(5, 28, 41, 0.65);
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .status-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 16px rgba(88, 221, 155, 0.75);
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(270px, 330px) minmax(0, 1fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .panel {
+      background: linear-gradient(180deg, var(--panel-2), var(--panel));
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+    }
+
+    .controls {
+      padding: 18px;
+      position: sticky;
+      top: 14px;
+    }
+
+    .panel-title {
+      font-size: 1.02rem;
+      margin: 0 0 13px;
+      letter-spacing: 0.01em;
+    }
+
+    .preset-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .preset.active {
+      background: rgba(61, 183, 124, 0.28);
+      border-color: var(--green-bright);
+      box-shadow: inset 0 0 0 1px rgba(122, 247, 184, 0.16);
+    }
+
+    .field {
+      margin: 13px 0;
+    }
+
+    .field label,
+    .toggle-row label {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--muted);
+      font-size: 0.88rem;
+      margin-bottom: 7px;
+    }
+
+    .value {
+      color: var(--text);
+      font-variant-numeric: tabular-nums;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--green);
+    }
+
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 15px 0;
+      padding: 12px;
+      border: 1px solid rgba(156, 185, 176, 0.16);
+      border-radius: 12px;
+      background: rgba(4, 22, 34, 0.36);
+    }
+
+    .toggle-row label {
+      margin: 0;
+      display: block;
+    }
+
+    .switch {
+      position: relative;
+      width: 46px;
+      height: 25px;
+      flex: 0 0 auto;
+    }
+
+    .switch input { opacity: 0; width: 0; height: 0; }
+
+    .slider {
+      position: absolute;
+      inset: 0;
+      border-radius: 999px;
+      background: #1d3e4d;
+      border: 1px solid rgba(156, 185, 176, 0.25);
+      transition: 150ms ease;
+    }
+
+    .slider::before {
+      content: "";
+      position: absolute;
+      width: 17px;
+      height: 17px;
+      top: 3px;
+      left: 4px;
+      border-radius: 50%;
+      background: #b7cbc4;
+      transition: 150ms ease;
+    }
+
+    .switch input:checked + .slider {
+      background: rgba(48, 169, 112, 0.42);
+      border-color: var(--green);
+    }
+
+    .switch input:checked + .slider::before {
+      transform: translateX(20px);
+      background: var(--green-bright);
+    }
+
+    .action-stack {
+      display: grid;
+      gap: 9px;
+      margin-top: 16px;
+    }
+
+    .summary {
+      margin-top: 15px;
+      padding: 12px;
+      border-radius: 12px;
+      background: rgba(4, 22, 34, 0.42);
+      border: 1px solid rgba(88, 221, 155, 0.13);
+      color: var(--muted);
+      font-size: 0.86rem;
+      line-height: 1.5;
+    }
+
+    .game {
+      padding: 18px;
+      min-height: 660px;
+    }
+
+    .game-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .metrics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .metric {
+      padding: 8px 10px;
+      border-radius: 10px;
+      background: rgba(4, 22, 34, 0.46);
+      border: 1px solid rgba(156, 185, 176, 0.14);
+      color: var(--muted);
+      font-size: 0.84rem;
+    }
+
+    .metric strong { color: var(--text); }
+
+    .secret-wrap {
+      border: 1px solid rgba(88, 221, 155, 0.16);
+      background: rgba(3, 18, 29, 0.48);
+      border-radius: 15px;
+      padding: 14px;
+      margin-bottom: 14px;
+    }
+
+    .section-label {
+      color: var(--muted);
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 800;
+      margin-bottom: 9px;
+    }
+
+    .secret {
+      display: flex;
+      gap: 9px;
+      min-height: 48px;
+      flex-wrap: wrap;
+    }
+
+    .secret-slot,
+    .peg {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 2px solid rgba(231, 245, 238, 0.16);
+      box-shadow: inset 0 0 0 3px rgba(0,0,0,0.13), 0 7px 18px rgba(0,0,0,0.20);
+    }
+
+    .secret-slot {
+      display: grid;
+      place-items: center;
+      color: var(--green);
+      background:
+        repeating-linear-gradient(135deg, rgba(88,221,155,0.05) 0 6px, rgba(0,0,0,0.08) 6px 12px),
+        #092338;
+      font-weight: 900;
+      border-color: rgba(88, 221, 155, 0.22);
+    }
+
+    .board-scroll {
+      overflow-x: auto;
+      border: 1px solid rgba(156, 185, 176, 0.13);
+      border-radius: 15px;
+      background: rgba(3, 17, 27, 0.34);
+    }
+
+    .board {
+      min-width: 520px;
+      padding: 10px;
+      display: grid;
+      gap: 7px;
+    }
+
+    .guess-row {
+      display: grid;
+      grid-template-columns: 42px minmax(260px, 1fr) minmax(110px, 170px);
+      gap: 11px;
+      align-items: center;
+      min-height: 60px;
+      padding: 7px 10px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+    }
+
+    .guess-row:nth-child(odd) { background: rgba(10, 42, 60, 0.27); }
+
+    .guess-row.active {
+      border-color: rgba(88, 221, 155, 0.38);
+      background: rgba(29, 104, 80, 0.16);
+      box-shadow: inset 0 0 22px rgba(88, 221, 155, 0.035);
+    }
+
+    .row-number {
+      color: var(--muted);
+      font-size: 0.85rem;
+      text-align: center;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .guess-pegs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .peg.empty {
+      background: rgba(8, 35, 50, 0.9);
+      border-color: rgba(156, 185, 176, 0.22);
+      box-shadow: inset 0 0 12px rgba(0,0,0,0.25);
+    }
+
+    .feedback {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      gap: 6px;
+      min-height: 34px;
+    }
+
+    .feedback-peg {
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      border: 1px solid rgba(231, 245, 238, 0.28);
+      background: rgba(13, 43, 59, 0.7);
+    }
+
+    .feedback-peg.exact {
+      background: var(--green-bright);
+      border-color: rgba(255,255,255,0.45);
+      box-shadow: 0 0 9px rgba(122, 247, 184, 0.45);
+    }
+
+    .feedback-peg.misplaced {
+      background: #b7d7ef;
+      border-color: rgba(255,255,255,0.36);
+    }
+
+    .feedback-text {
+      color: var(--muted);
+      font-size: 0.78rem;
+      min-width: 58px;
+      text-align: right;
+    }
+
+    .composer {
+      margin-top: 14px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      align-items: end;
+    }
+
+    .palette {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+    }
+
+    .color-button {
+      width: 43px;
+      height: 43px;
+      border-radius: 50%;
+      padding: 0;
+      border: 2px solid rgba(255,255,255,0.18);
+      box-shadow: inset 0 0 0 3px rgba(0,0,0,0.12), 0 6px 14px rgba(0,0,0,0.22);
+      position: relative;
+    }
+
+    .color-button:hover { transform: translateY(-2px) scale(1.035); }
+    .color-button:focus-visible { outline: 3px solid var(--green-bright); outline-offset: 3px; }
+
+    .color-key {
+      position: absolute;
+      right: -4px;
+      bottom: -5px;
+      min-width: 18px;
+      height: 18px;
+      padding: 0 4px;
+      display: grid;
+      place-items: center;
+      background: #071a2d;
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 999px;
+      color: var(--text);
+      font-size: 0.65rem;
+      font-weight: 800;
+    }
+
+    .composer-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .message {
+      min-height: 30px;
+      margin-top: 12px;
+      border-radius: 11px;
+      padding: 9px 11px;
+      color: var(--muted);
+      background: rgba(4, 22, 34, 0.36);
+      border: 1px solid rgba(156, 185, 176, 0.12);
+    }
+
+    .message.win {
+      color: var(--green-bright);
+      border-color: rgba(88, 221, 155, 0.35);
+      background: rgba(32, 126, 83, 0.18);
+    }
+
+    .message.loss {
+      color: #ffd0d0;
+      border-color: rgba(255, 127, 127, 0.28);
+      background: rgba(130, 39, 48, 0.17);
+    }
+
+    details.rules {
+      margin-top: 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(10,39,58,0.88), rgba(7,29,45,0.86));
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    details.rules summary {
+      cursor: pointer;
+      padding: 16px 18px;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .rules-body {
+      padding: 0 18px 18px;
+      color: var(--muted);
+      line-height: 1.62;
+    }
+
+    .rules-body strong { color: var(--text); }
+
+    .legend {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      margin: 12px 0;
+    }
+
+    .legend-item {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    @media (max-width: 900px) {
+      .layout { grid-template-columns: 1fr; }
+      .controls { position: static; }
+      header { flex-direction: column; }
+      .game { min-height: 0; }
+    }
+
+    @media (max-width: 620px) {
+      .shell { width: min(100% - 16px, 1320px); padding-top: 12px; }
+      .panel, details.rules { border-radius: 14px; }
+      .controls, .game { padding: 13px; }
+      .game-top { align-items: flex-start; flex-direction: column; }
+      .composer { grid-template-columns: 1fr; }
+      .composer-actions { justify-content: flex-start; }
+      .secret-slot, .peg, .color-button { width: 37px; height: 37px; }
+      .guess-row { grid-template-columns: 34px minmax(240px, 1fr) 125px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header>
+      <div>
+        <div class="eyebrow">Deduction System</div>
+        <h1>Mastermind: Signal Vault</h1>
+        <p class="subtitle">Break a hidden color sequence by reading exact-position and wrong-position feedback. Board width, palette size, attempt count, and duplicate rules are adjustable.</p>
+      </div>
+      <div class="status-chip" aria-live="polite">
+        <span class="status-dot"></span>
+        <span id="headerStatus">System ready</span>
+      </div>
+    </header>
+
+    <section class="layout">
+      <aside class="panel controls" aria-label="Game configuration">
+        <h2 class="panel-title">Difficulty control</h2>
+
+        <div class="preset-grid" id="presetGrid">
+          <button class="preset" data-preset="training">Training</button>
+          <button class="preset" data-preset="classic">Classic</button>
+          <button class="preset" data-preset="hard">Hard</button>
+          <button class="preset" data-preset="expert">Expert</button>
+        </div>
+
+        <div class="field">
+          <label for="widthRange"><span>Code width</span><span class="value" id="widthValue">4</span></label>
+          <input id="widthRange" type="range" min="3" max="8" value="4" />
+        </div>
+
+        <div class="field">
+          <label for="colorRange"><span>Available colors</span><span class="value" id="colorValue">6</span></label>
+          <input id="colorRange" type="range" min="4" max="12" value="6" />
+        </div>
+
+        <div class="field">
+          <label for="attemptRange"><span>Board length / attempts</span><span class="value" id="attemptValue">10</span></label>
+          <input id="attemptRange" type="range" min="6" max="18" value="10" />
+        </div>
+
+        <div class="toggle-row">
+          <label for="duplicateToggle">
+            <span>Allow repeated colors</span><br />
+            <span style="font-size:.77rem;color:#7fa59a">Harder and closer to classic rules</span>
+          </label>
+          <span class="switch">
+            <input id="duplicateToggle" type="checkbox" checked />
+            <span class="slider"></span>
+          </span>
+        </div>
+
+        <div class="action-stack">
+          <button id="newGameButton">Start new game</button>
+          <button id="revealButton" class="secondary">Reveal code</button>
+          <button id="resetStatsButton" class="danger">Reset session record</button>
+        </div>
+
+        <div class="summary" id="difficultySummary"></div>
+      </aside>
+
+      <section class="panel game" aria-label="Mastermind game board">
+        <div class="game-top">
+          <div>
+            <div class="section-label">Active board</div>
+            <h2 class="panel-title" id="modeTitle">Classic mode</h2>
+          </div>
+          <div class="metrics">
+            <div class="metric">Attempt <strong id="attemptMetric">1 / 10</strong></div>
+            <div class="metric">Wins <strong id="winsMetric">0</strong></div>
+            <div class="metric">Played <strong id="playedMetric">0</strong></div>
+          </div>
+        </div>
+
+        <div class="secret-wrap">
+          <div class="section-label">Hidden code</div>
+          <div class="secret" id="secretDisplay" aria-label="Hidden secret code"></div>
+        </div>
+
+        <div class="board-scroll">
+          <div class="board" id="board"></div>
+        </div>
+
+        <div class="composer">
+          <div>
+            <div class="section-label">Color bank</div>
+            <div class="palette" id="palette"></div>
+          </div>
+          <div class="composer-actions">
+            <button id="undoButton" class="secondary">Undo</button>
+            <button id="clearButton" class="secondary">Clear</button>
+            <button id="submitButton">Submit guess</button>
+          </div>
+        </div>
+
+        <div id="message" class="message" aria-live="polite">Select colors to fill the active row.</div>
+      </section>
+    </section>
+
+    <details class="rules">
+      <summary>Rules and difficulty model</summary>
+      <div class="rules-body">
+        <p>A secret sequence is generated from the available color bank. Each guess must contain exactly as many pegs as the selected code width. After submission, the system reports two separate facts.</p>
+        <div class="legend">
+          <div class="legend-item"><span class="feedback-peg exact"></span><span><strong>Exact:</strong> correct color in the correct position.</span></div>
+          <div class="legend-item"><span class="feedback-peg misplaced"></span><span><strong>Misplaced:</strong> correct color in the wrong position.</span></div>
+        </div>
+        <p>Each secret peg can score only once. Exact matches are removed first; misplaced matches are counted from the remaining unmatched pegs. This prevents duplicate colors from producing false extra credit.</p>
+        <p><strong>Easier modes</strong> use fewer colors, a narrower code, more attempts, or no repeated colors. <strong>Harder modes</strong> use a larger palette, wider codes, fewer attempts, and repeated colors. “Board length” is the vertical number of permitted guesses.</p>
+        <p>Keyboard control is available: number keys select colors, Backspace removes the last peg, Escape clears the row, and Enter submits a complete guess.</p>
+      </div>
+    </details>
+  </main>
+
+  <script>
+    (() => {
+      const COLORS = [
+        { name: "Emerald", value: "#36d58e" },
+        { name: "Cobalt", value: "#3f7cff" },
+        { name: "Amber", value: "#f5b942" },
+        { name: "Crimson", value: "#ef596f" },
+        { name: "Violet", value: "#9b6cff" },
+        { name: "Cyan", value: "#42d8df" },
+        { name: "Coral", value: "#ff7d58" },
+        { name: "Lime", value: "#a6df4e" },
+        { name: "Magenta", value: "#e95fc4" },
+        { name: "Ivory", value: "#e8eadf" },
+        { name: "Copper", value: "#bf7b45" },
+        { name: "Slate", value: "#7894a8" }
+      ];
+
+      const PRESETS = {
+        training: { label: "Training", width: 4, colors: 5, attempts: 12, duplicates: false },
+        classic:  { label: "Classic",  width: 4, colors: 6, attempts: 10, duplicates: true },
+        hard:     { label: "Hard",     width: 5, colors: 8, attempts: 10, duplicates: true },
+        expert:   { label: "Expert",   width: 6, colors: 10, attempts: 8, duplicates: true }
+      };
+
+      const state = {
+        config: { ...PRESETS.classic },
+        secret: [],
+        history: [],
+        currentGuess: [],
+        status: "playing",
+        stats: { wins: 0, played: 0 },
+        activePreset: "classic"
+      };
+
+      const el = {
+        widthRange: document.getElementById("widthRange"),
+        colorRange: document.getElementById("colorRange"),
+        attemptRange: document.getElementById("attemptRange"),
+        duplicateToggle: document.getElementById("duplicateToggle"),
+        widthValue: document.getElementById("widthValue"),
+        colorValue: document.getElementById("colorValue"),
+        attemptValue: document.getElementById("attemptValue"),
+        difficultySummary: document.getElementById("difficultySummary"),
+        presetGrid: document.getElementById("presetGrid"),
+        newGameButton: document.getElementById("newGameButton"),
+        revealButton: document.getElementById("revealButton"),
+        resetStatsButton: document.getElementById("resetStatsButton"),
+        board: document.getElementById("board"),
+        palette: document.getElementById("palette"),
+        secretDisplay: document.getElementById("secretDisplay"),
+        undoButton: document.getElementById("undoButton"),
+        clearButton: document.getElementById("clearButton"),
+        submitButton: document.getElementById("submitButton"),
+        message: document.getElementById("message"),
+        modeTitle: document.getElementById("modeTitle"),
+        attemptMetric: document.getElementById("attemptMetric"),
+        winsMetric: document.getElementById("winsMetric"),
+        playedMetric: document.getElementById("playedMetric"),
+        headerStatus: document.getElementById("headerStatus")
+      };
+
+      function loadStats() {
+        try {
+          const saved = JSON.parse(localStorage.getItem("signalVaultStats"));
+          if (saved && Number.isInteger(saved.wins) && Number.isInteger(saved.played)) {
+            state.stats = saved;
+          }
+        } catch (_) {}
+      }
+
+      function saveStats() {
+        try {
+          localStorage.setItem("signalVaultStats", JSON.stringify(state.stats));
+        } catch (_) {}
+      }
+
+      function generateSecret() {
+        const pool = Array.from({ length: state.config.colors }, (_, i) => i);
+        const secret = [];
+        for (let i = 0; i < state.config.width; i++) {
+          if (state.config.duplicates) {
+            secret.push(Math.floor(Math.random() * state.config.colors));
+          } else {
+            const pick = Math.floor(Math.random() * pool.length);
+            secret.push(pool.splice(pick, 1)[0]);
+          }
+        }
+        return secret;
+      }
+
+      function scoreGuess(guess, secret) {
+        let exact = 0;
+        const remainingGuess = [];
+        const remainingSecret = [];
+
+        for (let i = 0; i < secret.length; i++) {
+          if (guess[i] === secret[i]) {
+            exact++;
+          } else {
+            remainingGuess.push(guess[i]);
+            remainingSecret.push(secret[i]);
+          }
+        }
+
+        const counts = new Map();
+        for (const color of remainingSecret) {
+          counts.set(color, (counts.get(color) || 0) + 1);
+        }
+
+        let misplaced = 0;
+        for (const color of remainingGuess) {
+          const available = counts.get(color) || 0;
+          if (available > 0) {
+            misplaced++;
+            counts.set(color, available - 1);
+          }
+        }
+
+        return { exact, misplaced };
+      }
+
+      function startGame() {
+        readConfigControls();
+        if (!state.config.duplicates && state.config.width > state.config.colors) {
+          state.config.colors = state.config.width;
+          el.colorRange.value = String(state.config.colors);
+          el.colorValue.textContent = String(state.config.colors);
+        }
+
+        state.secret = generateSecret();
+        state.history = [];
+        state.currentGuess = [];
+        state.status = "playing";
+        el.message.className = "message";
+        el.message.textContent = "Select colors to fill the active row.";
+        el.headerStatus.textContent = "Code locked";
+        renderAll();
+      }
+
+      function readConfigControls() {
+        state.config = {
+          label: state.activePreset ? PRESETS[state.activePreset]?.label || "Custom" : "Custom",
+          width: Number(el.widthRange.value),
+          colors: Number(el.colorRange.value),
+          attempts: Number(el.attemptRange.value),
+          duplicates: el.duplicateToggle.checked
+        };
+      }
+
+      function syncControls(config) {
+        el.widthRange.value = config.width;
+        el.colorRange.value = config.colors;
+        el.attemptRange.value = config.attempts;
+        el.duplicateToggle.checked = config.duplicates;
+        updateControlLabels();
+      }
+
+      function updateControlLabels() {
+        el.widthValue.textContent = el.widthRange.value;
+        el.colorValue.textContent = el.colorRange.value;
+        el.attemptValue.textContent = el.attemptRange.value;
+
+        const width = Number(el.widthRange.value);
+        const colors = Number(el.colorRange.value);
+        const attempts = Number(el.attemptRange.value);
+        const duplicates = el.duplicateToggle.checked;
+
+        const theoretical = duplicates
+          ? Math.pow(colors, width)
+          : factorial(colors) / factorial(colors - width);
+
+        el.difficultySummary.innerHTML =
+          `<strong style="color:var(--text)">Search space:</strong> ${formatNumber(theoretical)} possible codes.<br>` +
+          `${width} positions · ${colors} colors · ${attempts} attempts · ${duplicates ? "repeats allowed" : "unique colors only"}.`;
+      }
+
+      function factorial(n) {
+        let result = 1;
+        for (let i = 2; i <= n; i++) result *= i;
+        return result;
+      }
+
+      function formatNumber(n) {
+        return n.toLocaleString("en-US");
+      }
+
+      function renderAll() {
+        renderPresetState();
+        renderSecret();
+        renderBoard();
+        renderPalette();
+        renderMetrics();
+        renderButtons();
+        updateControlLabels();
+      }
+
+      function renderPresetState() {
+        document.querySelectorAll(".preset").forEach(btn => {
+          btn.classList.toggle("active", btn.dataset.preset === state.activePreset);
+        });
+        el.modeTitle.textContent = state.activePreset
+          ? `${PRESETS[state.activePreset].label} mode`
+          : "Custom mode";
+      }
+
+      function renderSecret(forceReveal = false) {
+        el.secretDisplay.innerHTML = "";
+        const reveal = forceReveal || state.status !== "playing";
+        for (let i = 0; i < state.config.width; i++) {
+          const slot = document.createElement("div");
+          slot.className = reveal ? "secret-slot peg" : "secret-slot";
+          if (reveal) {
+            slot.style.background = COLORS[state.secret[i]].value;
+            slot.setAttribute("aria-label", COLORS[state.secret[i]].name);
+          } else {
+            slot.textContent = "?";
+            slot.setAttribute("aria-label", "Hidden peg");
+          }
+          el.secretDisplay.appendChild(slot);
+        }
+      }
+
+      function renderBoard() {
+        el.board.innerHTML = "";
+        const activeIndex = state.history.length;
+
+        for (let visual = state.config.attempts - 1; visual >= 0; visual--) {
+          const row = document.createElement("div");
+          row.className = "guess-row";
+          const isHistory = visual < state.history.length;
+          const isActive = visual === activeIndex && state.status === "playing";
+          if (isActive) row.classList.add("active");
+
+          const number = document.createElement("div");
+          number.className = "row-number";
+          number.textContent = String(visual + 1).padStart(2, "0");
+
+          const pegs = document.createElement("div");
+          pegs.className = "guess-pegs";
+
+          const values = isHistory
+            ? state.history[visual].guess
+            : isActive
+              ? state.currentGuess
+              : [];
+
+          for (let i = 0; i < state.config.width; i++) {
+            const peg = document.createElement("div");
+            peg.className = "peg";
+            if (values[i] !== undefined) {
+              peg.style.background = COLORS[values[i]].value;
+              peg.setAttribute("aria-label", COLORS[values[i]].name);
+            } else {
+              peg.classList.add("empty");
+              peg.setAttribute("aria-label", "Empty position");
+            }
+            pegs.appendChild(peg);
+          }
+
+          const feedback = document.createElement("div");
+          feedback.className = "feedback";
+
+          if (isHistory) {
+            const result = state.history[visual].score;
+            for (let i = 0; i < state.config.width; i++) {
+              const dot = document.createElement("span");
+              dot.className = "feedback-peg";
+              if (i < result.exact) dot.classList.add("exact");
+              else if (i < result.exact + result.misplaced) dot.classList.add("misplaced");
+              feedback.appendChild(dot);
+            }
+            const text = document.createElement("span");
+            text.className = "feedback-text";
+            text.textContent = `${result.exact} exact · ${result.misplaced} near`;
+            feedback.appendChild(text);
+          } else if (isActive) {
+            const text = document.createElement("span");
+            text.className = "feedback-text";
+            text.textContent = "active";
+            feedback.appendChild(text);
+          }
+
+          row.append(number, pegs, feedback);
+          el.board.appendChild(row);
+        }
+      }
+
+      function renderPalette() {
+        el.palette.innerHTML = "";
+        for (let i = 0; i < state.config.colors; i++) {
+          const button = document.createElement("button");
+          button.className = "color-button";
+          button.style.background = COLORS[i].value;
+          button.setAttribute("aria-label", `Select ${COLORS[i].name}`);
+          button.title = COLORS[i].name;
+          button.disabled = state.status !== "playing";
+
+          const key = document.createElement("span");
+          key.className = "color-key";
+          key.textContent = i < 9 ? String(i + 1) : String.fromCharCode(65 + i - 9);
+          button.appendChild(key);
+
+          button.addEventListener("click", () => addColor(i));
+          el.palette.appendChild(button);
+        }
+      }
+
+      function renderMetrics() {
+        const attempt = Math.min(state.history.length + 1, state.config.attempts);
+        el.attemptMetric.textContent = `${attempt} / ${state.config.attempts}`;
+        el.winsMetric.textContent = state.stats.wins;
+        el.playedMetric.textContent = state.stats.played;
+      }
+
+      function renderButtons() {
+        const playing = state.status === "playing";
+        el.submitButton.disabled = !playing || state.currentGuess.length !== state.config.width;
+        el.undoButton.disabled = !playing || state.currentGuess.length === 0;
+        el.clearButton.disabled = !playing || state.currentGuess.length === 0;
+        el.revealButton.disabled = !playing;
+      }
+
+      function addColor(index) {
+        if (state.status !== "playing") return;
+        if (state.currentGuess.length >= state.config.width) return;
+
+        if (!state.config.duplicates && state.currentGuess.includes(index)) {
+          el.message.className = "message";
+          el.message.textContent = "Repeated colors are disabled in this mode.";
+          return;
+        }
+
+        state.currentGuess.push(index);
+        el.message.className = "message";
+        el.message.textContent = state.currentGuess.length === state.config.width
+          ? "Guess complete. Submit when ready."
+          : `${state.config.width - state.currentGuess.length} position${state.config.width - state.currentGuess.length === 1 ? "" : "s"} remaining.`;
+        renderBoard();
+        renderButtons();
+      }
+
+      function undo() {
+        if (state.status !== "playing" || state.currentGuess.length === 0) return;
+        state.currentGuess.pop();
+        el.message.className = "message";
+        el.message.textContent = "Last color removed.";
+        renderBoard();
+        renderButtons();
+      }
+
+      function clearGuess() {
+        if (state.status !== "playing") return;
+        state.currentGuess = [];
+        el.message.className = "message";
+        el.message.textContent = "Active row cleared.";
+        renderBoard();
+        renderButtons();
+      }
+
+      function submitGuess() {
+        if (state.status !== "playing") return;
+        if (state.currentGuess.length !== state.config.width) {
+          el.message.className = "message";
+          el.message.textContent = `A complete guess requires ${state.config.width} colors.`;
+          return;
+        }
+
+        const guess = [...state.currentGuess];
+        const score = scoreGuess(guess, state.secret);
+        state.history.push({ guess, score });
+        state.currentGuess = [];
+
+        if (score.exact === state.config.width) {
+          state.status = "won";
+          state.stats.wins++;
+          state.stats.played++;
+          saveStats();
+          el.message.className = "message win";
+          el.message.textContent = `Code broken in ${state.history.length} attempt${state.history.length === 1 ? "" : "s"}.`;
+          el.headerStatus.textContent = "Code broken";
+        } else if (state.history.length >= state.config.attempts) {
+          state.status = "lost";
+          state.stats.played++;
+          saveStats();
+          el.message.className = "message loss";
+          el.message.textContent = "No attempts remain. The hidden code has been revealed.";
+          el.headerStatus.textContent = "Lockout";
+        } else {
+          el.message.className = "message";
+          el.message.textContent = `${score.exact} exact, ${score.misplaced} misplaced.`;
+        }
+
+        renderAll();
+      }
+
+      function revealCode() {
+        if (state.status !== "playing") return;
+        state.status = "revealed";
+        state.stats.played++;
+        saveStats();
+        el.message.className = "message loss";
+        el.message.textContent = "Code revealed. This round is recorded as incomplete.";
+        el.headerStatus.textContent = "Code exposed";
+        renderAll();
+      }
+
+      function resetStats() {
+        state.stats = { wins: 0, played: 0 };
+        saveStats();
+        renderMetrics();
+        el.message.className = "message";
+        el.message.textContent = "Session record reset.";
+      }
+
+      function markCustom() {
+        state.activePreset = null;
+        renderPresetState();
+        updateControlLabels();
+      }
+
+      el.presetGrid.addEventListener("click", event => {
+        const button = event.target.closest(".preset");
+        if (!button) return;
+        const key = button.dataset.preset;
+        state.activePreset = key;
+        syncControls(PRESETS[key]);
+        startGame();
+      });
+
+      [el.widthRange, el.colorRange, el.attemptRange].forEach(input => {
+        input.addEventListener("input", () => {
+          if (!el.duplicateToggle.checked && Number(el.widthRange.value) > Number(el.colorRange.value)) {
+            if (input === el.widthRange) el.colorRange.value = el.widthRange.value;
+          }
+          markCustom();
+        });
+      });
+
+      el.duplicateToggle.addEventListener("change", () => {
+        if (!el.duplicateToggle.checked && Number(el.widthRange.value) > Number(el.colorRange.value)) {
+          el.colorRange.value = el.widthRange.value;
+        }
+        markCustom();
+      });
+
+      el.newGameButton.addEventListener("click", startGame);
+      el.revealButton.addEventListener("click", revealCode);
+      el.resetStatsButton.addEventListener("click", resetStats);
+      el.undoButton.addEventListener("click", undo);
+      el.clearButton.addEventListener("click", clearGuess);
+      el.submitButton.addEventListener("click", submitGuess);
+
+      document.addEventListener("keydown", event => {
+        if (event.target.matches("input, button, select, textarea")) return;
+        if (state.status !== "playing") return;
+
+        if (event.key === "Enter") {
+          event.preventDefault();
+          submitGuess();
+          return;
+        }
+        if (event.key === "Backspace") {
+          event.preventDefault();
+          undo();
+          return;
+        }
+        if (event.key === "Escape") {
+          event.preventDefault();
+          clearGuess();
+          return;
+        }
+
+        let index = -1;
+        if (/^[1-9]$/.test(event.key)) index = Number(event.key) - 1;
+        else if (/^[a-cA-C]$/.test(event.key)) index = 9 + event.key.toUpperCase().charCodeAt(0) - 65;
+
+        if (index >= 0 && index < state.config.colors) addColor(index);
+      });
+
+      loadStats();
+      syncControls(PRESETS.classic);
+      startGame();
+    })();
+  </script>
+</body>
+</html>
