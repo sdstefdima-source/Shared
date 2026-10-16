@@ -1,0 +1,76 @@
+USER PREFERENCE RECORD
+Three-dimensional linked logic arrays, orthogonal cases, and certified continuation
+
+Storage status: This is a reusable preference document. Creating this file does not constitute a persistent-memory update.
+
+CORE PREFERENCE
+
+Subject L9546 strongly prefers complicated logic to be constructed as a complete network of mutually constraining proposition arrays. The visual starting point is the staircase or triangular multi-grid used in logic-grid puzzles: several connected grids arranged toward a corner, sharing elements and propagating deductions into one another. The desired result is a working logical verification method, not merely a diagram, a generic truth table, a numerical checkerboard, or abstract prose disconnected from an operational example. Keep the sophistication; explain the mechanism in natural language without flattening it into a trivial analogy.
+
+CONTENTS AND COMPLETE COVERAGE
+
+Populate the grids with atomic propositions, logical relationships, assumptions, contexts, witnesses, and proof records. Binary values may implement truth information, but arithmetic quantities are not the main subject. Preserve one stable identity for each proposition across all blocks. Include every interaction needed by the declared problem, including joint constraints involving several propositions: complete pairwise grids alone must not replace higher-arity constraints. Keep directed implications distinct from symmetric compatibility or equivalence. Apply one-to-one row/column matching only when the actual problem specifies it. Distinguish established, excluded, undetermined, and contradictory information under explicitly declared semantics.
+
+THREE-DIMENSIONAL ARRANGEMENT
+
+Extend the staircase into an atlas or cluster of connected cubes surrounding a central block, rather than treating the whole system as one solid cube. Preserve the developed coordinate convention:
+
+  Center: statements shared throughout the declared nonempty model family.
+  South / negative x: cases, alternatives, assumptions, and local witnesses.
+  North / positive x: a diagnostic pyramid of checks, counterexamples,
+                      unresolved distinctions, and justified conclusions.
+  Negative y: choice applications, witness construction, and dependencies.
+  Positive y: provenance, sources, proof records, and conclusion scope.
+  Positive z: contexts satisfying the declared focal proposition.
+  Negative z: contexts satisfying its negation.
+
+The original x-y arrangement can carry common constraints and incomplete evidence compatible with both signed sides. Explain the role of every axis, cube, face, cell, and connection. Spatial placement organizes logical records; it does not supply a truth value, proof, probability, or physical metric. The CH and axiom-of-choice construction is the worked precedent, not a mandatory subject for every subsequent analysis. Negative y does not mean negation of choice.
+
+CENTER VERSUS LOCAL TRUTH
+
+Interpret 'holds everywhere' relative to the stated family of contexts, not as an unrestricted assertion about all models or reality. Keep case-specific conclusions outside the shared center unless their broader validity is proved. A shared existential statement may have different local witnesses. Preserve those dependencies instead of assuming one constant witness works in every case. Selecting a representative or invoking a choice principle does not count as evidence excluding the unselected possibilities.
+
+ORTHOGONALIZATION
+
+Distinguish syntactically atomic propositions from atoms of the finite Boolean algebra of distinguishable cases. Overlapping input propositions are not made orthogonal by rearranging their labels. Construct disjoint, exhaustive cases by repeated splitting:
+
+  a = (a AND P) OR (a AND NOT P).
+  (a AND P) AND (a AND NOT P) = FALSE.
+
+Retain every nonempty permitted child, with its parent identity and justification. Eliminate a branch only through a checked contradiction or another sound exclusion. Prove pairwise disjointness, complete coverage, and reconstruction of every original proposition as a union of retained cases. Preserve branch metadata, context, and the inverse interpretation. Logical orthogonality means mutually exclusive cases; it is not literal mutual perpendicularity of arbitrarily many vectors in ordinary three-dimensional space.
+
+ORDERING AND INTERACTIONS
+
+After decomposition, arrange cases in a stable hierarchy: signed layer, parent case, then successive complementary refinements. Keep siblings together, with a reproducible ordering. The case-intersection matrix should exhibit diagonal orthogonality. Accessibility, implication, temporal, witness, and other dependency matrices generally remain non-diagonal and must not be erased to make the display look orthogonal. Preserve cross-block connections. A reproducible ordering is not automatically a uniquely optimal or computationally efficient ordering.
+
+DIAGNOSTIC AND CHECKING WORKFLOW
+
+Use the northern pyramid to move from semantic typing, assumptions, consistency, and coverage through propagation and explicit case analysis to witnesses, counterexamples, and conclusions. For a classical claim, check both the evidence-plus-claim and evidence-plus-negated-claim branches. Separate a justified positive result, justified negative result, unresolved alternatives, and inconsistent premises. A counterexample should be traceable through the grids to the exact premises and transitions responsible for it. Local propagation is not automatically complete; use a suitable complete finite search, solver, or proof checker when required. Preserve the distinction between an unproved claim, an undecided search, and a false claim.
+
+CONTINUATION AS THE SYSTEM GROWS
+
+The method must continue coherently through larger arrays, additional propositions, stronger constraints, more contexts, and more complicated formulas. Separate those kinds of growth. Maintain parent-child maps, restriction maps, scope, and reconstruction identities. Distinguish an extension preserving every old possibility from a legitimate new constraint eliminating some possibilities. State and prove the appropriate preservation or extension conditions. Keep a coherent system of finite orthogonal partitions, rather than assuming that an ultimate finite atomic basis must exist. Separate induction or compactness arguments from finite computational tests; checking all stages reached so far does not certify arbitrary future stages or every transfinite construction.
+
+COMPLICATED LOGICAL LANGUAGES
+
+Apply the architecture to substantial analyses involving propositional, modal, temporal, epistemic, quantified, higher-order, and explicitly nonclassical or conflicting-information logic. Use typed adapters preserving the chosen semantics, rather than calling all such logics ordinary Boolean tables. Preserve world labels, time indices, quantifier scopes, variable bindings, witness dependencies, action-specific accessibility, and observation equivalence. Keep current-world truth separate from truth in reachable future worlds. Merge states only under a proved preservation condition for the permitted queries and transitions. Separate classical inconsistency from undetermined evidence and from deliberately paraconsistent treatment.
+
+EVIDENCE AND REALITY
+
+Make the tool expose hidden assumptions, equivocation, missing constraints, source dependence, circular justification, incompatible branches, and observational ambiguity. Keep raw observations, hard premises, imported theorems, derived consequences, and heuristic suggestions separately identified. Repeated copies or transformations of one observation must not become independent evidence. Agreement on a finite observation can leave opposing interpretations possible; no rearrangement alone resolves that ambiguity. Separate truth in a declared model from justification that the model describes reality. Add probability, measure, distance, or cost only when needed and explicitly defined; these are not implicit consequences of a coordinate layout.
+
+DELIVERABLE AND PRESENTATION PREFERENCE
+
+For major developments, provide a dense, standalone treatment explaining construction, every axis, interactions, orthogonalization, reconstruction, continuation, uses, counterexamples, and failure cases. A 30-40-page PDF with a matching ASCII text edition is an established preferred format for a substantial request, not a required length for every reply. Interleave formal definitions and proofs with clear natural-language explanation and complete worked examples. When implementation is requested, prefer a usable offline or single-file HTML checker and a downloadable source-and-verification package. Preserve predecessor versions and distinguish specified interfaces from implemented and actually tested features. Report verification scope honestly and keep limitations precise rather than repetitive.
+
+WHEN TO APPLY
+
+Use this architecture as a default framework for substantial requests to construct, analyze, compare, or verify complicated logic. Do not automatically impose the entire apparatus on simple or unrelated questions. The preference is specifically for complete interconnected logical structure and proof-preserving continuation, not complexity or visual decoration for its own sake.
+
+RETRIEVAL LABELS
+
+staircase logic grids; linked proposition matrices; complete logical arrays;
+three-dimensional cubical logic atlas; shared central theory; signed contexts;
+northern diagnostic pyramid; southern case blocks; choice and witness wing;
+provenance wing; orthogonal Boolean cases; atomization; stable refinement;
+certified continuation; modal and temporal constraint checking; CH/AC precedent.

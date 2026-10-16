@@ -1,0 +1,2603 @@
+A THREE-DIMENSIONAL LOGIC ARRAY
+Orthogonal cases, typed interactions, and certified continuation
+Math Compilation | 13 October 2026 | Version 1.0
+
+PDF page numbers are retained below. Mathematical content is identical in substance.
+Figures are represented by their complete textual descriptions.
+
+==============================================================================
+PAGE 01 / 39 | OVERVIEW
+A THREE-DIMENSIONAL LOGIC ARRAY
+==============================================================================
+
+Orthogonal cases, typed interactions, and certified continuation
+----------------------------------------------------------------
+
+A construction specification for extending linked logic-puzzle matrices into a
+spatially organized verification workbench. The array contains propositions,
+relations, models, witnesses, and proof records. Its geometry organizes these
+objects; its inference rules determine what follows.
+
+The central result is constructive. Given a nonempty finite semantic domain
+and finitely many interpreted propositions, repeated Boolean splitting
+produces a disjoint, exhaustive partition. Every original proposition is
+recovered as a union of its partition cells. Stable refinement preserves this
+representation as further propositions are introduced. A separate
+transition-preservation condition makes the same representation suitable for
+modal questions.
+
+Logical layer:     a AND b = FALSE  means disjoint cases.
+Display layer:     layout(record) = (x,y,z) in ordinary 3D.
+Verification:      premises + negated claim -> checked contradiction.
+
+These are different operations. An arbitrarily large family of cases can be
+logically orthogonal. More than three nonzero vectors cannot all be mutually
+perpendicular in three-dimensional Euclidean space. The design therefore uses
+a 3D atlas of a potentially much larger semantic algebra, not a claim that
+spatial rotation solves logic.
+
+The retained spatial convention is center = shared theory; south/negative x =
+cases; north/positive x = diagnostics; negative y = witnesses and choice
+dependencies; positive y = provenance; positive/negative z = the two sides of
+a declared classical query. The signed CH and choice example remains the
+principal continuity case study [P1].
+
+Deliverable and claim boundary
+------------------------------
+
+This volume supplies definitions, proof obligations, constructive algorithms,
+worked examples, counterexamples, and a backend architecture. Its companion
+verifier executes finite Boolean, modal, temporal, and evidence tests. It does
+not implement an unrestricted higher-order decision procedure or certify the
+imported infinite set-theoretic theorems. The exact distinction between
+representation, proof checking, and automatic decision is part of the design
+[R10-R12].
+
+Prepared for Math Compilation | 13 October 2026 Technical monograph, version
+1.0 | PDF and matching ASCII text
+
+==============================================================================
+PAGE 02 / 39 | OVERVIEW
+READING MAP AND NOTATION
+==============================================================================
+
+Route through the construction
+------------------------------
+
+The first group fixes the spatial and semantic interfaces. The second
+constructs orthogonality and executable deductions. The third extends the core
+without silently changing the meaning of truth. The final group establishes
+growth, verification, and implementation boundaries.
+
+Pages | Subject                                                      
+------+--------------------------------------------------------------
+3-6   | Source audit, typed records, cubical atlas, complete storage 
+7-12  | Each axis, central theory, interactions, exact cell status   
+13-18 | Orthogonal atoms, construction, ordering, projection, solving
+19-23 | Interlock example, modal logic, quotienting, CH and choice   
+24-29 | Time, knowledge, quantifiers, higher logic, conflict, measure
+30-33 | Extension, finite-to-infinite continuity, ideals, reality    
+34-37 | Architecture, cost, finite verification, theorem directory   
+38-39 | Primary references and inspected project lineage             
+
+Notation used in both editions
+------------------------------
+
+Gamma      the declared hard premises of a context
+Omega      admissible complete interpretations under those premises
+E          interpretations consistent with current evidence
+[[phi]]    truth region of formula phi in the specified model family
+A_n        a finite partition into nonempty observable cases
+rho        a restriction or parent map, with its domain declared
+R_a        accessibility relation for action or modality a
+Core(W)    formulas true throughout the nonempty family W
+TRUE/FALSE top and bottom of a classical Boolean algebra
+
+AND, OR, NOT, ->, and <-> denote classical conjunction, disjunction, negation,
+implication, and equivalence unless an adapter explicitly declares different
+semantics. Braces describe sets; brackets after a modality indicate its
+indexed relation. A support bit in the later four-valued adapter is evidence
+metadata, not another use of classical truth.
+
+A proposition is atomic syntactically when its internal structure is not
+expanded by the current language. A Boolean atom is a minimal nonempty
+distinguishable case in a particular finite algebra. Neither is a physical
+point. A context is an evaluation scope; a displayed cube is a container for
+records; a possible world is a semantic object. These terms are never
+interchangeable.
+
+Evidence labels
+---------------
+
+[P] identifies inspected predecessor material. [R] identifies an external
+primary paper or official specification. A displayed proposition proved in
+this volume is a derivation under its stated assumptions. A test result
+establishes only its finite declared range. A proposed extension is labeled as
+an interface or design obligation, not an already implemented solver.
+Numerical subscripts index records and stages; they do not convert the
+proposition grid into an arithmetic puzzle.
+
+==============================================================================
+PAGE 03 / 39 | FOUNDATIONS
+SOURCE AUDIT AND RETAINED COMMITMENTS
+==============================================================================
+
+The inspected starting point
+----------------------------
+
+The immediate basis is CH_Choice_Cubical_Logic_Report.txt and the JavaScript
+kernel shipped with its verification archive. The earlier signed-layer checker
+and the supplied staircase image were also inspected. The image is the visual
+precedent for connected pairwise relation blocks, not a source of logical
+axioms. File hashes and inspected paths accompany the reproducibility package
+[P1-P3].
+
+The predecessor has a small explicit semantic universe: alpha, beta, gamma.
+Its current grammar accepts H, C, AC, truth constants, Boolean connectives,
+and unary box/diamond operators. It calculates truth regions in an explicit
+frame, then intersects current-world evidence. It also separates witness
+selection from evidence mutation and labels its extra refinement tags as a
+propositional sandbox rather than newly discovered set-theoretic sentences
+[P1, sections 4-8; P2].
+
+These commitments are retained. The present volume generalizes the data model
+and mathematical interfaces; it does not retroactively claim that the
+predecessor already handles arbitrary quantifiers, temporal logics,
+paraconsistency, or a general 3D runtime. The new verifier checks specified
+finite mechanisms. The blueprint for other backends is distinct from
+implemented coverage.
+
+Theorem inputs versus derived consequences
+------------------------------------------
+
+The CH example imports the constructibility implication V=L -> CH, the
+relevant Cohen iteration behavior, and preservation of ZFC in its permitted
+extensions. It uses those inputs to derive finite modal consequences. AC is a
+premise shared by these worlds, not an empirical conclusion generated by a
+negative-y position [R6-R8].
+
+The linked MathOverflow page failed to reload in this session. No quotation,
+current-answer audit, or newly verified attribution to that answer is claimed.
+The continuing example is grounded in the actual predecessor specification and
+the independently consulted primary forcing papers. The distinction prevents a
+remembered discussion from acquiring the status of a freshly inspected proof.
+
+New construction supplied here
+------------------------------
+
+The extension is a typed atlas of constraint relations and case partitions.
+New material includes complete interaction storage, a general atomization
+theorem, a proof that layout changes preserve no extra truth, executable modal
+partition refinement, finite temporal fixed points, and an adapter contract
+for quantified and nonclassical languages. The prose preserves the inherited
+north/south and signed-layer terminology while making its limits formal.
+
+The strongest justified general claim is conditional: every admitted adapter
+must preserve its source semantics and expose a checker for its certificates.
+Composing exact interfaces preserves a checked conclusion. It does not imply
+that every input will be decided, that every useful representation is small,
+or that consistent premises describe reality [R10-R12].
+
+The predecessor kernel was rerun rather than merely citing its historical
+totals. Its results are reported separately from the new checks on page 36.
+Browser screenshots inside the old archive are historical evidence, not a new
+browser test performed for this monograph.
+
+==============================================================================
+PAGE 04 / 39 | FOUNDATIONS
+THE TYPED LOGICAL OBJECT
+==============================================================================
+
+Start with meaning, not coordinates
+-----------------------------------
+
+A workbench instance must name its logic, signature, hard theory, context
+family, observation contract, and requested query. The signature lists
+predicate names, argument types, constants, variables, and operators. Scope
+records distinguish the same predicate evaluated at different worlds, times,
+agents, or objects. A bare string is insufficient as a logical identity.
+
+Instance = (logic_id, signature, Gamma, contexts, relations,
+            evidence, query, requested_guarantee, revision).
+Formula  = a typed syntax tree with explicit binders and scope.
+Record   = (id, kind, formula_id, context_id, source_id,
+            proof_dependencies, status, revision).
+Layout   = a separate map from record IDs to display coordinates.
+
+For example, DoorClosed@world-w and DoorClosed@world-v share a predicate
+symbol but need not have the same value. An alias to the first record in
+another grid is the same evaluation occurrence. A new world-scoped occurrence
+is not an alias. These distinctions prevent cross-panel copies from
+manufacturing corroboration or a change of context from manufacturing a
+contradiction.
+
+Exact finite semantics
+----------------------
+
+For a finite propositional signature P, a complete interpretation is a map
+v:P->{false,true}. Let Omega be the set of interpretations satisfying Gamma.
+The report assumes Omega is nonempty whenever it constructs an ordinary
+Boolean algebra of surviving cases. The empty case is reported separately.
+
+Omega = {v : v satisfies Gamma}.
+[[phi]] = {v in Omega : v satisfies phi}.
+Gamma entails phi  iff  [[phi]] = Omega.
+
+The definition supplies a semantic target, not necessarily a cheap enumeration
+procedure. For finite models of other logics, Omega may instead contain
+structures, pointed transition systems, or valuations of ground instances.
+Every change of meaning requires an adapter; the same notation must not
+silently switch from a set of assignments to a set of epistemic alternatives.
+
+Three independently checkable interfaces
+----------------------------------------
+
+A syntax checker establishes that a formula is well formed. A semantic
+compiler translates it to a target representation. A certificate checker
+validates a conclusion about that representation. If compilation adds
+auxiliary variables, the required condition is preservation under projection
+onto the original variables, not literal identity of the enlarged assignment
+sets.
+
+v satisfies source_formula
+  iff there exists auxiliary assignment a:
+      (v,a) satisfies compiled_constraints.
+
+Official SMT-LIB supplies a useful precedent for declaring sorts, signatures,
+logics, and solver results, including unknown. It is not a license to combine
+arbitrary theories without a sound backend [R4]. Spatial position is
+intentionally absent from these interfaces. Repainting or rotating the array
+must leave every semantic answer unchanged.
+
+==============================================================================
+PAGE 05 / 39 | SPATIAL CONSTRUCTION
+A THREE-DIMENSIONAL ATLAS AROUND THE CORE
+==============================================================================
+
+The global coordinate convention
+--------------------------------
+
+A record receives a display location, but its logical role remains an explicit
+tag. A core cube is centered at the origin. Other cubes form layers around it,
+with corridors for interaction links. The diagram is an axonometric view of a
+sparse cluster, not a solid block of independently valued voxels.
+
+Figure 1. Axonometric atlas of a central shared-theory cube and six role
+cubes. North/+x holds diagnostics; south/-x holds cases; +y holds provenance;
+-y holds witnesses; +z and -z show Q and NOT Q regions. Dashed spokes are
+coordinate guides, not implication arrows. Logical interactions use separately
+typed ports.
+
+Region        | Assigned function                                      
+--------------+--------------------------------------------------------
+Origin        | Shared assumptions and certified common consequences   
+x < 0, south  | Cases, inputs, local premises, concrete witnesses      
+x > 0, north  | Coverage checks, conflicts, counterexamples, verdicts  
+y < 0         | Witness construction, choice and existence dependencies
+y > 0         | Provenance, scope, certificate and revision records    
+z > 0 / z < 0 | The positive / negative regions of a named query Q     
+
+Layout is a representation function
+-----------------------------------
+
+Let K be the finite set of display records. Choose an injective slot
+assignment L:K->Z^3 x Slots, where Slots distinguishes entries inside a cube.
+Injection prevents accidental aliasing of unrelated records. Several panels
+may deliberately display one record by storing references to its single ID;
+such visual aliases are not additional members of K.
+
+The x and y sign conventions are inherited from the project, not standard
+Cartesian semantics. Negative y means the witness wing, not the negation of
+choice. North means the diagnostic side, not increasing truth. Shared claims
+are recorded centrally even when their supporting proof dependencies lie in a
+side wing [P1, section 1].
+
+A renderer may rotate the camera or change the visual spacing. It must keep
+the role tags, context IDs, and signed-query legend visible. A cube
+intersected by several logical relations is connected by ports; touching faces
+are not themselves evidence of implication. The complete record graph remains
+available in a planar or textual view so occlusion cannot hide a constraint.
+
+This atlas is the general 3D construction. Its mathematical correctness comes
+from the semantic layer and the projection contracts established on later
+pages, not from a privileged physical shape.
+
+==============================================================================
+PAGE 06 / 39 | SPATIAL CONSTRUCTION
+WHAT A CUBE CONTAINS: CELLS, FACES, AND PORTS
+==============================================================================
+
+A cube is a typed panel container
+---------------------------------
+
+Each displayed cube carries a context and a role. Its faces may expose
+different views of the same underlying relation store. One face can show
+proposition truth, another implication, another incompatibility, and another
+transition information. A face title declares the relation; a global array of
+untyped ticks and crosses is not sufficient.
+
+Cube = (cube_id, context_id, role, signature_view, revision).
+Cell = (relation_id, ordered_arguments, context_id, formula_id).
+Port = (relation_id, endpoint_id, direction, transport_contract).
+
+An implication cell for P -> Q is different from one for Q -> P. An
+incompatibility cell is symmetric only if its declared definition is
+symmetric. The staircase representation can omit transposed duplicates of a
+symmetric relation, but not reverse directions of an asymmetric relation.
+Missing display blocks must be reconstructible from a named rule, not guessed
+from their geometric symmetry.
+
+Complete storage is a graph or hypergraph
+-----------------------------------------
+
+A relation involving several propositions owns a hyperedge connecting every
+argument. For a constraint C(P,Q,R), its three ordered argument IDs remain
+attached even when the visualization distributes its information across
+several pairwise faces. Changing R invalidates the constraint's cached status
+and every dependent deduction.
+
+For a concrete geometric realization, choose cube half-side h and spacing s
+with s greater than twice h. Integer triples locate disjoint cube interiors:
+
+Cube(i,j,k) = [s*i-h,s*i+h] x [s*j-h,s*j+h] x [s*k-h,s*k+h].
+
+The origin is reserved for the core. Enumerate remaining slots by successive
+finite shells max(|i|,|j|,|k|)=r. Reserve dominant negative-x slots for cases,
+positive-x for diagnostics, negative-y for witnesses, and positive-y for
+provenance; a fixed priority handles ties. Within case slots, k's sign follows
+the active query. Local face coordinates carry row and column positions. This
+supplies an injective allocator for any finite collection of records without
+equating memory addresses with truth.
+
+Packing and the earlier binary array
+------------------------------------
+
+Binary row/column addresses remain a possible storage technique, but they do
+not define the logic. A record ID may be packed into coordinate fields or
+mapped to sparse pages. Unoccupied capacity, a known-false proposition, an
+unsupported proposition, and a deleted revision require different tags. Zero
+padding must never be interpreted as a collection of logical negations.
+
+A routed connector carries its endpoint IDs and relation type. Allocate a
+distinct routing lane when lines cross; geometric contact does not create an
+argument or inference. This is a labeled graph display, not a theorem that
+every relation admits a prescribed nearest-neighbor cubic embedding. Moving a
+cube preserves its identity and dependencies.
+
+These rules establish completeness of the display interface: all semantically
+required data remain in the backing structure. They do not establish
+completeness of inference. The latter depends on the solver contract and the
+joint constraints discussed on pages 11 and 18 [R1].
+
+==============================================================================
+PAGE 07 / 39 | AXES AND INTERACTIONS
+THE X AXIS: CASES TO A DIAGNOSTIC PYRAMID
+==============================================================================
+
+Southern case blocks
+--------------------
+
+The negative-x side stores alternative interpretations, local assumptions, and
+observations. A case block represents a set of models, not necessarily a
+single fully specified model. Overlapping case blocks are permitted during
+input collection, provided their memberships are retained. Orthogonalization
+later replaces their overlap by explicitly labeled intersections.
+
+The southern store must distinguish a premise offered for testing from a
+premise admitted as a hard fact. A manually selected example is a witness that
+one case is possible. Selecting it does not establish that all competing cases
+are impossible. The predecessor's nonmutating witness selection is retained as
+an invariant [P1, sections 4 and 6].
+
+Northern diagnostic levels
+--------------------------
+
+The pyramid has a semantic dependency order. Its base checks syntax, types,
+context identity, and premise consistency. Its next level checks coverage,
+exact compilation, and survival of alternative cases. The next level stores
+proof certificates and countermodels. The apex presents the strongest
+justified answer with the query, evidence, logic, and scope still attached.
+
+Admitted premises -> exact encoding -> coverage/search result
+                  -> checked certificate -> scoped conclusion.
+
+The arrow is a dependency, not an evidentiary vote. Several paths quoting one
+original premise remain several uses of the same premise. A numerical
+confidence level cannot repair a missing logical implication. Proof
+dependencies must have well-founded justifications even when the represented
+system has temporal cycles.
+
+Proof levels versus fixed-point iterations
+------------------------------------------
+
+For an acyclic derivation record, assign level zero to admitted leaves and
+level one plus the largest parent level to a derived record. This gives a
+layout rank for the pyramid. It does not measure mathematical depth or truth
+strength. A shorter derivation can depend on a stronger assumption than a
+longer one.
+
+A temporal fixed-point computation legitimately revisits a state. Its
+certificate is not a circular argument that a property holds because it
+already holds. The checker verifies a fixed-point equation, a finite
+convergence trace, or the appropriate induction/coinduction conditions. That
+certificate is then a leaf of the displayed proof dependency graph at a
+declared checking boundary.
+
+Example of a correct apex
+-------------------------
+
+For E = NOT C in the CH specialization, beta and gamma survive. One satisfies
+H and the other NOT H. The apex reports UNDETERMINED and displays that
+opposing pair. It does not describe the negative case as a defect to be pushed
+out of the grid. For E = C, only alpha survives and H follows in the
+current-world scope. A modal query BOX H is evaluated separately and can still
+be false.
+
+The positive-x direction therefore identifies the source of confusion:
+incompatible premises, missing information, a scope error, an invalid
+converse, a lost interaction, or an unresolved computation. It is a structured
+diagnostic output rather than an axis of increasingly preferred conclusions.
+
+==============================================================================
+PAGE 08 / 39 | AXES AND INTERACTIONS
+THE Y AXIS: WITNESSES AND PROVENANCE
+==============================================================================
+
+Negative y: existence needs a witness contract
+----------------------------------------------
+
+The witness wing records an existential claim, its domain, the conditions
+under which it is required, and a candidate or symbolic witness. Verification
+evaluates the original predicate at the witness. A family of local witnesses
+must retain the indices on which the selections depend.
+
+For every context w, there exists t with Phi(w,t).
+There exists t such that, for every w, Phi(w,t).
+There exists f such that, for every w, Phi(w,f(w)).
+
+These formulas have different meanings. The first does not imply the second.
+Under the appropriate set-indexed nonempty-fiber hypotheses, AC yields the
+third; it need not supply a computable f. In a finite table with all allowed
+values explicitly available, a fixed enumeration provides a selection without
+invoking full AC. The forcing-specific role of choice is developed on page 23
+[R8].
+
+For a two-context example, let the permitted witness be a token named left in
+one context and right in the other. The case-dependent assignment works
+throughout the family, but neither constant token does. The center may contain
+the existential statement while the different witnesses occupy southern and
+negative-y records.
+
+Positive y: a fact is not its evidence source
+---------------------------------------------
+
+The provenance wing stores the origin of an assertion, the rule used to
+transform it, its revision, and its precise scope. A derived entry references
+its parents. Imported theorems carry hypotheses and source locators; synthetic
+examples are labeled synthetic; externally reported observations carry
+observation IDs rather than becoming unconditional axioms by display
+placement.
+
+The mathematical assertion AC@w and the metatheoretic record that a proof uses
+AC are distinct. The former concerns a represented world. The latter concerns
+the justification of an inference in the reasoning environment. A shared
+notation must not merge these levels [P1, section 2].
+
+Interactions across the y axis
+------------------------------
+
+A witness certificate can justify an existential cell in a case block. A
+provenance check can invalidate that certificate if its domain or revision
+changed. That invalidation does not assert that the existential proposition is
+false; it withdraws the specific support until another justification is
+available.
+
+The exact engine therefore separates theorem status from computational or
+evidential status. A formula may be mathematically entailed by a model while
+its available proof record has not yet been checked. A source can assert P and
+another assert NOT P without either becoming a hard fact. The
+inconsistent-information adapter keeps both reports visible on page 28.
+
+No multiplication of probability weights is licensed merely because two proof
+paths exist. Repeated references to the same source observation remain one
+source event. A dependency ledger preserves logical reuse while preventing
+that reuse from being misrepresented as independent evidence.
+
+==============================================================================
+PAGE 09 / 39 | AXES AND INTERACTIONS
+THE Z AXIS: SIGNED TRUTH REGIONS AND AMBIGUITY
+==============================================================================
+
+A signed chart is relative to a named query
+-------------------------------------------
+
+Fix a classical query Q and a nonempty semantic domain Omega. Define the
+positive and negative regions by its truth value. These are not additional
+dimensions of the source logic; they are an explicit partition used by the
+display.
+
+Omega_plus  = [[Q]].
+Omega_minus = Omega minus [[Q]].
+Omega_plus INTERSECT Omega_minus = EMPTY.
+Omega_plus UNION Omega_minus = Omega.
+
+The notation is relative to the current context, theory, and model semantics.
+Q may be CH in the inherited example or ActuatorEnabled in an engineering
+instance. Relabeling the query changes the signed chart; it does not change
+the underlying model or turn an old proof into a proof about a different
+proposition.
+
+The central plane is an evidence view
+-------------------------------------
+
+For evidence region E, compute E_plus = E intersect [[Q]] and E_minus = E
+minus [[Q]]. If both are nonempty, the evidence is ambiguous about Q. That
+ambiguity is a union spanning the two sides, not a third classical world where
+Q is partly true. It also differs from inconsistent support for both Q and NOT
+Q.
+
+A single classical world cannot be placed on both sides of its own Q chart.
+Distinct worlds may occupy opposite sides, including worlds connected by an
+allowed transition. Thus logical disjointness is not temporal inaccessibility.
+A transition from a Q-world to a NOT-Q-world does not produce Q AND NOT Q at
+either endpoint.
+
+Several questions need several charts
+-------------------------------------
+
+One vertical sign cannot simultaneously encode every proposition's truth value
+unless a full signature is stored behind it. The general representation uses a
+partition by a finite ordered list of queries, with one sign component per
+query. A chosen chart displays one component or a named grouping; all other
+components remain in the case signature.
+
+For example, H and C in the CH specialization yield alpha, beta, gamma, not
+merely two undifferentiated halves. Alpha and beta are positive in the H chart
+but lie on opposite sides in the C chart. The shared identities permit
+changing the view without recomputing which complete cases are valid.
+
+Signed projections
+------------------
+
+Pi_plus(E)  = E intersect [[Q]].
+Pi_minus(E) = E intersect [[NOT Q]].
+Pi_plus(Pi_minus(E)) = EMPTY.
+Pi_plus(E) UNION Pi_minus(E) = E.
+
+The identities follow from complementarity. Their usefulness is exact recovery
+of the evidence region from disjoint pieces. The physical height assigned to a
+positive cube has no effect on any equation. In nonclassical adapters,
+complementarity itself must be reconsidered; a signed classical chart cannot
+be imported unchanged into every logic.
+
+==============================================================================
+PAGE 10 / 39 | AXES AND INTERACTIONS
+THE CENTRAL BOX: A SHARED THEORY, NOT A FAVORED WORLD
+==============================================================================
+
+Membership in the center
+------------------------
+
+For a nonempty model family W, the semantic center is the intersection of its
+theories. An implementation stores a finite set of checked center claims, not
+an uncomputed complete theory of arbitrary structures.
+
+Core(W) = {phi : every w in W satisfies phi}.
+StoredCore = a finite certified subset of Core(W).
+
+A shared input assumption belongs to a declared theory contract. A derived
+common fact has a separate certificate relative to that contract. The display
+must label the distinction. Neither position in the center nor agreement among
+examples upgrades an empirical assumption into an unconditional theorem.
+
+Two opposite monotonicities
+---------------------------
+
+If a larger family of contexts is admitted, fewer statements may be common to
+all of them. If evidence narrows the candidates, more statements may follow
+conditionally.
+
+W subset W' -> Core(W') subset Core(W).
+EMPTY != E' subset E -> Core(E) subset Core(E').
+
+Proof. A universal statement over a larger set is true on every subset. Apply
+that observation first to W subset W' and then to E' subset E. The directions
+differ because the first operation adds possibilities, whereas the second
+removes them.
+
+The empty case is deliberately excluded from the second assertion as an
+interface rule. Classical universal quantification over an empty set is
+vacuous, but a reasoning tool should display inconsistent premises rather than
+promote all formulas to substantive common truths.
+
+CH and choice in the center
+---------------------------
+
+In the retained family, AC, C -> H, and BOX AC are shared. H is not shared
+because gamma refutes it. NOT H is not shared because alpha and beta refute
+it. Evidence C makes H conditionally established; it does not move H into the
+original global center [P1, sections 2-3].
+
+The center can also contain a statement of the form EXISTS t Phi(t) with
+case-dependent witnesses, provided the quantifier semantics and scope justify
+it. A shared existence claim need not have a single constant witness across
+the family. This is why witness records remain linked rather than merged by
+name.
+
+A fixed-core admission rule
+---------------------------
+
+A new context entering a model family with a fixed shared contract must
+satisfy that contract. If its admission is only hypothesized, the family
+becomes conditional on that hypothesis. If an actual new counterexample
+violates an old derived center claim, either the family has changed, a premise
+failed, or an earlier proof was unsound. The history should identify which
+event occurred.
+
+Thus the middle box is the stable interface for comparison, not a collection
+of claims selected because they look central to the discussion. Its nonempty
+scope and dependency certificates are what make its contents common.
+
+==============================================================================
+PAGE 11 / 39 | AXES AND INTERACTIONS
+INTERACTIONS THAT PAIRWISE FACES CANNOT RECOVER
+==============================================================================
+
+A complete staircase can still be logically incomplete
+------------------------------------------------------
+
+Suppose P, Q, R are Boolean propositions and the retained relation is R <-> (P
+XOR Q). Every assignment to a selected pair extends to a satisfying value of
+the third proposition. Therefore all three pairwise compatibility tables are
+unrestricted. Yet the complete relation excludes the joint assignment P, Q, R
+all true.
+
+Allowed full profiles:
+  NOT P AND NOT Q AND NOT R
+  NOT P AND Q AND R
+  P AND NOT Q AND R
+  P AND Q AND NOT R
+
+Pairwise projection has erased the essential interaction. Adding every mirror
+image of every pairwise block cannot restore it. This example is checked
+exhaustively by the companion verifier.
+
+The exact global object is a join of constraints
+------------------------------------------------
+
+For variables with domains D_i, let each constraint relation F_j have a
+declared scope S_j. A global assignment is valid exactly when every scoped
+restriction belongs to its corresponding relation.
+
+Omega = {v in PRODUCT_i D_i :
+         for every j, restriction(v,S_j) belongs to F_j}.
+
+The relation store retains S_j and every allowed tuple or an equivalent exact
+formula. Pairwise faces are views of that information. They are sufficient
+only when a lossless-decomposition theorem has been established for the
+particular constraint family.
+
+A Boolean exclusive-or constraint can be represented by a labeled factor cube
+whose ports connect P, Q, and R. No cell is treated as an independent
+proposition merely because it lies at a different coordinate. The three-way
+factor is evaluated as a whole, and a failed tuple propagates back to the
+corresponding alternative cases.
+
+Local propagation and global impossibility
+------------------------------------------
+
+There is a second obstruction even when the original constraints themselves
+are pairwise. Require P != Q, Q != R, and P != R over Boolean values. Each
+value of each variable has support across every individual relation.
+Nevertheless no complete assignment exists: two Boolean values cannot be
+assigned pairwise distinctly to three variables.
+
+Local consistency routines can eliminate impossible values efficiently, but
+local support alone is not a global satisfiability certificate. The classic
+constraint-network framework explicitly combines consistency propagation with
+case analysis [R1].
+
+Construction rule
+-----------------
+
+The array is complete when every source constraint retains all of its
+arguments, semantic rules, and provenance; every displayed summary has an
+exact interpretation; and the global checker accounts for all constraints
+jointly. It is not complete merely because every pair of proposition labels
+has a visible cell.
+
+This distinction is especially important for quantifier dependencies, modality
+nesting, causal conditions, and exception rules. Their interaction scopes can
+exceed any one face. The physical cube must therefore serve a
+hypergraph-backed interface rather than dictate the arity of the logic.
+
+==============================================================================
+PAGE 12 / 39 | BOOLEAN CORE
+EXACT TRUTH STATUS AND THE TWO-QUERY TEST
+==============================================================================
+
+A formula and an evidence state are different objects
+-----------------------------------------------------
+
+Let Omega be a nonempty set of models of Gamma. Evidence selects E subset
+Omega, while a query selects [[Q]] subset Omega. Compute the positive and
+negative survivor regions independently. This avoids inferring necessity from
+one successful witness.
+
+Positive survivors | Negative survivors | Result      
+-------------------+--------------------+-------------
+Present            | Absent             | ESTABLISHED 
+Absent             | Present            | EXCLUDED    
+Present            | Present            | UNDETERMINED
+Absent             | Absent             | INCONSISTENT
+
+These are metalevel statuses of a classical query, not four truth values of Q
+at one classical world. A fifth operational result, UNKNOWN, is needed when an
+incomplete or budget-limited backend cannot establish which row applies.
+
+SAT interpretation
+------------------
+
+For classical propositional premises and evidence, ask whether each of the
+following has a solution:
+
+Gamma AND Evidence AND Q.
+Gamma AND Evidence AND NOT Q.
+
+If the first is satisfiable and the second is certified unsatisfiable, Q
+follows. Reversing the outcomes excludes Q. Satisfying assignments to both
+give an explicit ambiguity pair. If both are certified unsatisfiable, the
+premises are inconsistent. A solver returning unknown must not be silently
+counted as unsatisfiable [R4].
+
+The truth-extraction theorem
+----------------------------
+
+Assume the two searches are semantically exact and their certificates pass.
+Every model of Gamma AND Evidence either satisfies Q or its classical
+negation. The two search domains therefore partition all retained models. The
+four combinations above exhaust the possibilities and have precisely the
+displayed meanings. This proves soundness and completeness of the finite
+verdict procedure, conditional on complete search.
+
+A smaller test can establish an entailment by checking Gamma AND Evidence AND
+NOT Q alone, but a satisfiability check of the premises is still required to
+distinguish a substantive conclusion from vacuous entailment under
+contradiction.
+
+Useful output records
+---------------------
+
+An established result includes its premise scope and exclusion certificate. An
+undetermined result includes models from opposite sides or another exact proof
+of their existence. An inconsistent result includes a contradictory subset
+when available. A subset-minimal contradictory set means no member can be
+removed while preserving contradiction; it need not have smallest cardinality
+among all contradictory subsets.
+
+An excluded formula is false throughout the evidence scope. A formula with one
+counterexample is merely not established throughout that scope; it can still
+be true at other retained worlds. Keeping these meanings separate prevents the
+northern pyramid from reducing all failures to a generic cross mark.
+
+==============================================================================
+PAGE 13 / 39 | BOOLEAN CORE
+THE ATOMIZATION THEOREM
+==============================================================================
+
+From atomic propositions to atomic cases
+----------------------------------------
+
+Fix a nonempty semantic domain Omega and interpreted generators P_1,...,P_m.
+These generators may be primitive propositions or previously checked formulas.
+For each truth signature sigma, form the region where every generator has the
+specified truth value.
+
+a_sigma = INTERSECTION_i L_i,
+where L_i = [[P_i]] if sigma_i is true,
+      L_i = Omega minus [[P_i]] otherwise.
+A = {a_sigma : a_sigma is nonempty}.
+
+Theorem O1. A is a disjoint exhaustive partition of Omega. Every generator is
+a union of cells in A. Every Boolean combination of those generators is also a
+union of cells in A. These nonempty cells are the atoms of the generated
+finite Boolean algebra.
+
+Proof of coverage and orthogonality
+-----------------------------------
+
+Every w in Omega gives exactly one signature by evaluating the generators, so
+w belongs to its signature region. This proves coverage. If two signatures
+differ, some generator is required true by one and false by the other. Their
+regions have empty intersection. Hence the surviving regions are pairwise
+disjoint.
+
+For a fixed generator P_i, every point of [[P_i]] has a signature with sigma_i
+true, and every such signature region lies inside [[P_i]]. Their union is
+exactly [[P_i]]. Boolean operations act on these unions by intersection,
+union, and complement, so structural induction proves reconstruction for every
+formula generated from them.
+
+Finally, every Boolean combination has constant truth value on a signature
+region. No nonempty proper subset of that region belongs to the generated
+algebra. Thus each surviving region is an atom. The theorem is relative to the
+observed generators: several detailed worlds can lie in one atom if the
+language does not distinguish them.
+
+Computational condition
+-----------------------
+
+For an explicitly enumerated finite Omega, the theorem gives a terminating
+algorithm. For an infinite model family, the regions still define a finite
+observable partition, but deciding whether an individual region is nonempty
+may be difficult or undecidable. An implementation must retain an unresolved
+region until its nonemptiness or emptiness is justified; the display cannot
+certify an atom by appearance alone.
+
+In a finite propositional problem whose generators are all primitive
+variables, each surviving signature is a complete satisfying assignment. In a
+modal model whose generators are only current atomic labels, the cells need
+not preserve future behavior. Page 21 supplies the additional quotient
+condition.
+
+Meaning of orthogonalization
+----------------------------
+
+Orthogonalization is therefore a refinement of overlapping proposition regions
+into mutually exclusive cases, with reconstruction maps retained. It is not a
+permutation of the original proposition names, an assertion of statistical
+independence, or a physical rotation of their display locations.
+
+==============================================================================
+PAGE 14 / 39 | BOOLEAN CORE
+CONSTRUCTIVE ORTHOGONALIZATION AND RECONSTRUCTION
+==============================================================================
+
+A splitting procedure with an invariant
+---------------------------------------
+
+Start with the partition containing Omega alone. Process the chosen generators
+in a declared order. Replace every current block b by its two intersections
+with the next generator and its complement, omitting only children proved
+empty.
+
+A_start = {Omega}.
+Split_Q(b) = {b INTERSECT [[Q]], b minus [[Q]]} minus {EMPTY}.
+A_next = UNION_{b in A_current} Split_Q(b).
+
+Theorem O2. After each completed step, the retained blocks are disjoint, cover
+Omega, and reconstruct every generator processed so far. Proof. The two
+children of a parent are disjoint and their union is the parent. Children of
+distinct parents cannot overlap because they are subsets of disjoint parents.
+Previously reconstructed regions are rebuilt by replacing each parent by its
+children. The new generator is the union of all positive children.
+
+Figure 2. One parent region a splits into the positive child a AND Q and the
+negative child a AND NOT Q. The children are disjoint and reconstruct the
+parent by union. Descendants of distinct parents remain disjoint.
+
+The algorithm ends after finitely many generators, producing the partition of
+O1. Its output can be exponentially large, so an actual implementation may
+store it symbolically rather than materialize every block.
+
+Preserve overlap signatures
+---------------------------
+
+A tempting shortcut takes overlapping regions A, B, C and replaces them by A,
+B minus A, and C minus (A union B). This is disjoint, but the resulting pieces
+do not preserve all original membership information unless the removed
+overlaps are recorded separately. A point in A might or might not belong to B,
+and a single block A no longer answers that question.
+
+Complete signature splitting preserves those distinctions. It includes regions
+such as A intersect B, A minus B, and the parts outside both when nonempty. A
+priority-based first-match partition is appropriate only when the task
+explicitly asks for first-match behavior rather than all logical interactions.
+
+Parent maps and certificates
+----------------------------
+
+Each child stores its parent ID, its splitting formula, its branch sign, and
+the certificate for its nonempty or unresolved status. Reconstruction
+references children by identity, not by display position. Eliminating a branch
+requires an emptiness certificate under the current hard theory; a low
+heuristic score is insufficient.
+
+When the theory itself is strengthened, reconstruction is relative to the
+updated allowed universe. A parent may then have no surviving child. That is a
+new exclusion, not a pure representation change. Recording the theory revision
+alongside the parent map prevents the two operations from being confused.
+
+The complete pipeline is therefore split, validate, retain, record ancestry,
+reconstruct. Reordering occurs after these semantic operations and cannot
+replace them.
+
+==============================================================================
+PAGE 15 / 39 | BOOLEAN CORE
+ORDERING THE ATOMS WITHOUT CHANGING THE LOGIC
+==============================================================================
+
+Canonical content and chosen order
+----------------------------------
+
+The set of nonempty signature regions is independent of the order in which the
+same generators are processed. Each region is defined by the conjunction of
+one literal per generator; conjunction commutes. Its displayed signature
+changes order, but its denotation does not.
+
+A deterministic atlas order first groups atoms by the active signed query,
+then by stable parent, then by their new branch signature. A separate physical
+layout may prioritize closely interacting constraints. The registry keeps both
+orders explicitly, rather than making a visual coordinate serve as the sole
+identity.
+
+Semantic ID = (context revision, normalized signature).
+Display key = (role, signed query, parent ID, local rank).
+Permutation changes the display key, not the denotation.
+
+The permutation obstruction
+---------------------------
+
+Let M_ij record whether proposition regions P_i and P_j overlap. Reordering
+rows and columns by a permutation gives the same intersections with different
+indices. A nonempty off-diagonal intersection cannot become empty merely by
+moving its labels. Simultaneous permutation also cannot turn an asymmetric
+accessibility relation into a symmetric one.
+
+Thus a final diagonal intersection matrix requires actual disjoint case
+regions, not an aesthetically successful arrangement of the original
+propositions. Overlapping predicates are recovered as unions of those regions.
+A shared proposition whose support is the entire universe belongs in the core
+rather than being counted as an additional disjoint atom.
+
+A semantic order and a computational order
+------------------------------------------
+
+A fixed variable order supports reproducible reduced ordered binary decision
+diagrams. A good order can make a particular function compact; a poor order
+can make the representation much larger. No one order is established here as
+optimal for arbitrary formulas [R2]. Dependency-based heuristics may place
+related arguments near one another, but their output is an optimization
+proposal, not a theorem about logical independence.
+
+A block may therefore have a human-readable order and a backend order,
+connected by a checked permutation map. Reordering a compiled object must
+preserve every truth region and every inverse reference. A regression test
+evaluates the same query before and after the transformation and checks exact
+equality; the general justification is the explicit bijection of indices.
+
+Extension without renumbering history
+-------------------------------------
+
+New descendants receive persistent IDs below their parent. An old proof
+continues to refer to its old theory revision and old atom family, while a
+transport map identifies its surviving refinement in the new revision. If the
+extension changes the meaning of a predicate or the interpretation of a
+modality, a mere index map is insufficient. That is a semantic change
+requiring a new certificate.
+
+The final order is therefore a stable presentation of an already proved
+partition. It makes orthogonality inspectable without suggesting that a
+sequence of rearrangements can discover truth absent from the constraints.
+
+==============================================================================
+PAGE 16 / 39 | BOOLEAN CORE
+BOOLEAN PROJECTORS AND THE LIMIT OF PHYSICAL 3D
+==============================================================================
+
+The projection algebra
+----------------------
+
+For an event A subset Omega, define Pi_A(E)=E intersect A. Direct substitution
+proves idempotence and composition:
+
+Pi_A o Pi_A = Pi_A.
+Pi_A o Pi_B = Pi_(A INTERSECT B) = Pi_B o Pi_A.
+A INTERSECT B = EMPTY -> Pi_A o Pi_B is the zero map.
+
+For an atomic partition a_1,...,a_k, the projections are mutually annihilating
+and their disjoint union reconstructs any E. This is the exact Boolean meaning
+of orthogonal components in the array. All of these event projections commute;
+no quantum-mechanical measurement rule is being introduced.
+
+An optional vector realization
+------------------------------
+
+Assume Omega is finite. Represent each proposition A by its indicator vector
+over Omega. Then the pointwise product of two indicators is the indicator of
+their intersection. With positive weights w_v, their weighted inner product is
+
+<A,B> = SUM_{v in Omega} w_v * 1_A(v) * 1_B(v).
+
+Because every weight is positive, this equals zero exactly when A and B are
+disjoint. With merely nonnegative weights, zero inner product implies only
+that their intersection has weight zero; it need not be logically empty. That
+qualification matters for continuous probability models and zero-probability
+possibilities.
+
+Another realization uses one formal basis vector for each atom. Every
+proposition is encoded by its atom-membership coefficients. The resulting
+semantic vector space has dimension k, even if its records are displayed in
+3D. The scalar product is an optional representation of the Boolean structure,
+not its origin.
+
+Why every atom cannot be a perpendicular physical axis
+------------------------------------------------------
+
+Theorem O3. A family of nonzero pairwise orthogonal vectors in Euclidean
+three-space contains at most three members. Proof. In any linear relation
+among them, take the inner product with a chosen vector. Orthogonality
+eliminates every other coefficient, and its positive squared length forces its
+own coefficient to vanish. Hence the vectors are linearly independent;
+three-space has dimension three.
+
+A 3D projection of a higher-dimensional semantic basis may overlap vectors or
+alter angles. It remains a display, not an isometry. Similarly, Gram-Schmidt
+applied to overlapping proposition indicators can create negative or
+non-Boolean coordinates. It supplies an orthogonal vector basis but not
+generally a partition into meaningful logical cases.
+
+The construction therefore has two compatible layers: a sparse
+three-dimensional atlas for navigation and a Boolean or otherwise typed
+semantic algebra for reasoning. Their relationship is explicit encoding and
+decoding, not an assertion that all logical orthogonality is literally spatial
+perpendicularity.
+
+==============================================================================
+PAGE 17 / 39 | BOOLEAN CORE
+COMPRESSION WITHOUT LOSING THE COMPLETE CASES
+==============================================================================
+
+Full semantics does not require a full truth table
+--------------------------------------------------
+
+The atomization theorem describes all relevant cases. It does not require
+storing a separate row for every case. A symbolic Boolean function can
+represent their union, while a query computes intersections with that
+function. This is the practical role of decision diagrams and satisfiability
+encodings.
+
+For a Boolean formula F and a chosen variable P, Shannon decomposition gives
+
+F = (P AND F[P:=TRUE]) OR (NOT P AND F[P:=FALSE]).
+
+The two branches are disjoint. A binary decision diagram stores such branches,
+shares identical residual subfunctions, and removes a test when both outcomes
+lead to the same residual. Under a fixed variable order and the standard
+reduction rules, equivalent Boolean functions have the same reduced
+representation [R2].
+
+Sharing a residual subgraph is not an assertion that its different path
+prefixes are identical. The prefix conditions preserve the context in which
+that residual is reached. A terminal TRUE node may stand for many complete
+assignments, not one unique atom. The workbench must retain this
+interpretation when displaying a collapsed cube.
+
+Definitional SAT compilation
+----------------------------
+
+A conjunction node can be represented by a new symbol s together with s <-> (a
+AND b). The equivalence is encoded by clauses (NOT s OR a), (NOT s OR b), and
+(s OR NOT a OR NOT b). Other Boolean nodes have corresponding exact
+definitions. Assert the root symbol to ask for a satisfying source formula.
+
+F(v) is true
+  iff there exists an auxiliary assignment a:
+      Definitions(v,a) AND Root(a) is true.
+
+The proof evaluates the syntax tree from leaves to root in one direction and
+uses the defining equivalences in the other. Merely asserting Root without the
+definitions loses the formula. Merely proving equisatisfiability is also
+insufficient for every query unless projection back to the original variables
+is preserved.
+
+Different backends answer different questions
+---------------------------------------------
+
+SAT can produce one satisfying assignment or an unsatisfiability result. A
+binary decision diagram can also represent all cases compactly when structure
+permits. Exact counting, projected counting, and sampling require separate
+algorithms and contracts. Auxiliary assignments must not be counted as
+distinct source models without justification.
+
+The 3D atlas should display the semantic region represented by a compiled
+object, its unresolved budget, and its certificate interface. It should not
+expand a compact representation simply to make every conceptual cube visible.
+Conversely, visual collapse is not permission to merge genuinely different
+constraints.
+
+This is where the architecture can improve on a manual logic-puzzle grid:
+shared residual computations, incremental queries, and preserved evidence maps
+can avoid repeating the same deductions across many related cases. No general
+polynomial-size representation is promised [R2, R4].
+
+==============================================================================
+PAGE 18 / 39 | BOOLEAN CORE
+PROPAGATION, SEARCH, AND CERTIFICATE CHECKING
+==============================================================================
+
+A sound narrowing invariant
+---------------------------
+
+Let C be the exact set of original solutions and D the currently represented
+candidates. Every pruning rule must establish that its retained condition is
+necessary for C. Then intersection preserves all solutions.
+
+C subset D and C subset E
+  -> C subset (D INTERSECT E) subset D.
+
+Proof is direct membership. A solution belongs to both intersected sets and
+remains present. Repeating certified intersections preserves the invariant by
+induction. This is the same source-level discipline used in the project's
+broader solver material [P4].
+
+A propagation routine runs a work queue of constraints affected by a changed
+domain or truth entry. Each accepted update records its reason and wakes
+dependent relations. On a finite domain, strictly decreasing candidate domains
+permit only finitely many deletions. A queue can still cycle through redundant
+checks unless its scheduling and cache invalidation are well designed.
+
+Fixed point does not mean solved
+--------------------------------
+
+The Boolean disequality triangle on page 11 remains locally supported yet
+globally impossible. A propagation fixed point therefore means that the chosen
+rules can make no further deduction, not that a global model exists. Complete
+finite search branches on an unresolved value and checks both alternatives,
+unless another complete backend discharges the remaining obligation [R1].
+
+Branching must preserve coverage. If a region D is split on P, its children D
+intersect [[P]] and D minus [[P]] cover D and do not overlap. Closing a child
+needs a contradiction certificate. A surviving complete assignment must be
+checked against every original constraint, not only against the most recently
+active face.
+
+Certificates rather than assertion counts
+-----------------------------------------
+
+A SAT witness is checked by evaluating the source premises. An
+unsatisfiability certificate may be a resolution derivation whose steps a
+smaller checker verifies. A modal model-checking result can be checked by
+recomputing the semantic equations over the declared frame. An invariant
+certificate needs both initialization and preservation under every allowed
+transition.
+
+The proof record stores assumptions used, context, logic adapter, compiler
+version, source revision, and checker result. A previously verified proof may
+be reused only when its dependencies remain valid. A heuristic changes search
+order; it does not authorize deleting a case or marking an unsearched domain
+inconsistent.
+
+Result vocabulary
+-----------------
+
+The kernel distinguishes a checked witness, checked entailment, checked
+contradiction, exact residual representation, and unknown. The distinction is
+operationally important: a timeout is not an unsatisfiability proof, and
+failure to discover a counterexample is not universal validity. Official
+SMT-LIB similarly exposes sat, unsat, and unknown rather than collapsing all
+solver outcomes into Boolean truth [R4].
+
+==============================================================================
+PAGE 19 / 39 | WORKED EXAMPLES
+WORKED SYMBOLIC ARRAY: AN INTERLOCK
+==============================================================================
+
+Propositions and constraints
+----------------------------
+
+Use four named propositions: D = door closed; B = bolt engaged; P = permission
+present; E = actuator enabled. These are logical statuses, not numerical
+sensor values. Specify the intended interlock by
+
+Gamma = (B -> D) AND (E <-> (B AND P)).
+
+The first rule says that an engaged bolt requires a closed door. The second
+specifies exactly when the actuator is enabled. This is a declared engineering
+model; actual hardware would need evidence that these rules hold.
+
+The complete orthogonal case array
+----------------------------------
+
+Every row below is the conjunction of the displayed literals. The six rows are
+the complete satisfying assignments of Gamma, verified by direct enumeration.
+
+Case                               | D | B | P | E
+-----------------------------------+---+---+---+--
+door-open / no-permit              | F | F | F | F
+door-open / permit                 | F | F | T | F
+door-closed / unbolted / no-permit | T | F | F | F
+door-closed / unbolted / permit    | T | F | T | F
+bolted / no-permit                 | T | T | F | F
+enabled                            | T | T | T | T
+
+With Q=E, only the enabled case lies on positive z. The others are distinct
+negative-side cases, not one merged negative truth assignment. D is
+reconstructed by the union of the last four cases, B by the last two, and P by
+the rows where its entry is true.
+
+Cross-grid deductions
+---------------------
+
+Evidence E eliminates every row except enabled. The checker therefore
+establishes B, P, and D. A direct proof provides the same result: E -> B
+follows from the biconditional, and B -> D then gives E -> D. That implication
+can enter the shared center of the modeled family.
+
+The converse D -> E fails. A closed but unbolted case is an explicit
+counterexample. Evidence D alone therefore leaves E undetermined, while
+evidence E AND NOT D is inconsistent. The case table, implication grid, and
+northern diagnostics all agree because they reference one exact model set.
+
+Witness and provenance wings
+----------------------------
+
+A positive observation of E is one evidence event. The three deduced
+propositions are consequences of that event plus Gamma, not three independent
+observations. The proof record must retain the dependence on both interlock
+rules. If a sensor reports NOT D at the same time, the system flags conflict;
+it must not quietly redefine door closed or move the observation to another
+context.
+
+This example demonstrates the general method without CH or forcing: name the
+propositions, retain joint constraints, construct complete cases, factor
+shared consequences into the core, and recover each original proposition from
+the orthogonal partition. Adding dynamics next requires a transition relation
+rather than merely adding more columns to this static table.
+
+==============================================================================
+PAGE 20 / 39 | RICHER LOGICS
+MODAL LOGIC: RELATIONS BETWEEN WORLDS
+==============================================================================
+
+The model and its truth regions
+-------------------------------
+
+A finite multi-modal model is M=(W,(R_a),V), with worlds W, one directed
+accessibility relation per modality a, and a valuation of atomic propositions.
+Each occurrence P@w is world-scoped. The same atomic symbol may be true at
+some worlds and false at others.
+
+[[BOX_a phi]] = {w : every v with w R_a v belongs to [[phi]]}.
+[[DIA_a phi]] = {w : some  v with w R_a v belongs to [[phi]]}.
+
+Boolean connectives act on world sets. These equations are the linked-grid
+rule: a world/formula face obtains its modal entries from a world/world
+relation face and the constituent formula's truth face. The companion checker
+compares set-based evaluation with an independently written pointwise
+recursion.
+
+No hidden frame assumptions
+---------------------------
+
+Reflexivity, transitivity, symmetry, seriality, and accessibility by one step
+versus any finite path are distinct declarations. On a dead-end world, BOX phi
+is vacuously true and DIA phi is false under the ordinary one-step semantics.
+Adding a self-loop changes those values. The predecessor uses a reflexive
+reachability relation; another adapter must not inherit that convention
+accidentally [P1; R5-R6].
+
+Current-world evidence selects which starting worlds are possible. It does not
+normally remove their future successors. Evaluate the formula in the declared
+model and then intersect its truth region with the evidence region.
+Restricting the model itself is a different update operation, examined on page
+25.
+
+What is being verified
+----------------------
+
+Model checking asks whether a formula holds in a supplied model or at selected
+worlds. Frame validity asks whether it holds for every admissible valuation on
+a supplied frame. Logical validity asks whether it holds throughout a
+specified class of frames and valuations. These questions require different
+searches and certificates.
+
+A single truth matrix is sufficient for model checking, but not for arbitrary
+frame validity. Conversely, using every Boolean valuation may be inappropriate
+when the application restricts atomic propositions to interpreted sentences
+whose truth values satisfy additional theory constraints. This distinction is
+essential in the CH example.
+
+Extension to nesting
+--------------------
+
+The semantic equations evaluate formulas by their parse trees. A structural
+induction proves correctness: atomic cases use V; Boolean steps use their
+exact operations; modal steps use the complete accessibility relation. The
+induction covers every finite formula, regardless of nesting depth. It is not
+a proof that arbitrary formulas about unspecified infinite frames can always
+be decided.
+
+The basis can remain finite even while formulas become longer, because each
+formula denotes a subset of a fixed finite W. That finite closure is the
+computational opportunity. The next page states when several worlds can safely
+share a basis block without losing modal distinctions.
+
+==============================================================================
+PAGE 21 / 39 | RICHER LOGICS
+MODAL ORTHOGONALITY NEEDS A STABLE QUOTIENT
+==============================================================================
+
+Equal current labels are not enough
+-----------------------------------
+
+Take worlds s,t,u. Let P be false at s and t and true at u. Suppose s reaches
+u while t reaches only itself. Although s and t agree on P, DIA P is true at s
+and false at t. Merging them by their present truth values alone gives the
+wrong modal answer.
+
+An orthogonal partition of W can therefore be adequate for current Boolean
+observations yet inadequate for future-facing formulas. Modal compression
+requires a relation-preserving partition. Bisimulation provides the relevant
+standard contract [R5].
+
+A finite refinement algorithm
+-----------------------------
+
+Start with blocks whose worlds agree on the tracked atomic valuations. For
+every world, record its current block and the set of successor blocks under
+each relation. Split a block whenever these signatures differ. Repeat until no
+block changes.
+
+Signature(w) = (current_block(w),
+                {block(v): w R_a v} for each action a).
+
+Every nontrivial round increases the number of blocks. A finite model permits
+only finitely many such splits. The stable partition is independent of
+temporary block names; it is determined by the refinement relation, while its
+chosen presentation order remains arbitrary.
+
+Preservation theorem
+--------------------
+
+Let q map each world to its stable block. Define A R'_a B when a world in A
+has an R_a successor in B. Atomic labels are constant on A. Stability ensures
+that whenever A R'_a B, every world in A has some corresponding successor in
+B.
+
+Theorem M1. For every formula of the tracked ordinary multi-modal language,
+
+w satisfies phi  iff  q(w) satisfies phi in the quotient.
+
+Proof. The atomic and Boolean cases are immediate. For DIA, an original
+successor gives a quotient successor. Conversely, a quotient successor is
+realized from every representative of the source block by stability; apply the
+induction hypothesis there. BOX follows by the same argument or classical
+duality. Structural induction completes the proof.
+
+Limits of this quotient
+-----------------------
+
+The result preserves modal possibility and necessity, not necessarily the
+number of successors, their probabilities, individual identities, or
+distances. Graded modalities need multiplicity information. Probabilistic
+transitions need matching aggregate probabilities. A first-order formula
+naming two separate successors can distinguish models that ordinary modal
+logic merges.
+
+The finite verifier checks the quotient on every directed three-world frame
+and every valuation of one atomic proposition, including frames with dead
+ends. That tests the implementation over a declared range. The induction
+above, not the number of checks, justifies arbitrary finite formula nesting
+under the theorem's hypotheses.
+
+==============================================================================
+PAGE 22 / 39 | WORKED EXAMPLES
+CH AS THE RETAINED SIGNED CASE STUDY
+==============================================================================
+
+The inherited specialization
+----------------------------
+
+Use H=CH, C=V=L, and AC as interpreted set-theoretic sentences. The
+predecessor assumes a countable transitive ground model of ZFC+V=L. Operation
+A adds one Cohen real, operation B adds omega_2 Cohen reals, and only finite
+histories of these operations are permitted. This is a conditional
+model-theoretic setting, not a finite universe satisfying ZFC [P1].
+
+Cohen product and iteration equivalences explain why the histories reduce to
+small and large forcing types. Preservation of ZFC and the independence of CH
+are imported mathematical inputs; the finite checker does not reprove them
+[R6-R7].
+
+Finite Boolean kernel: Gamma = AC AND (C -> H).
+alpha = AC AND C AND H.
+beta  = AC AND NOT C AND H.
+gamma = AC AND NOT C AND NOT H.
+
+The cases are nonempty complete profiles for these tracked propositions. Their
+disjointness follows syntactically; their set-theoretic realization depends on
+the stated forcing construction. AC is shared, alpha and beta are on positive
+z, and gamma is on negative z.
+
+The accessibility interaction
+-----------------------------
+
+From / to | alpha | beta | gamma
+----------+-------+------+------
+alpha     | T     | T    | T    
+beta      | F     | T    | T    
+gamma     | F     | F    | T    
+
+With this reflexive relation, BOX AC holds everywhere. BOX H holds nowhere,
+and DIA BOX NOT H holds everywhere. Evidence C establishes H currently but
+does not establish BOX H. Evidence NOT C leaves beta and gamma, so CH remains
+undetermined.
+
+Why finite digits do not decide CH
+----------------------------------
+
+A ground model and its Cohen extension contain the same finite binary strings,
+but the extension can contain a new infinite branch through that tree. CH
+concerns the model's entire collection of real numbers, not the value of a
+single finite bit record. Agreement on every finite level of the condition
+tree is therefore compatible with different CH values in the resulting models
+[R7].
+
+Homogeneity makes the relevant parameter-free sentences uniform within a
+forcing type; it does not automatically compute their values. A new sentence
+may distinguish the ground and small-extension types if the original scope did
+not already distinguish them. The V=L specialization here deliberately
+supplies such a discriminator. A larger vocabulary naming individual generics
+would require reconsidering the quotient.
+
+The center stores the conditional forcing premises and the finite consequences
+certified from them. It does not store CH merely because it holds in the
+original model. The example illustrates the array's purpose: separate shared
+laws, opposing cases, current evidence, and future accessibility without
+inventing a truth-selection rule.
+
+==============================================================================
+PAGE 23 / 39 | WORKED EXAMPLES
+CHOICE, FORCING NAMES, AND LOCAL WITNESS MIXING
+==============================================================================
+
+What full choice asserts
+------------------------
+
+For a set-indexed family (X_j) of nonempty sets, AC supplies a function
+selecting an element from each X_j. It is an existence assertion. In the
+declared ZFC case family it is true in every world, so its proposition belongs
+in the shared center. Its use in constructing witnesses is separately recorded
+in the negative-y wing [P1].
+
+A finite family with explicit nonempty domains can be handled by an explicit
+selection rule. No general effective method for arbitrary set-theoretic choice
+follows from arranging those finite examples in cubes.
+
+The forcing maximum principle
+-----------------------------
+
+The full forcing maximum principle says that an existential assertion forced
+by p has a forcing name witnessing it:
+
+p forces EXISTS t Phi(t)
+  iff there exists a forcing name tau with p forces Phi(tau).
+
+Over ZF, the unrestricted principle for forcing posets is equivalent to AC.
+The selection of suitable local names and maximal antichains is part of that
+proof dependency [R8]. A specific finite selection problem should not be
+described as requiring the full principle merely because it resembles one step
+of the proof.
+
+Mixing across orthogonal regions
+--------------------------------
+
+Suppose e_i are pairwise disjoint Boolean regions with join TRUE, and local
+names tau_i have been supplied. The mixing construction gives a name tau
+agreeing with tau_i on its corresponding region. If every region establishes
+Phi(tau_i), their union establishes Phi(tau). Boolean-valued forcing and its
+witness interpretation are developed in the formal CH verification [R7].
+
+The signed CH example has a finite analogue. Let tau use token-positive on
+alpha and beta, and token-negative on gamma. A local acceptance relation
+validates the appropriate token on every case. No constant token works
+everywhere, but the case-dependent rule does. The finite verifier checks this
+distinction through an explicit two-element witness relation.
+
+Epistemic limitation
+--------------------
+
+Existence of the mixed rule does not imply that an observer can determine
+which branch applies. If observations cannot distinguish the positive and
+negative case, an executable decision that selects different tokens from the
+same observation is impossible. The forcing name is a semantic object whose
+interpretation can vary with the generic extension, not a sensor that
+discovers the extension.
+
+This separates three entries that must remain linked but distinct: the shared
+existential theorem in the center, the branch-indexed local witnesses, and the
+evidence or assumptions enabling a particular selection. Confusing them would
+turn a witness-existence theorem into an unwarranted truth oracle.
+
+The construction therefore uses AC exactly where its quantifiers apply. It
+does not use the negative-y direction to declare a global algorithm, remove
+the negative-CH region, or assign a preferred representative to an unresolved
+reality.
+
+==============================================================================
+PAGE 24 / 39 | RICHER LOGICS
+TEMPORAL LOGIC AND INFINITE BEHAVIOR OF FINITE STATES
+==============================================================================
+
+Reachability is not inevitability
+---------------------------------
+
+A finite transition graph can have infinitely long executions because states
+repeat. A claim that a goal is reachable differs from a claim that every
+execution eventually reaches it. This cannot be repaired by labeling one axis
+time while leaving the operator semantics unspecified.
+
+Let Wait have a self-loop and an edge to Done, and let Done have a self-loop.
+Done is reachable from Wait. Nevertheless an execution can remain at Wait
+forever. Thus EF Done holds at Wait, while AF Done does not. A scheduler or
+fairness assumption would be additional structure, not information already
+contained in the existence of the successful edge.
+
+Finite fixed-point calculations
+-------------------------------
+
+Assume a finite total transition graph: every state has a successor. Define
+Pre_exists(X) by existence of a successor in X and Pre_all(X) by all
+successors lying in X.
+
+EF Q = least X satisfying X = [[Q]] UNION Pre_exists(X).
+AF Q = least X satisfying X = [[Q]] UNION Pre_all(X).
+AG Q = greatest X satisfying X = [[Q]] INTERSECT Pre_all(X).
+
+The least fixed points are obtained by starting with the empty set and
+iterating the displayed monotone operation. The greatest fixed point starts
+with all states and iterates downward. Each strict step changes membership of
+at least one state, so the finite procedures terminate. Their interpretation
+is established by induction on finite reachability ranks and by the absence or
+presence of indefinitely surviving counterexample paths [R3].
+
+The totality hypothesis matters. At a dead end, a naive universal predecessor
+is vacuously true and can distort an eventuality calculation. A tool must
+either require totality, explicitly add terminal self-loops, or specify
+finite-trace semantics. These choices are visible inputs, not implementation
+details to hide.
+
+The array representation
+------------------------
+
+A temporal face stores state/subformula membership. A relation face supplies
+the transitions. A fixed-point face records iteration ranks or an invariant
+certificate. A counterexample block can store a finite prefix and repeating
+loop witnessing failure of an eventuality. The loop is a valid infinite-path
+representation, not a circular proof of its own legality.
+
+The companion test compares AF iteration with an independent search for
+reachable cycles that avoid the target on every total three-state graph. That
+verifies a finite implementation of the fixed-point contract. Fairness,
+real-time bounds, stochastic scheduling, and continuous dynamics are outside
+that test.
+
+The retained CH formula DIA BOX NOT H expresses the existence of a state after
+which NOT H persists. It does not assert that every history eventually enters
+that state. Distinguishing these statements is a direct application of the
+temporal layer.
+
+==============================================================================
+PAGE 25 / 39 | RICHER LOGICS
+KNOWLEDGE, OBSERVATION, AND ACTION-SPECIFIC UPDATES
+==============================================================================
+
+More than one relation can occupy the same atlas
+------------------------------------------------
+
+For an agent a, an epistemic relation connects worlds indistinguishable to
+that agent. An action relation connects states by a permitted operation. A
+temporal relation describes succession. Their Boolean matrices may look
+similar, but their interpretations and required frame properties differ.
+
+K_a Q at w: every a-indistinguishable world satisfies Q.
+DIA_action Q at w: some permitted action successor satisfies Q.
+
+A shared cube face must name which relation is being used. Equality of the
+underlying Boolean matrices in one example does not identify the modalities in
+every extension. Multi-agent and refinement modal logic supply established
+frameworks for such distinct relations [R5].
+
+A concrete ambiguity
+--------------------
+
+Consider beta and gamma in the CH example. Both satisfy AC AND NOT C. An
+observer whose observation vocabulary contains only those facts cannot
+distinguish them. CH is therefore not known under that observation model, even
+though each underlying world has a definite classical CH value.
+
+An extra observation capable of separating the cases can refine the epistemic
+region. Repeating an already known invariant observation cannot do so.
+Formally, if O(w)=O(v), any deterministic computation applied only to O has
+the same output at w and v. A reversible recoding of the observation cannot
+change that equality.
+
+Evidence selection versus changing the model
+--------------------------------------------
+
+Ordinary current-world evidence E selects admissible starting worlds while
+leaving the transition structure used to evaluate future formulas unchanged. A
+public announcement update is a different operation: it may restrict an
+epistemic model to the worlds satisfying the announced formula and restrict
+its relations accordingly.
+
+For a one-step action graph, deleting successors can make a box formula true
+that was previously false. Thus interpreting a current sensor reading as a
+global removal of all nonmatching future states is unsound unless the update
+semantics explicitly require that transformation. The predecessor avoided this
+error by evaluating the full modal truth region before evidence selection [P1,
+section 7].
+
+Adapter obligations
+-------------------
+
+A knowledge or action adapter states its relation constraints, update rule,
+treatment of failed preconditions, and evaluation point. If a model
+transformation is proposed as an abstraction, it needs a preservation theorem
+for the intended formula language. Bisimulation, simulations, refinement
+relations, and updates preserve different properties; their names cannot be
+substituted for one another [R5].
+
+The northern diagnostics should identify whether uncertainty is factual,
+observational, temporal, or computational. A formula can be true in the actual
+modeled state but unknown to an agent. Another can be false now yet reachable
+later. A solver can also fail to settle a well-defined question. These
+distinctions require separate cells and scope tags, not additional unlabeled
+geometric directions.
+
+==============================================================================
+PAGE 26 / 39 | RICHER LOGICS
+QUANTIFIED FORMULAS AND FINITE DOMAIN ENCODINGS
+==============================================================================
+
+Atomic predicates acquire arguments
+-----------------------------------
+
+To handle first-order structure, replace a bare propositional name by a
+predicate with typed terms, such as Connected(device,port). Quantifiers bind
+variables rather than introduce independent checkboxes. The parser must record
+binder identity so substitutions cannot capture an unrelated variable.
+
+For an explicitly finite nonempty domain D={d_1,...,d_n}, quantifiers have
+exact expansions:
+
+FORALL x Phi(x) = AND_{d in D} Phi(d).
+EXISTS x Phi(x) = OR_{d in D} Phi(d).
+
+The equivalence follows from the definition of quantification over that
+declared finite domain. Equality must receive its intended semantics;
+unconstrained equality symbols are not interchangeable with arbitrary Boolean
+atoms. Function symbols require values and functional consistency, while
+predicate entries become indexed relation tables.
+
+Quantifier order creates an interaction
+---------------------------------------
+
+Over the domain {left,right}, define R(x,y) by y=x. Then FORALL x EXISTS y
+R(x,y) is true, while EXISTS y FORALL x R(x,y) is false. The witness can
+depend on x, and neither single constant works for both elements.
+
+The witness wing must therefore retain a dependency edge from x to the
+selected y. Replacing the first formula by the second discards that edge and
+changes the problem. A Skolem function records the allowed dependence in a
+satisfiability transformation; it is not permission to assume a uniform
+constant witness or to reuse a witness across incompatible contexts.
+
+Finite countermodels and finite scope
+-------------------------------------
+
+A complete bounded search establishes a result about the chosen domain size
+and declared interpretation. It does not automatically establish arbitrary
+first-order validity. For example, a strict transitive relation with every
+element having a greater successor has no nonempty finite model, but the
+natural-number order supplies an infinite model.
+
+FORALL x NOT R(x,x).
+FORALL x,y,z ((R(x,y) AND R(y,z)) -> R(x,z)).
+FORALL x EXISTS y R(x,y).
+
+Every tested finite bound can fail without the entire theory being
+inconsistent. Conversely, a single finite countermodel is enough to refute a
+universal validity claim when that model belongs to the declared class.
+
+Spatial construction
+--------------------
+
+A predicate table becomes a factor cube with argument ports. A quantified
+formula becomes an aggregation cube whose ports include its domain and witness
+dependencies. Grounding is a compilation operation with an explicit domain
+certificate. The logical orthogonalization can then operate on the resulting
+finite Boolean constraints, provided the source-to-grounded equivalence is
+recorded.
+
+For unbounded domains, a proof-oriented first-order adapter must replace
+exhaustive finite grounding. Completeness of a proof calculus and termination
+of a decision procedure are different claims, as the next page makes explicit
+[R10, R13].
+
+==============================================================================
+PAGE 27 / 39 | RICHER LOGICS
+HIGHER AND NONCLASSICAL LOGIC: THE ADAPTER BOUNDARY
+==============================================================================
+
+Expressibility is broader than automatic decision
+-------------------------------------------------
+
+A finite syntax tree can encode deeply nested modalities, higher-order
+quantifiers, types, and theorem statements. A spatial atlas can display such a
+tree and its dependencies. Neither fact supplies an algorithm that always
+decides its truth. Unrestricted first-order validity is undecidable; ordinary
+finite propositional truth is decidable by exhaustive evaluation [R10].
+
+This distinction is an established limitation of the task, not an unresolved
+conjecture being used as a reason to abandon it. The operational response is
+to admit complete decision procedures for suitable fragments, proof search for
+larger ones, checked finite countermodels, and explicit unknown results when
+none closes the case.
+
+Higher-order semantics must be named
+------------------------------------
+
+A higher-order formula can quantify over predicates or functions. In full
+semantics those variables range over the full appropriate function spaces.
+Henkin semantics uses specified collections closed under the relevant language
+operations. The completeness properties of these interpretations differ; a
+result for one cannot silently be reported as a result for the other [R11].
+
+An LCF-style proof assistant supplies a practical model for extension: complex
+tactics propose derivations, while a small logical kernel controls which
+theorem objects can be constructed. HOL Light is an established higher-order
+example. Its existence supports the architecture of an external proof-checking
+backend; it does not mean that the present finite script implements that
+system [R12].
+
+Classical partitions are not universal object-logic laws
+--------------------------------------------------------
+
+For intuitionistic reasoning, a proposition not established at a world need
+not have its negation established there. Consider a world with a possible
+extension that establishes P. At the earlier world P can be unestablished
+while NOT P is also unestablished. Replacing object-level P OR NOT P by a
+classical exhaustive case split changes that logic.
+
+A classical metalevel computer can still encode the finite semantic states of
+an intuitionistic model. It must preserve the intuitionistic evaluation rules
+rather than substitute Boolean complement for object-level negation. The same
+distinction applies to resource-sensitive systems: copying an assumption may
+be legal classically and illegal for a consumable resource. A deontic
+obligation also need not imply its factual fulfillment. Making every modality
+reflexive would wrongly import that implication into systems that do not
+validate it.
+
+The extensible contract
+-----------------------
+
+Each adapter declares syntax, domains, models, connectives, consequence
+relation, permitted structural rules, and certificate checking. A bridge
+between two adapters carries its own semantic preservation theorem. Combining
+a temporal operator with an epistemic or paraconsistent operator requires a
+joint interpretation; taking rules independently from familiar systems is
+insufficient.
+
+The workbench can therefore host other complicated logical forms without
+claiming one untyped universal solver. Its generality lies in exact interfaces
+and visible proof obligations. The Boolean orthogonal core remains applicable
+where its complement and distributive laws are actually valid, or as a
+faithful metalevel encoding justified by an adapter.
+
+==============================================================================
+PAGE 28 / 39 | RICHER LOGICS
+CONFLICTING INFORMATION WITHOUT CLASSICAL EXPLOSION
+==============================================================================
+
+Support is different from truth in a complete world
+---------------------------------------------------
+
+The classical verdict UNDETERMINED means that valid models survive on both
+sides of a query. INCONSISTENT means that no classical model survives the
+admitted hard premises. Neither should be confused with an evidence ledger
+that contains both a report of P and a report of NOT P.
+
+A four-valued evidence adapter can represent independent support and
+opposition. Use the pair (t,f), where t records support for a proposition and
+f records support for its negation. The four states are neither,
+supported-only, opposed-only, and both. This is a standard Belnap-style
+information interpretation [R9].
+
+NOT(t,f) = (f,t).
+(t,f) AND (u,g) = (t AND u, f OR g).
+(t,f) OR  (u,g) = (t OR u, f AND g).
+
+The AND and OR inside the coordinates are ordinary Boolean operations on
+support bits. The outside operations are the explicitly defined object-level
+evidence connectives.
+
+A checked nonexplosion example
+------------------------------
+
+Let P have support both and Q have support neither. Then P AND NOT P has
+positive support, while Q does not. Under consequence defined by preservation
+of positive support, the contradiction does not entail every unrelated
+proposition. The finite verifier checks this witness, double negation, and the
+displayed De Morgan laws.
+
+These operations do not validate every classical inference rule. In
+particular, defining an implication as NOT P OR Q does not automatically make
+classical modus ponens sound in this evidence semantics. An implication
+connective and its inference rules require their own declaration. The array
+must not import them from the Boolean core merely because their notation looks
+familiar.
+
+Orthogonality at the correct level
+----------------------------------
+
+A classical metalevel partition of complete support assignments remains
+possible: the states supported-only, opposed-only, both, and neither are
+mutually exclusive metadata cases. But object-level P and NOT P are not
+disjoint in the both case. The theorem P AND NOT P = FALSE cannot be reused as
+a statement of that object logic.
+
+The z chart therefore changes its legend. It may display positive-support and
+negative-support channels with an explicit overlap region, or use separate
+cubes for the four metadata states. A two-sided classical truth partition is
+retained only in a declared classical view.
+
+Context and source discipline
+-----------------------------
+
+A source asserting P and another asserting NOT P occupy different provenance
+records. P@w and NOT P@v may even be compatible classical facts at different
+worlds. Only after source acceptance and scope alignment do they become
+contradictory hard premises about one context. The witness and provenance
+wings record those transformations.
+
+This adapter provides a principled way to study inconsistent material while
+retaining the original conflicting evidence. It does not certify either report
+as reality, and it does not reinterpret an inconsistency in classical set
+theory as permission to assert CH and NOT CH in one classical world.
+
+==============================================================================
+PAGE 29 / 39 | RICHER LOGICS
+MEASURE, PROBABILITY, AND INDEPENDENCE ARE EXTRA STRUCTURE
+==============================================================================
+
+Counting follows a declared finite model
+----------------------------------------
+
+If Omega is finite and every world is assigned equal probability, the measure
+of a region A is |A|/|Omega|. Conditioning on nonempty evidence E gives |A
+intersect E|/|E|. These are exact calculations under the uniform model, not a
+consequence of placing equally sized cubes around the center.
+
+A different prior assigns masses m_w to worlds. The measure is then the sum of
+those masses. Source dependence, likelihoods, and sampling assumptions belong
+in a probabilistic adapter; they cannot be inferred from logical disjointness
+or from how often a premise appears in a proof record.
+
+Orthogonality is not statistical independence
+---------------------------------------------
+
+Disjoint nonempty events A and B satisfy Pr(A intersect B)=0. If both have
+positive probability, Pr(A)Pr(B)>0, so they are not independent. Logical atoms
+can be perfectly orthogonal while being maximally exclusive as alternatives.
+
+Zero probability is also not always logical impossibility. In an infinite
+probability space an individual point may have zero measure while remaining a
+legitimate state. A truth checker must use emptiness or a logical certificate
+for exclusion, not a small weight or a measure-zero label.
+
+Refinement does not determine child weights
+-------------------------------------------
+
+Suppose two old atoms each have mass one half, and the first splits into two
+children. Assigning equal mass to all three new atoms gives the old first
+parent total mass two thirds, changing the old probability model. A compatible
+assignment could instead give the children one quarter each and leave the
+second parent at one half.
+
+Required consistency:
+  mass(parent) = SUM_{children of parent} mass(child).
+
+The companion verifier checks this finite counterexample and a compatible
+refinement. Equal-looking cubes are therefore not a probability specification.
+A fixed counting measure at each stage need not be consistent under projection
+between stages.
+
+Logical continuation versus probabilistic continuation
+------------------------------------------------------
+
+Parent maps preserve logical possibility when every old case has an extension.
+Probability preservation additionally requires the mass equation above.
+Probabilistic state aggregation likewise needs matching total transition
+probabilities into every block; modal reachability preservation alone is
+insufficient.
+
+A weighted vector realization on page 16 can connect disjoint regions with
+orthogonal indicators. It still depends on positive weights and an explicit
+universe. A geometrical metric on display coordinates is independent of that
+algebraic inner product. Neither supplies an empirical probability that CH
+holds.
+
+These distinctions make the array useful for uncertainty analysis without
+turning logical cells into unsupported numerical confidence. A probabilistic
+result should retain its prior, observation model, source IDs, and
+normalization scope alongside the logical support on which it is computed.
+
+==============================================================================
+PAGE 30 / 39 | CONTINUATION
+GROWING THE LANGUAGE, THEORY, OR WORLD FAMILY
+==============================================================================
+
+Three changes that look similar on screen
+-----------------------------------------
+
+Adding a new proposition symbol expands the language. Adding a hard constraint
+narrows the allowed interpretations. Adding a new world to the comparison
+family can enlarge the semantic universe. All can add cubes, but their effects
+on truth and the shared center differ.
+
+For nested finite signatures P_n and theories Gamma_n, define C_n as the
+satisfying assignments on P_n. When Gamma_(n+1) includes the old theory,
+restriction to old variables is a well-defined map
+
+rho_n : C_(n+1) -> C_n.
+
+Its image may be a proper subset of C_n. A new constraint can legitimately
+eliminate an old possibility. Purely representational refinement instead
+requires the stronger property that every old assignment has an extension.
+
+A finite extension criterion
+----------------------------
+
+Let x denote old variables and y new variables. The exact surjectivity
+condition is
+
+FORALL x [Gamma_n(x) -> EXISTS y Gamma_(n+1)(x,y)].
+
+On finite Boolean domains this is a quantified Boolean obligation. If it
+holds, no old possibility disappears. It also implies that no genuinely new
+consequence expressed solely in the old language is introduced: an old
+counterexample extends to a new counterexample. Conversely, if some old
+valuation fails to extend, the negation of its complete signature becomes a
+new old-language consequence.
+
+This proves the equivalence between surjective extension and conservativity
+over the old finite propositional language. The result concerns the precise
+encoding, not arbitrary new set-theoretic sentences.
+
+A uniform continuation rule
+---------------------------
+
+The predecessor's sandbox appends a fresh Q with Q -> H. Assigning Q false
+extends every old solution. The same rule works at every finite stage. The
+finite verifier checks seven stages, while the explicit extension function
+proves the uniform invariant [P1, section 8].
+
+If a new rule instead asserts H in a family previously containing a negative-H
+case, that old case has no extension. The change is still a sound theory
+strengthening, but it is not a conservative enlargement. A stored parent
+record should show that its descendants were excluded by a new premise rather
+than merely hidden by layout.
+
+Transporting certificates
+-------------------------
+
+A certificate is reusable only through a map preserving its assumptions and
+semantics. A proposition-only parent map need not preserve modal operators;
+the accessibility conditions of page 21 must also hold. A changed probability
+distribution requires the separate mass consistency of page 29. Changing a
+word's interpretation is not a variable extension at all.
+
+The source system and its revised version therefore need separate immutable
+IDs, an explicit translation, and a record of which preservation property has
+actually been established. This is the structural meaning of continuous growth
+in the tool.
+
+==============================================================================
+PAGE 31 / 39 | CONTINUATION
+COHERENT FINITE STAGES AND GENUINE CONTINUITY
+==============================================================================
+
+A path is more than a collection of local solutions
+---------------------------------------------------
+
+A sequence v_n of finite-stage assignments represents one continued
+interpretation only if adjacent assignments agree on the old symbols:
+
+v_n belongs to C_n.
+rho_n(v_(n+1)) = v_n for every n.
+
+The collection of such compatible families is the inverse limit of the finite
+model sets. Independently choosing a satisfying assignment at each stage need
+not produce a compatible family; the choices may disagree on an earlier
+proposition.
+
+Finite-to-infinite existence under explicit hypotheses
+------------------------------------------------------
+
+Assume finitely many new Boolean symbols at each stage, nested finite
+theories, and nonempty satisfying sets at every stage. Compatible partial
+assignments form a finitely branching tree with arbitrarily high levels. At a
+node with arbitrarily deep descendants, at least one of its finitely many
+children also has arbitrarily deep descendants; otherwise all descendants
+would have a common finite height bound. Repeating this selection yields an
+infinite coherent branch.
+
+Every finitary constraint occurs at some finite stage, so the resulting
+interpretation satisfies it. This gives the relevant countable propositional
+compactness argument. General logical compactness and its connections with
+completeness are established in the classical literature [R13].
+
+The argument takes place in the stated classical metatheory. It does not give
+a finite stopping rule for recognizing which child has arbitrarily deep
+descendants. If a computable extension function is supplied for every stage,
+it does give an effective stream construction. Mere existence of deep
+continuations need not supply that function.
+
+Continuity of finite observations
+---------------------------------
+
+Give the space of complete Boolean interpretations the topology in which a
+basic neighborhood fixes finitely many proposition values. Restricting an
+interpretation to an earlier signature preserves such finite observations. An
+inverse-limit point is precisely a compatible sequence of these finite
+restrictions.
+
+This is topological continuity of information projections, not Euclidean
+smoothness in the cube display. A finite observation can be stable while
+global facts about an infinite structure differ. The CH condition-tree example
+on page 22 demonstrates why shared finite prefixes do not settle the
+cardinality of the collection of infinite branches.
+
+Ordinal and infinite-language extensions
+----------------------------------------
+
+A set-sized ordinal can index propositions or a directed family of finite
+sublanguages. The corresponding compatibility maps must still be supplied. An
+ordinal index is not an instruction for a computer to execute infinitely many
+stages or to finish a transfinite traversal. Infinite conjunctions, full
+second-order semantics, and arbitrary infinite models require separate
+theorems; finitary propositional compactness does not cover them
+automatically.
+
+Thus the exact continuation claim is conditional and useful: certified finite
+projections fit into a coherent global interpretation under stated existence
+hypotheses. A finite prefix of successful tests alone is not a certificate of
+all future stages.
+
+==============================================================================
+PAGE 32 / 39 | CONTINUATION
+BOOLEAN IDEALS AND THE MEANING OF A FINITE BASIS
+==============================================================================
+
+The algebra at one finite stage
+-------------------------------
+
+Let B_n be the Boolean algebra of formulas over the finite signature P_n,
+modulo ordinary tautological equivalence. The hard theory Gamma_n determines
+the ideal of forbidden regions:
+
+I_n = {[phi] in B_n : Gamma_n entails NOT phi}.
+
+If a region is forbidden, every smaller region is forbidden. The union of two
+forbidden regions is forbidden. These facts prove closure under downward
+inclusion and finite joins, which are the ideal conditions.
+
+For finite Gamma_n, put F_n = AND Gamma_n. Then the ideal is principal:
+
+I_n = {b in B_n : b <= NOT F_n}.
+
+The proof is Boolean implication: Gamma_n excludes phi exactly when phi
+implies NOT F_n. The quotient B_n/I_n identifies formulas that agree on all
+satisfying assignments of Gamma_n. Its atoms are the surviving complete cases
+from O1.
+
+What is and is not a basis
+--------------------------
+
+The surviving cases generate the quotient algebra by unions. They are not
+generators of the forbidden-region ideal. The distinction is substantive: the
+ideal records exclusions, while the atoms record allowed alternatives. A
+layout referring to both as one unspecified finite basis obscures which side
+is being represented.
+
+When languages and constraints grow, the old formula algebra maps into the new
+one. The induced quotient map is injective exactly when no old distinction is
+lost by excluding old cases. Dually, that is the surjectivity of the model
+restriction map on page 30. A merely well-defined quotient map can still
+collapse an old nonempty region to empty.
+
+Limits can lose atomicity
+-------------------------
+
+With infinitely many unconstrained proposition symbols, every nonempty finite
+description can be split by a fresh symbol Q. Both a AND Q and a AND NOT Q
+remain nonempty. Consequently the finitary Boolean algebra has no minimal
+nonempty elements, despite every finite generated subalgebra having atoms.
+
+Similarly, an increasing union of finitely generated exclusion ideals need not
+be finitely generated. For example, successively asserting fresh P_i excludes
+NOT P_i at every stage. Any finitely many generator formulas mention only
+finitely many symbols and cannot express all fresh exclusions. The union ideal
+records the entire theory, not one automatically discovered final finite
+constraint.
+
+Representation theorem scope
+----------------------------
+
+Stone representation gives the established correspondence between Boolean
+algebras and suitable spaces. The ordinary general representation uses a
+choice principle equivalent to the Boolean prime ideal theorem; choice-free
+representations use a different construction [R14]. No such infinite theorem
+is required to enumerate one finite truth table.
+
+The justified target is therefore a coherent family of finite orthogonal
+partitions and exact quotient maps. A final finite orthogonal basis for every
+infinite logical system is not supplied by this construction and is not
+required for its finite-stage computational usefulness.
+
+==============================================================================
+PAGE 33 / 39 | CONTINUATION
+TRUTH ABOUT A MODEL AND TRUTH ABOUT REALITY
+==============================================================================
+
+A conditional theorem is not an observation
+-------------------------------------------
+
+The array proves consequences of interpreted premises. To connect a
+proposition to reality, its observation and interpretation contract must
+specify what is measured, when it is measured, which object it concerns, and
+which errors remain possible. A syntactically complete theory can still model
+the wrong system.
+
+For the interlock example, the theorem E -> D follows from the declared
+logical rules. Establishing that an actual device obeys those rules requires a
+separate interface argument, testing protocol, or physical specification.
+Placing E and D in adjacent cubes cannot supply that evidence.
+
+The observational indistinguishability theorem
+----------------------------------------------
+
+Let O be the allowed observation map. Suppose two admissible states w and v
+give the same observation but disagree on Q. Any deterministic decoder
+receiving only O has the same input in both cases and therefore returns the
+same output. It cannot correctly classify Q in both states.
+
+O(w) = O(v),  w satisfies Q,  v satisfies NOT Q
+  -> Q is not identifiable from O alone.
+
+The proof is substitution into a function. A reversible change of observation
+coordinates preserves equality and cannot repair the ambiguity. Additional
+constraints can resolve it only if they are independently justified rather
+than selected because they give a preferred conclusion.
+
+Three diagnosis outcomes
+------------------------
+
+A countermodel may expose an invalid argument under true premises. A
+contradiction may expose jointly incompatible assumptions or observations. An
+ambiguity pair may expose missing information. These have different remedies:
+revise the inference, investigate the inconsistent inputs, or acquire a
+discriminating observation. Rearranging the atoms is useful for showing the
+difference, but it is not a replacement for any of those actions.
+
+No statistical band becomes a hard impossibility boundary by drawing it as a
+cube face. An uncertain assertion needs an explicit probabilistic or
+evidential status. The hard logical solver can then reason conditionally on
+that assertion, while the provenance wing records that its admission remains
+uncertain.
+
+CH in this boundary framework
+-----------------------------
+
+The CH example is mathematical rather than an empirical claim about a sensor.
+Its worlds are models of set theory, and its atomic labels stand for
+interpreted mathematical sentences. A finite Boolean profile consistent with
+AC AND (C -> H) is not by itself a construction of a transitive ZFC model. The
+imported forcing theorems justify the selected example's interpretation
+[R6-R7].
+
+The practical truth-extraction rule is therefore explicit: identify the model
+family and evidence, prove the encoding faithful, check the opposite branch,
+and retain the scope of the conclusion. The center contains what is common
+under that interpretation. The workbench does not gain access to a
+context-free reality merely by adding a positive and negative spatial axis.
+
+==============================================================================
+PAGE 34 / 39 | IMPLEMENTATION
+EXECUTABLE ARCHITECTURE AND BACKEND INTERFACES
+==============================================================================
+
+A layered implementation
+------------------------
+
+The implementation blueprint separates the spatial interface from the logical
+engine. This prevents a visual edit from silently changing a premise and
+permits a nonvisual checker to validate the same exported problem.
+
+Component           | Responsibility                                               
+--------------------+--------------------------------------------------------------
+Registry            | Stable predicate, context, argument, source, and revision IDs
+Parser/type checker | Syntax trees, scope, binders, sorts, admitted operators      
+Theory store        | Hard constraints with full interaction scopes                
+Semantic adapter    | Interpretation, compilation, query and certificate contract  
+Region engine       | Exact case sets or their symbolic representations            
+Relation engine     | World transitions and any certified quotient maps            
+Proof ledger        | Witnesses, contradiction records, dependencies, checks       
+Atlas renderer      | Cubes, faces, ports, signed views, diagnostic pyramid        
+
+The adapter contract
+--------------------
+
+An adapter exposes well-formedness checking, semantic translation, candidate
+verification, proof verification where available, and a precise result
+vocabulary. It declares whether it is a complete decision procedure, a bounded
+procedure, a semidecision procedure, or only a certificate checker.
+Unsupported formulas are rejected rather than approximately reinterpreted.
+
+Compile : source instance -> target instance + projection contract.
+Check   : target claim + certificate -> verified / rejected.
+Decode  : target witness -> source witness, under the contract.
+Result  : witnessed / entailed / inconsistent / residual / unknown.
+
+For a finite model-checking adapter, Compile preserves the supplied frame and
+valuation. For a finite-domain quantified adapter, it records the domain
+closure. For a proof-assistant adapter, it records the kernel theory and any
+admitted axioms. Evidence updates and model updates are separate transactions.
+
+Transport and invalidation
+--------------------------
+
+A source revision change invalidates all dependent claims unless a checked
+transport certificate preserves them. Coordinate-only movement changes no
+semantic dependency. A new relation edge can invalidate a box formula even
+when atomic values remain unchanged. An expanded domain can invalidate a
+bounded universal statement. Those events have different invalidation paths
+and should not be handled by one generic redraw.
+
+Security of the logical interface
+---------------------------------
+
+Imported formulas are parsed as data, never evaluated as arbitrary
+host-language programs. The grammar has explicit limits and versioning. An
+export records the original premises, compiled representation, decoder, result
+certificate, and enough identities to detect aliasing or stale evidence. A
+proof checker should not trust a UI badge or an unverified solver exit code.
+
+The companion code implements finite reference mechanisms and replays the
+predecessor kernel. This architecture is the specification for a more general
+workbench; it is not a claim that all listed adapters have been built.
+Established higher-order proof assistants illustrate the small-kernel
+approach, including independently verified implementations, without
+transferring their certification to this project [R12, R15].
+
+==============================================================================
+PAGE 35 / 39 | IMPLEMENTATION
+COMPLEXITY, MEMORY, AND USEFUL OPTIMIZATION
+==============================================================================
+
+Where the work actually resides
+-------------------------------
+
+With m independent Boolean generators there can be 2^m nonempty complete
+signatures. A full truth table is therefore exponential in m. Atomization
+organizes those cases exactly; it does not remove the underlying search in
+every problem. Sparse relations and repeated substructure can make particular
+instances much smaller.
+
+A Boolean decision diagram can exploit identical residual functions, but its
+worst-case size is still exponential and its variable order matters [R2].
+Satisfiability, model counting, proof search, and visual layout have different
+cost measures. A smaller drawing is not evidence of a smaller semantic
+computation.
+
+Fixed-model modal and temporal work
+-----------------------------------
+
+For a fixed finite explicit frame, bottom-up modal evaluation inspects atomic
+labels and accessibility edges for each subformula. The basic computation
+scales with formula size times the represented graph size, before any
+additional abstraction costs. Finite temporal algorithms similarly exploit
+state-set operations and fixed points; the classical model-checking literature
+gives the relevant established complexity results [R3].
+
+Searching over unknown frames is a different task. A finite model-checking
+time bound must not be advertised as a bound for arbitrary modal validity,
+unbounded quantified satisfiability, or CH truth.
+
+Optimizations with exact interfaces
+-----------------------------------
+
+A work queue avoids rechecking unrelated constraints. Shared subformula IDs
+reuse truth regions. Bitsets can accelerate finite intersections without
+changing their semantics. BDD reordering may reduce memory when accompanied by
+equivalence checks. Modal partition refinement can reduce duplicate future
+behavior when its preservation contract holds. Every optimization must retain
+the original acceptance predicate and reconstruction map.
+
+A split can increase the number of stored blocks while decreasing the allowed
+model set. Candidate count and representation size are different. A factor
+graph can remain small while its implicit joint model set is enormous. The
+interface should report both representation scope and logical coverage rather
+than treating either as a runtime estimate.
+
+Practical 3D costs
+------------------
+
+The renderer adds its own expenses: picking an occluded cube, routing edges,
+labeling contexts, and keeping a stable camera. These costs buy
+inspectability, not an asymptotic inference theorem. A synchronized planar
+table and searchable proof ledger remain necessary because some dependencies
+will be clearer without perspective.
+
+For large instances, display only selected blocks while retaining a visible
+statement of what is hidden. Semantic coverage refers to the full backing
+model, not to the current viewport. A query that was checked only on selected
+visible examples must say so.
+
+The strongest practical advantage over a manual puzzle sheet is reusable exact
+state: recorded implications, shared residual computations, explicit
+counterexamples, and reliable updates. It is not an assertion that every
+difficult high-level logical form becomes easy once it has three display
+coordinates.
+
+==============================================================================
+PAGE 36 / 39 | VERIFICATION
+REPRODUCIBLE FINITE VERIFICATION
+==============================================================================
+
+Newly executed checks
+---------------------
+
+The companion standard-library Python script ran to completion and recorded
+133,490 assertions. It uses exhaustive finite families rather than claiming
+certainty from an unexplained quantity of tests. Its results and source hash
+are included in verification_results.json.
+
+Group                   | Assertions | Main scope                                                            
+------------------------+------------+-----------------------------------------------------------------------
+Boolean partitions      | 10,752     | Every subset of three-variable valuations; every variable order       
+Overlapping event atoms | 20,480     | Every triple of events on a four-point universe                       
+Modal semantics         | 49,152     | All three-state directed frames, one-atom valuations, twelve formulas 
+Modal quotient          | 49,152     | Stable partitions compared with the unreduced frames                  
+Temporal fixed points   | 2,744      | All total three-state frames and target regions                       
+Other exact controls    | 1,210      | CH, refinement, interaction, witnesses, evidence, measure, projections
+
+The modal suite includes every one of the 512 directed frames on three labeled
+states, all eight valuations of its tracked proposition, and frames with dead
+ends. The temporal suite includes all 343 total three-state frames and all
+eight target sets. AF iteration is compared with a separate avoiding-cycle
+criterion.
+
+Adversarial examples
+--------------------
+
+The checks include an exclusive-or relation whose pair projections lose the
+joint constraint, an unsatisfiable Boolean disequality triangle with local
+support, states with identical present labels but different modal futures, a
+quantified dependency that forbids a constant witness, and a four-valued
+nonexplosion example. They also verify that uniform reassignment after a split
+can change old probability masses.
+
+Predecessor replay
+------------------
+
+The inspected JavaScript kernel's independent Python reference suite was
+rerun. It passed 34,590 reference assertions over 255 formulas and 128
+evidence combinations. The invoked embedded kernel checks reported 625
+assertions; the retained earlier signed-layer reference reported 271. These
+are separately identified workloads, not independent proofs of the same
+theorem [P2-P3].
+
+The new monograph did not rerun the old browser UI suite or construct a new
+general interactive 3D solver. Historical screenshots remain predecessor
+artifacts. Current visual inspection concerns the newly generated PDF and its
+figures, not an unbuilt backend.
+
+Reproduction and scope
+----------------------
+
+Run the supplied verify_logic_array.py script to regenerate the new results.
+The predecessor replay additionally requires Node.js. The package records
+original file hashes, the generated source, reference identifiers, and exact
+verification outputs. Finite checks corroborate the implemented equations; the
+stated proofs carry the general finite-stage claims.
+
+No proof assistant checked the whole new construction. No script constructs a
+transitive model of ZFC, decides CH, proves AC, or verifies the imported
+infinite theorems. These boundaries keep the executed evidence useful rather
+than assigning it a stronger meaning than it has.
+
+==============================================================================
+PAGE 37 / 39 | VERIFICATION
+THE THEOREM DIRECTORY AND FINAL CONSTRUCTION CONTRACT
+==============================================================================
+
+The proof dependencies
+----------------------
+
+Result                                  | Location | Required hypotheses                                       
+----------------------------------------+----------+-----------------------------------------------------------
+Exact verdict classification            | 12       | Classical query; complete checked survivor tests          
+O1: atomic partition and reconstruction | 13       | Nonempty universe; finitely many interpreted generators   
+O2: split preservation                  | 14       | Both branches retained unless proved empty                
+Order invariance                        | 15       | Same generators and semantic scope                        
+O3: physical dimension bound            | 16       | Nonzero Euclidean orthogonal vectors                      
+Certified narrowing                     | 18       | Each retained condition contains every solution           
+M1: modal quotient preservation         | 21       | Atomic agreement and stable successor-block sets          
+Temporal fixed points                   | 24       | Declared finite total transition semantics                
+Conservative finite extension           | 30       | Surjective restriction of satisfying assignments          
+Coherent continuation                   | 31       | Nested finitary theories and all finite stages satisfiable
+Quotient ideal representation           | 32       | Classical Boolean algebra and declared hard theory        
+Observation nonidentifiability          | 33       | Equal observations for cases disagreeing on the query     
+
+Compositional correctness
+-------------------------
+
+Suppose a source instance is translated to a target representation with exact
+forward coverage and backward correctness. Suppose every semantic refinement
+preserves all source solutions, every display rewrite preserves IDs, and every
+final target certificate is checked. Then a decoded witness satisfies the
+original source instance, and a fully covered verified contradiction excludes
+all its solutions.
+
+Proof. Forward coverage carries every source solution into a target candidate.
+Sound refinements never remove such candidates. Backward correctness maps
+every accepted target witness to a source solution. Thus a checked witness is
+sound, while exhaustive certified emptiness contradicts the existence of any
+source solution. Display permutations contribute no additional premise and
+cannot affect this argument.
+
+For modal compression, add the preservation theorem for all required
+relations. For probability, add compatible weights. For a nonclassical
+language, replace the Boolean laws only through a proved faithful adapter.
+These are additional contracts, not consequences of the general composition
+statement.
+
+The final form
+--------------
+
+The core is a finite certified theory interface. The surrounding blocks retain
+every relevant case, including unresolved alternatives and local witnesses.
+Hyperedges retain higher-arity interactions. Orthogonalization splits
+overlapping regions into disjoint cases and keeps reconstruction. The northern
+pyramid reports the outcome of checked searches and proofs with its scope.
+Parent maps connect successive finite stages.
+
+This is the requested reusable logic-array construction: three-dimensional in
+presentation, algebraically orthogonal where its semantics permit, and
+extensible through typed verification interfaces. It can organize arbitrary
+finite descriptions of sophisticated logic. Its ability to decide a particular
+description remains governed by the chosen language, model class, and backend
+guarantee.
+
+==============================================================================
+PAGE 38 / 39 | REFERENCES
+PRIMARY REFERENCES: MATHEMATICAL SEMANTICS
+==============================================================================
+
+References consulted for external theorem inputs
+------------------------------------------------
+
+[R5] Laura Bozzelli, Hans van Ditmarsch, Tim French, James Hales, Sophie
+Pinchinat. Refinement Modal Logic. arXiv:1202.3538. Author abstract and stated
+atoms/back/forth relationship consulted. Used for the distinction between
+bisimulation, simulation, and refinement; the finite stable-partition proof in
+this report is given independently. https://arxiv.org/abs/1202.3538
+
+[R6] Joel David Hamkins, George Leibman, Benedikt Loewe. Structural
+connections between a forcing class and its modal logic. arXiv:1207.5841.
+Cohen iteration structure and modal-forcing sections consulted. The bounded CH
+example retains the predecessor's explicit operation family rather than
+importing the unrestricted Cohen modal logic without qualification.
+https://arxiv.org/abs/1207.5841
+
+[R7] Jesse Michael Han and Floris van Doorn. A Formal Proof of the
+Independence of the Continuum Hypothesis. arXiv:2102.02901. Boolean-valued
+models, forcing interpretation, preservation, and relative independence. The
+paper's formal verification is external and is not a certification of the
+present workbench. https://arxiv.org/abs/2102.02901
+
+[R8] Arnold W. Miller. The maximum principle in forcing and the axiom of
+choice. arXiv:1105.5324. Maximum-principle definition and the equivalence with
+AC. This concerns the full principle, not a claim that every finite witness
+selection requires AC. https://arxiv.org/abs/1105.5324
+
+[R9] Nuel D. Belnap, Jr. A Useful Four-Valued Logic. In Modern Uses of
+Multiple-Valued Logic, 1977, pp. 5-37. Publisher record and chapter
+interpretation. The report explicitly defines its finite support-pair adapter
+and verifies those equations rather than treating all paraconsistent systems
+as identical. https://doi.org/10.1007/978-94-010-1161-7_2
+
+[R10] Alonzo Church. A note on the Entscheidungsproblem. Journal of Symbolic
+Logic 1(1), 1936, pp. 40-41. Original publisher extract; classical
+undecidability boundary. Not a statement that every restricted first-order
+theory is undecidable. https://doi.org/10.2307/2269326
+
+[R11] Leon Henkin. Completeness in the theory of types. Journal of Symbolic
+Logic 15(2), 1950, pp. 81-91. Original publisher extract. Used to distinguish
+full higher-order interpretations from general-model/Henkin semantics and
+their completeness claims. https://doi.org/10.2307/2266967
+
+[R13] Leon Henkin. The completeness of the first-order functional calculus.
+Journal of Symbolic Logic 14(3), 1949, pp. 159-166. Original publisher
+extract; completeness context. The countable finite-branching continuation
+proof required here appears explicitly on page 31.
+https://doi.org/10.2307/2267044
+
+[R14] Nick Bezhanishvili and Wesley H. Holliday. Choice-Free Stone Duality.
+Journal of Symbolic Logic. Publisher abstract and representation scope.
+Distinguishes ordinary Stone representation's Boolean prime ideal requirement
+from a different choice-free representation. https://arxiv.org/abs/2112.06859
+
+==============================================================================
+PAGE 39 / 39 | REFERENCES
+PRIMARY REFERENCES, LINEAGE, AND PACKAGE GUIDE
+==============================================================================
+
+Computational references
+------------------------
+
+[R1] Alan K. Mackworth. Consistency in Networks of Relations. Artificial
+Intelligence 8(1), 1977, pp. 99-118. Author-hosted full paper; local
+consistency versus global case analysis.
+https://www.cs.ubc.ca/~mack/Publications/AI77.pdf
+
+[R2] Randal E. Bryant. Graph-Based Algorithms for Boolean Function
+Manipulation. IEEE Transactions on Computers C-35(8), 1986, pp. 677-691.
+Author-hosted annotated paper; ordered reduced decision diagrams and
+representation-size limits. https://www.cs.cmu.edu/~bryant/pubdir/ieeetc86.pdf
+
+[R3] Edmund M. Clarke, E. Allen Emerson, A. Prasad Sistla. Automatic
+Verification of Finite State Concurrent Systems Using Temporal Logic
+Specifications: A Practical Approach. POPL 1983, pp. 117-126. Publisher
+abstract; finite branching-time verification and its stated complexity.
+https://doi.org/10.1145/567067.567080
+
+[R4] Clark Barrett, Pascal Fontaine, Cesare Tinelli. The SMT-LIB Standard:
+Version 2.7. Revision dated 7 July 2025. Official specification; typed
+signatures, scripts, and sat/unsat/unknown responses. This revision is
+explicitly pinned, not described as the latest standard.
+https://smt-lib.org/papers/smt-lib-reference-v2.7-r2025-07-07.pdf
+
+[R12] John Harrison. HOL Light: An Overview. TPHOLs 2009, LNCS 5674, pp.
+60-66. Author overview; LCF-style proof checking and a small higher-order
+kernel. https://www.cl.cam.ac.uk/~jrh13/papers/hollight.html
+
+[R15] Oskar Abrahamsson, Magnus O. Myreen, Ramana Kumar, Thomas Sewell.
+Candle: A Verified Implementation of HOL Light. ITP 2022. Author repository
+abstract; verified implementation as an external example of a stronger
+assurance boundary. https://doi.org/10.4230/LIPIcs.ITP.2022.3
+
+Inspected project lineage
+-------------------------
+
+[P1] CH_Choice_Cubical_Logic_Report.txt, prepared 12 October 2026. All
+sections inspected. Spatial roles, shared-core rule, CH/choice specialization,
+witness distinction, modal evaluation, and finite refinement are inherited.
+[P2] CH_Choice_Cubical_Logic_Verification.zip and
+CH_Choice_Cubical_Logic_Checker.html. Kernel and reference tests inspected and
+rerun. [P3] The earlier CH_Layered_Logic_Checker.html and its verification
+archive; the staircase image 2799.png is the visual precedent. [P4]
+Math_Work_Exact_Operational_Formalization_ASCII.txt, especially the typed
+transformation and solution-preservation kernel. These are project sources,
+not independent external validation.
+
+Reproducibility contents
+------------------------
+
+The package contains this PDF, its ASCII counterpart, the source manuscript
+and renderer, verify_logic_array.py, verification_results.json, predecessor
+replay results, a file manifest, and the unchanged immediate predecessor
+archive. Run the verifier with ordinary Python. Rebuilding the PDF
+additionally requires ReportLab and the documented installed font paths; font
+binaries are not included.
+
+The PDF and text carry the same substantive prose, tables, formulas, and
+figure descriptions. The vector diagrams are display illustrations of the
+stated coordinate and refinement rules. No font files, third-party paper
+copies, or claim of a new general 3D solver are included. The resulting
+monograph is an extensible specification with independently executable finite
+checks.
+
