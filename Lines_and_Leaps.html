@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#182923"><meta name="description" content="An offline chess geometry trainer. Play rooks, bishops and knights against an explainable bot, with fixed pawn terrain.">
+<title>Lines &amp; Leaps · Chess geometry lab</title>
+<style>
+:root{--ink:#20372e;--muted:#6d7b73;--paper:#f7f6ef;--panel:#fffef9;--line:#dadfd3;--forest:#193c2e;--gold:#ccac60;--green:#286d50;--red:#b4413e;--amber:#8c641d;--radius:20px;--shadow:0 12px 40px #1a372412}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:14px}button,select{font:inherit}button{cursor:pointer}button:disabled{cursor:default;opacity:.45}button,select{touch-action:manipulation}button:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid #be9337;outline-offset:3px}button{border:1px solid var(--line);background:transparent;color:inherit;border-radius:9px;padding:10px 14px;font-weight:600;transition:background .15s,transform .15s}button:hover:not(:disabled){background:#e8ece1}button.primary{background:var(--forest);border-color:var(--forest);color:#fffef4}button.primary:hover:not(:disabled){background:#28553e}button.subtle{border-color:transparent;color:var(--muted)}.wrap{max-width:1260px;padding:0 32px;margin:auto}.topbar{border-bottom:1px solid var(--line);background:#fffef9b0}.topinner{height:87px;display:flex;align-items:center;justify-content:space-between;gap:16px}.brand{display:flex;align-items:center;gap:13px}.brand-mark{width:44px;height:44px;border:1px solid #bbc5b6;border-radius:12px;background:var(--forest);display:grid;place-items:center;color:#e9dbb8}.brand-mark svg{width:31px;height:31px}.brand-name{font-family:Georgia,"Times New Roman",serif;font-weight:normal;font-size:26px;letter-spacing:-.8px;margin:0}.eyebrow{font-size:10px;letter-spacing:2.2px;font-weight:700;text-transform:uppercase}.brand-sub{font-size:10px;letter-spacing:2px;color:var(--muted);margin-top:5px}.header-right{display:flex;align-items:center;gap:20px}.offline{display:flex;align-items:center;gap:7px;font-size:11px;letter-spacing:1px;color:var(--muted)}.offline:before{content:"";width:6px;height:6px;background:#5d8b59;border-radius:50%}.intro{display:flex;align-items:end;justify-content:space-between;gap:24px;padding:30px 0 23px}.intro h2{font:normal 31px/1.15 Georgia,"Times New Roman",serif;letter-spacing:-.7px;margin:0 0 7px}.intro p{color:var(--muted);margin:0;font-size:13px}.setup{display:flex;gap:10px}.field{display:flex;flex-direction:column;gap:5px}.field label{font-size:9px;letter-spacing:1.5px;font-weight:700;color:var(--muted);text-transform:uppercase}select{background:var(--panel);border:1px solid var(--line);padding:10px 32px 10px 11px;border-radius:8px;color:var(--ink);font-size:12px;height:38px;max-width:210px}.layout{display:grid;grid-template-columns:minmax(0,1fr) 350px;gap:22px;align-items:start}.board-card{background:var(--panel);padding:19px 21px 14px;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}.player-line{display:flex;justify-content:space-between;align-items:center;min-height:35px;gap:10px}.player{display:flex;align-items:center;gap:10px}.player-avatar{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:#e3e8dc;color:#3b5645;font-size:13px}.player-avatar.bot{background:#233f33;color:#fff7df}.player-text{font-size:12px;font-weight:700}.player-sub{font-size:10px;font-weight:400;color:var(--muted);margin-top:3px}.material{font-size:11px;color:var(--muted);display:flex;gap:6px;align-items:center}.tiny-piece{width:23px;height:23px;display:inline-block}.tiny-piece svg{width:100%;height:100%}.board-frame{display:grid;grid-template-columns:18px minmax(0,1fr);grid-template-rows:minmax(0,1fr) 18px;gap:4px;margin:12px 0 8px}.ranks{display:flex;flex-direction:column;justify-content:space-around;font:10px/1 ui-monospace,monospace;color:#788574;text-align:center}.files{grid-column:2;display:flex;justify-content:space-around;align-items:center;font:10px/1 ui-monospace,monospace;color:#788574}.board{display:grid;grid-template-columns:repeat(8,1fr);aspect-ratio:1;border-radius:5px;overflow:hidden;border:1px solid #7d8e70;box-shadow:0 3px 10px #14281a18;isolation:isolate}.square{position:relative;display:grid;place-items:center;border:0;padding:0;border-radius:0;min-width:0;aspect-ratio:1;background:#e9ebd8;transition:box-shadow .15s,background .15s}.square.dark{background:#8ca285}.square:hover:not(:disabled){background:#d7ddc0}.square.dark:hover:not(:disabled){background:#799872}.square svg{width:76%;height:76%;z-index:2;filter:drop-shadow(0 2px 1px #1b30242c);pointer-events:none}.square.terrain svg{width:59%;height:59%;filter:none;opacity:.75}.square.terrain:after{content:"";position:absolute;inset:13%;border:1px dashed #586e4b80;border-radius:8px;transform:rotate(0deg)}.square.selected{box-shadow:inset 0 0 0 4px #e6bf63;background:#c9bd77}.square.last{box-shadow:inset 0 0 0 3px #aeb763}.square.selected.last{box-shadow:inset 0 0 0 4px #e6bf63}.square.quality-good{background:#93c29c}.square.quality-good.dark{background:#62a77e}.square.quality-mid{background:#e4ce91}.square.quality-mid.dark{background:#c7b078}.square.quality-bad{background:#dcaaa1}.square.quality-bad.dark{background:#be8580}.square.quality-wait{background:#c3d2bc}.square.preview{box-shadow:inset 0 0 0 4px var(--forest)}.square .mark{position:absolute;width:17px;height:17px;border-radius:50%;font-size:11px;line-height:17px;font-weight:800;left:50%;top:50%;transform:translate(-50%,-50%);z-index:3;color:#fff;background:#2c6a4d;pointer-events:none}.square.occupied .mark{left:auto;top:5px;right:5px;transform:none;width:16px;height:16px;line-height:16px}.quality-mid .mark{background:#8c692b}.quality-bad .mark{background:#a64b43}.quality-wait .mark{background:#678069}.reach-badge{position:absolute;bottom:4px;right:5px;font-size:9px;border-radius:4px;background:#73394bdc;color:#fff;padding:1px 4px;z-index:4}.square.enemy-reach:not([class*="quality-"]){background:#d2b6b8}.square.enemy-reach.dark:not([class*="quality-"]){background:#a48f96}.square:focus-visible{outline:3px solid #223d2c;outline-offset:-3px;z-index:5}.legend{display:flex;flex-wrap:wrap;align-items:center;gap:13px;font-size:10px;color:var(--muted);padding-top:12px;border-top:1px solid var(--line);margin-top:12px}.legend span{display:flex;align-items:center;gap:5px}.legend i{width:7px;height:7px;border-radius:50%;display:inline-block;background:#5b9f77}.legend .amber{background:#c7aa62}.legend .red{background:#bd7771}.legend .gray{background:#8a9680}.legend .lens{margin-left:auto;display:flex;align-items:center;gap:5px;cursor:pointer}.lens input{accent-color:var(--forest);margin:0}.board-toolbar{display:flex;gap:7px;align-items:center;margin-top:13px}.board-toolbar button{font-size:11px;padding:9px 12px}.board-toolbar .spacer{flex:1}.board-message{min-height:34px;font-size:11px;line-height:1.6;color:var(--muted);padding:9px 2px 0}.board-message strong{color:var(--ink)}.coach{border:1px solid var(--line);border-radius:var(--radius);background:var(--panel);overflow:hidden;box-shadow:var(--shadow)}.coach-top{padding:19px 21px 17px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}.coach-top .eyebrow{letter-spacing:1.8px}.live-pill{font-size:10px;background:#edf1e6;color:#566d4d;border-radius:20px;padding:5px 8px;display:flex;align-items:center;gap:5px}.live-dot{width:5px;height:5px;background:#5b8e54;border-radius:50%}.live-pill.busy .live-dot{animation:pulse 1s infinite}.coach-content{padding:22px 21px}.coach-content h3{font:normal 27px/1.2 Georgia,serif;letter-spacing:-.5px;margin:8px 0 12px}.coach-content p{font-size:12px;line-height:1.75;color:var(--muted);margin:0 0 13px}.instruction{display:flex;gap:12px;padding:11px 0;align-items:start}.instruction .step{border:1px solid #d5dcca;border-radius:50%;width:24px;height:24px;display:grid;place-items:center;font:12px Georgia,serif;flex:none}.instruction b{display:block;font-size:12px;margin-bottom:4px}.instruction span{font-size:11px;line-height:1.6;color:var(--muted)}.piece-lesson{margin-top:19px;background:#f1f3e9;border:1px solid #e4e8da;border-radius:12px;padding:13px 14px}.piece-lesson .lesson-title{font-size:10px;letter-spacing:1.3px;text-transform:uppercase;font-weight:700;margin-bottom:6px;color:#596d50}.piece-lesson p{font-size:11px;line-height:1.65;margin:0;color:#67735e}.piece-heading{display:flex;gap:10px;align-items:center;margin-bottom:12px}.piece-heading .icon{width:42px;height:42px;background:#edf0e3;border-radius:11px;display:grid;place-items:center}.piece-heading svg{width:35px;height:35px}.piece-heading h3{margin:0;font-size:25px}.piece-heading small{font-size:10px;color:var(--muted)}.verdict{display:inline-flex;align-items:center;gap:6px;border-radius:5px;padding:5px 8px;font-size:10px;font-weight:700;background:#e4efdf;color:var(--green)}.verdict.mid{color:var(--amber);background:#f5edda}.verdict.bad{color:var(--red);background:#f6e6e1}.verdict.wait{color:var(--muted);background:#eef0e9}.move-title{display:flex;align-items:center;justify-content:space-between;gap:7px}.move-title h3{font-size:25px;white-space:nowrap;margin:10px 0}.metric-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:14px 0}.metric{border:1px solid #e3e7db;border-radius:10px;padding:11px 12px}.metric strong{display:block;font:24px Georgia,serif;margin-bottom:4px}.metric span{font-size:10px;line-height:1.4;color:var(--muted)}.reasons{list-style:none;padding:0;margin:15px 0}.reasons li{display:flex;gap:9px;color:#586c5f;font-size:11px;line-height:1.65;margin:10px 0}.reasons li:before{content:"↗";color:#8a9d75;font-weight:700;flex:none}.forecast{margin:15px 0;border-top:1px solid var(--line);padding-top:14px}.forecast-label{font-size:9px;color:var(--muted);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:9px}.variation{display:flex;gap:5px;flex-wrap:wrap}.variation span{font-size:10px;line-height:1.4;background:#eff1e8;border:1px solid #e2e7d9;padding:5px 7px;border-radius:5px;color:#4c6450}.variation span.bot{background:#344c3c;border-color:#344c3c;color:#fffef1}.forecast .depth-note{font-size:10px;line-height:1.65;color:var(--muted);margin:9px 0 0}.play-button{width:100%;margin-top:8px}.candidates{margin:16px 0 0;border-top:1px solid var(--line);padding-top:14px}.candidates-title{display:flex;justify-content:space-between;font-size:9px;letter-spacing:1.3px;color:var(--muted);text-transform:uppercase;font-weight:700;margin-bottom:10px}.candidate{display:flex;width:100%;justify-content:space-between;align-items:center;padding:9px 10px;margin-top:5px;border:1px solid #e0e6d9;font-size:11px;gap:8px}.candidate.active{border-color:#667d5d;background:#f0f2e7}.candidate small{font-size:9px;color:var(--muted)}.candidate .qdot{width:6px;height:6px;background:#548c68;border-radius:50%;display:inline-block;margin-right:7px}.candidate .qdot.mid{background:#b9984b}.candidate .qdot.bad{background:#b9655f}.engine-strip{background:#f0f2e9;border-top:1px solid var(--line);padding:13px 21px}.engine-strip .engine-line{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:10px}.engine-strip b{font-weight:650}.progress{display:flex;gap:3px;margin:9px 0 7px}.progress i{height:3px;flex:1;border-radius:2px;background:#d9e0cf}.progress i.on{background:#6f8d5d}.engine-foot{font-size:9px;color:#7b8774;line-height:1.65}.below{display:grid;grid-template-columns:minmax(0,1fr) 350px;gap:22px;margin:20px 0 35px}.record-card,.rules-card{border:1px solid var(--line);border-radius:14px;padding:17px 19px;background:#fffef980}.section-label{font-size:9px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:var(--muted);margin:0 0 12px}.record{display:flex;flex-wrap:wrap;gap:7px;max-height:135px;overflow:auto}.record-empty{font-size:11px;color:#8b9584;margin:2px 0}.record-move{font-size:11px;border-radius:6px;padding:6px 8px;background:#e9eddf;color:#476047}.record-move.bot{background:#324b3a;color:#f0f2dc}.record-move em{font-size:9px;opacity:.6;font-style:normal;margin-right:5px}.bot-reason{font-size:11px;color:var(--muted);line-height:1.6;margin:12px 0 0}.rules-card summary{font-size:11px;font-weight:650;cursor:pointer;line-height:1.6}.rules-card p{font-size:11px;color:var(--muted);line-height:1.7}.math{font:10px/1.8 ui-monospace,monospace;background:#edf0e4;padding:10px;border-radius:7px;white-space:pre-wrap;overflow-wrap:anywhere}.footer{border-top:1px solid var(--line);padding:15px 0 22px;font-size:10px;color:#86917f;display:flex;justify-content:space-between;gap:12px}.terrain-banner{padding:12px 15px;margin-bottom:13px;background:#f5ead0;border:1px solid #dfcda5;border-radius:11px;font-size:11px;line-height:1.65}.terrain-banner b{display:block;color:#795e25}.terrain-actions{display:flex;gap:6px;margin-top:10px}.terrain-actions button{font-size:11px;padding:7px 10px}.status-banner{border:1px solid #d7dfcb;background:#edf2e4;border-radius:12px;padding:14px 16px;margin-bottom:13px}.status-banner strong{display:block;font:24px Georgia,serif;margin-bottom:5px}.status-banner span{font-size:12px;color:var(--muted)}.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);max-width:calc(100vw - 32px);background:#233f31;color:#fffde9;border:1px solid #537359;padding:12px 18px;border-radius:10px;box-shadow:0 5px 30px #0003;font-size:12px;line-height:1.6;z-index:30}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}dialog{border:1px solid #bdc8b0;border-radius:22px;max-width:510px;width:calc(100% - 36px);padding:27px;background:var(--panel);color:var(--ink);box-shadow:0 24px 70px #0004}dialog::backdrop{background:#132b2066;backdrop-filter:blur(3px)}dialog h2{font:30px Georgia,serif;margin:0 0 18px}dialog p,dialog li{font-size:13px;line-height:1.8;color:#66745f}dialog ol{padding-left:21px}dialog .close{float:right;border:0;padding:5px 10px;font-size:20px}dialog .primary{margin-top:8px}.hidden{display:none!important}a{color:inherit}@keyframes pulse{50%{opacity:.3}}@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}@media(min-width:1200px){.board-card{padding-left:28px;padding-right:28px}}@media(max-width:1000px){.wrap{padding:0 22px}.layout,.below{grid-template-columns:minmax(0,1fr) 310px;gap:16px}.board-card{padding:16px 13px}.coach-content{padding:19px 17px}.coach-top,.engine-strip{padding-left:17px;padding-right:17px}.intro h2{font-size:28px}.setup{gap:7px}select{max-width:180px}.legend{gap:8px}.legend .lens{margin-left:0}}@media(max-width:780px){.wrap{max-width:620px;padding:0 16px}.topinner{height:75px}.brand-name{font-size:24px}.brand-sub{font-size:8px}.brand-mark{width:39px;height:39px}.offline{display:none}.header-right{gap:0}.intro{display:block;padding:24px 0 20px}.intro h2{font-size:28px}.intro p{font-size:12px}.setup{margin-top:18px;display:grid;grid-template-columns:1fr 1fr;gap:10px}select{max-width:100%;width:100%;font-size:12px}.layout,.below{grid-template-columns:1fr;gap:17px}.board-card{padding:15px 13px 11px;border-radius:16px}.board-frame{grid-template-columns:14px minmax(0,1fr);gap:3px;margin-top:10px}.board-toolbar{gap:4px}.board-toolbar button{padding:9px 10px}.legend{gap:12px;font-size:9px}.legend .lens{margin-left:auto}.coach{border-radius:16px}.coach-content{padding:20px}.coach-content h3{font-size:25px}.coach-top{padding:16px 20px}.engine-strip{padding:13px 20px}.below{margin-top:17px}.footer{font-size:9px}.square .mark{width:14px;height:14px;line-height:14px;font-size:9px}.square.occupied .mark{top:2px;right:2px;width:12px;height:12px;line-height:12px;font-size:8px}.reach-badge{font-size:8px;bottom:2px;right:2px;padding:0 3px}.piece-lesson{margin-top:15px}}@media(max-width:380px){.wrap{padding:0 10px}.brand-name{font-size:22px}.board-toolbar button{padding:8px;font-size:10px}.legend{gap:8px}.legend .lens{margin-left:0}.square svg{width:82%;height:82%}}
+/* Keep a square's meaning visible while the pointer is over it. */
+.square{--sq-color:#e9ebd8}.square.dark{--sq-color:#8ca285}.square.selected{--sq-color:#c9bd77}.square.quality-good{--sq-color:#93c29c}.square.quality-good.dark{--sq-color:#62a77e}.square.quality-mid{--sq-color:#e4ce91}.square.quality-mid.dark{--sq-color:#c7b078}.square.quality-bad{--sq-color:#dcaaa1}.square.quality-bad.dark{--sq-color:#be8580}.square.quality-wait{--sq-color:#c3d2bc}.square.enemy-reach:not([class*="quality-"]){--sq-color:#d2b6b8}.square.enemy-reach.dark:not([class*="quality-"]){--sq-color:#a48f96}.square:hover:not(:disabled){background:var(--sq-color);filter:brightness(1.035)}
+@media(min-width:781px){.wrap{max-width:1100px}.topinner{height:76px}.intro{padding:22px 0 18px}.board-frame{max-width:clamp(420px,calc(100vh - 420px),560px);margin-left:auto;margin-right:auto}.board-card{padding-top:13px;padding-bottom:10px}.player-line{min-height:30px}.legend{margin-top:8px;padding-top:8px}}
+@media(max-width:780px){.brand-mark{flex:none}.brand-name,.brand-sub{white-space:nowrap}.material{flex:none;white-space:nowrap;gap:3px}.tiny-piece{width:18px;height:18px}.player-text{font-size:11px}.player-avatar{width:26px;height:26px}.player{gap:8px}.board-toolbar button{font-size:10px;padding:9px 7px;flex-shrink:0;white-space:nowrap}}
+@media(max-width:380px){.topinner{gap:8px}.brand{gap:8px}.brand-name{font-size:20px}.brand-mark{width:34px;height:34px}.brand-sub{font-size:7px;letter-spacing:1.3px}.header-right button{font-size:10px;padding:6px;white-space:nowrap}.topinner{height:68px}.player-sub{font-size:9px}.setup select{padding-left:8px;padding-right:18px;font-size:11px}.board-toolbar button{font-size:9px;padding:9px 6px}}
+</style>
+</head>
+<body>
+<header class="topbar"><div class="wrap topinner"><div class="brand"><div class="brand-mark" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 37h29M13 33h23L32 22l-8-5-7 6-6-2 5-11 10-4 2 6c11 6 13 13 12 25M20 12l-1-6 8 2M15 41h22"/><circle cx="21" cy="15" r="1" fill="currentColor"/></svg></div><div><h1 class="brand-name">Lines &amp; Leaps</h1><div class="brand-sub">A CHESS GEOMETRY LAB</div></div></div><div class="header-right"><span class="offline">OFFLINE &amp; SELF-CONTAINED</span><button id="helpBtn" class="subtle">How to play <span aria-hidden="true">↗</span></button></div></div></header>
+<main class="wrap">
+<section class="intro"><div><h2>See the reason behind the move.</h2><p>Three pieces. Changing lines. Every square has a story.</p></div><div class="setup"><div class="field"><label for="level">Board study</label><select id="level"><option value="open">01 / Open field</option><option value="channels">02 / Broken lines</option><option value="maze">03 / Narrow passages</option><option value="trap">Study / Poisoned capture</option><option value="trade">Study / Favorable exchange</option></select></div><div class="field"><label for="strength">Thinking time</label><select id="strength"><option value="fast">Quick · 0.4 s</option><option value="balanced" selected>Balanced · 1.5 s</option><option value="deep">Deep · 5 s</option><option value="patient">Patient · 15 s</option></select></div></div></section>
+<div id="terrainBanner" class="terrain-banner hidden"><b>Terrain workshop</b>Click empty squares to add fixed pawns; click a pawn to remove it. Applying terrain starts a fresh round from this position.<div class="terrain-actions"><button id="applyTerrain" class="primary">Apply terrain</button><button id="clearTerrain">Clear pawns</button><button id="cancelTerrain">Cancel</button></div></div>
+<div id="endBanner" class="status-banner hidden" role="status"></div>
+<div class="layout">
+<section aria-label="Chess board and controls"><div class="board-card"><div class="player-line"><div class="player"><div class="player-avatar bot" aria-hidden="true">✦</div><div class="player-text">The bot · Black<div class="player-sub" id="botStatus">Finding the strongest reply</div></div></div><div class="material" id="blackMaterial"></div></div><div class="board-frame"><div class="ranks" aria-hidden="true"><span>8</span><span>7</span><span>6</span><span>5</span><span>4</span><span>3</span><span>2</span><span>1</span></div><div class="board" id="board" role="group" aria-label="Chess board. White at the bottom. Select a White piece, then a destination."></div><div class="files" aria-hidden="true"><span>a</span><span>b</span><span>c</span><span>d</span><span>e</span><span>f</span><span>g</span><span>h</span></div></div><div class="player-line"><div class="player"><div class="player-avatar" aria-hidden="true">○</div><div class="player-text">Practice side · White<div class="player-sub" id="whiteStatus">Select a piece to explore</div></div></div><div class="material" id="whiteMaterial"></div></div><div class="legend"><span><i></i>Best / sound</span><span><i class="amber"></i>Trade-off</span><span><i class="red"></i>Risk</span><label class="lens"><input type="checkbox" id="reach"> Enemy reach</label></div></div><div class="board-toolbar"><button id="hintBtn">✧ Find a move</button><button id="undoBtn" disabled>↶ Undo round</button><span class="spacer"></span><button id="terrainBtn">♟ Terrain</button><button id="resetBtn" title="Restart this board">↻ Reset</button></div><div id="boardMessage" class="board-message" role="status" aria-live="polite">Select a White piece, then click a highlighted square to inspect a move.</div></section>
+<aside class="coach" aria-label="Move coach"><div class="coach-top"><span class="eyebrow">The move coach</span><span class="live-pill" id="searchPill"><span class="live-dot"></span><span id="searchLabel">Analysing</span></span></div><div class="coach-content" id="coachContent"></div><div class="engine-strip"><div class="engine-line"><b id="depthText">Starting analysis</b><span id="nodeText">10-ply target</span></div><div class="progress" id="depthBars" aria-hidden="true"></div><div class="engine-foot" id="engineFoot">Every rating includes the opponent's strongest reply.</div></div></aside>
+</div>
+<div class="below"><section class="record-card"><h3 class="section-label">The round so far</h3><div id="record" class="record"><p class="record-empty">A clean board. A new line of thought.</p></div><p class="bot-reason hidden" id="botReason"></p></section><section class="rules-card"><details id="mathDetails"><summary>The rules &amp; the math</summary><p>White plays against Black. Only rooks, bishops, and knights move. Capture every opposing piece to win. A side with no legal move draws. There are no kings, checks, pawn moves, or automatic repetition draws.</p><p>Fixed pawns are neutral, uncapturable terrain. Sliders stop before them. Knights jump over them but cannot land on them.</p><p>For each position, the engine ranks material first, then legal mobility, then distinct controlled squares, then defended friendly pieces. Values: rook 5, bishop 3, knight 3. Elimination wins outrank these features.</p><div class="math">v = (material, mobility, coverage, defense)
+G = 29837313·v₁ + 16641·v₂ + 129·v₃ + v₄
+V₀(S) = G(S)
+Vₕ(S) = max Vₕ₋₁(S')  [White]
+Vₕ(S) = min Vₕ₋₁(S')  [Black]</div><p>All legal moves are considered. Alpha–beta search reuses positions and completes successively deeper searches, up to 10 plies: five turns for each side. A time or node budget can stop it earlier; the completed depth is always shown. Candidate ratings use one common, fully completed depth. An unfinished deeper iteration is discarded.</p><p>Colored destinations are relative to the best move found across all White pieces. Green: tied best or close in mobility without a worse material outcome. Amber: a positional trade-off. Red: a worse material outcome or a loss compared with a better alternative. “Enemy reach” marks currently attacked squares; an attacked square can still support a favorable exchange.</p><p>Ratings are exact for the displayed horizon and this chosen evaluation, not guarantees beyond it. Search does not extend captures past the horizon. Changing pawn terrain starts a new round.</p></details></section></div>
+<footer class="footer"><span>LINES &amp; LEAPS / STUDY NO. 01–03</span><span>Geometry → choices → consequences</span></footer>
+</main>
+<dialog id="helpDialog"><button class="close" id="closeHelp" aria-label="Close help">×</button><span class="eyebrow">A small board. A deeper idea.</span><h2>Learn through the squares.</h2><ol><li>Select a White rook, bishop, or knight.</li><li>Click a highlighted destination. The coach explains the trade, mobility, exposure, and a searched continuation.</li><li>Choose <strong>Play this move</strong>. Black then makes its best move at the completed search depth.</li></ol><p><strong>Terrain</strong> opens a board editor. Fixed pawns block lines but never move or capture. Knights can jump over them.</p><p>Green, amber, and red compare the available moves; they do not promise safety beyond the displayed horizon. The goal is to capture all opposing pieces.</p><button class="primary" id="startPlaying">Explore the board</button></dialog>
+<div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
+<script>
+/* Lines & Leaps. Pure rules and finite-horizon minimax; no network dependencies. */
+function createChessEngine() {
+  'use strict';
+  const VALUE=[0,5,3,3], NAMES=['','Rook','Bishop','Knight'];
+  const MAT=29837313, MOB=16641, COV=129, WIN=1000000000000, INF=WIN+1;
+  const dirs=[[],[[1,0],[-1,0],[0,1],[0,-1]],[[1,1],[1,-1],[-1,1],[-1,-1]],[[1,2],[1,-2],[-1,2],[-1,-2],[2,1],[2,-1],[-2,1],[-2,-1]]];
+  const rays=Array.from({length:4},()=>Array.from({length:64},()=>[]));
+  for(let t=1;t<=3;t++)for(let q=0;q<64;q++)for(const [dr,dc] of dirs[t]){
+    const ray=[];for(let j=1;j<=(t===3?1:7);j++){
+      const r=(q>>3)+dr*j,c=(q&7)+dc*j;if(r<0||r>7||c<0||c>7)break;ray.push(r*8+c);
+    }if(ray.length)rays[t][q].push(ray);
+  }
+  const sq=s=>(+s[1]-1)*8+s.charCodeAt(0)-97;
+  const name=q=>String.fromCharCode(97+(q&7))+(1+(q>>3));
+  const from=m=>m>>6,to=m=>m&63;
+  const keyMove=(a,b)=>a*64+b;
+  function board(entries,terrain=[]){const b=new Int8Array(64);for(const [p,s] of entries)b[sq(s)]=p;for(const s of terrain)b[sq(s)]=9;return b;}
+  function control(b,q){
+    const t=Math.abs(b[q]),out=[];if(t<1||t>3)return out;
+    for(const ray of rays[t][q])for(const d of ray){if(b[d]===9)break;out.push(d);if(b[d])break;}return out;
+  }
+  function moves(b,s){
+    const out=[];for(let q=0;q<64;q++)if(b[q]!==9&&b[q]*s>0){
+      for(const ray of rays[Math.abs(b[q])][q])for(const d of ray){
+        if(b[d]===9)break;if(b[d]*s<=0)out.push(keyMove(q,d));if(b[d])break;
+      }
+    }return out;
+  }
+  function canonical(b,ms){return ms.sort((a,c)=>Math.abs(b[from(a)])-Math.abs(b[from(c)])||a-c);}
+  function apply(b,m){const n=b.slice();n[to(m)]=n[from(m)];n[from(m)]=0;return n;}
+  function features(b){
+    const maps=[new Uint8Array(64),new Uint8Array(64)],mu=[0,0],cov=[0,0],def=[0,0],counts=[0,0];let w=0;
+    for(let q=0;q<64;q++)if(b[q]&&b[q]!==9){const s=Math.sign(b[q]),i=s===1?0:1,t=Math.abs(b[q]);w+=s*VALUE[t];counts[i]++;
+      for(const ray of rays[t][q])for(const d of ray){if(b[d]===9)break;maps[i][d]++;if(b[d]*s<=0)mu[i]++;if(b[d])break;}
+    }
+    for(let q=0;q<64;q++){for(let i=0;i<2;i++)if(maps[i][q])cov[i]++;if(b[q]&&b[q]!==9){const i=b[q]>0?0:1;if(maps[i][q])def[i]++;}}
+    return {v:[w,mu[0]-mu[1],cov[0]-cov[1],def[0]-def[1]],maps,mu,cov,def,counts};
+  }
+  const encode=v=>v[0]*MAT+v[1]*MOB+v[2]*COV+v[3];
+  function decode(score){if(Math.abs(score)===WIN)return {win:Math.sign(score)};let rest=score;const v=[];for(const f of [MAT,MOB,COV,1]){const x=Math.round(rest/f)||0;v.push(x);rest-=x*f;}return {v};}
+  function elimination(b){let w=0,k=0;for(const p of b){if(p>0&&p!==9)w++;if(p<0)k++;}return !w&&!k?0:!w?-WIN:!k?WIN:null;}
+  function terminal(b,s){const e=elimination(b);return e!==null?e:moves(b,s).length?null:0;}
+  function evaluate(b){const e=elimination(b);return e===null?encode(features(b).v):e;}
+  function notation(b,m){return ['','R','B','N'][Math.abs(b[from(m)])]+name(from(m))+(b[to(m)]?'×':'–')+name(to(m));}
+  function attackers(b,d,side){const a=[];for(let q=0;q<64;q++)if(b[q]!==9&&b[q]*side>0&&control(b,q).includes(d))a.push(q);return a;}
+  function boardKey(b,s,h){let k=(s===1?'w':'b')+h+':';for(let q=0;q<64;q++)if(b[q])k+=String.fromCharCode(65+q,75+b[q]);return k;}
+  function searcher(b,side,options={}){
+    const tt=new Map(),maxMs=options.ms||1000,maxNodes=options.maxNodes||800000;
+    const start=performance.now();let deadline=start+maxMs,nodes=0,cutoffs=0;
+    const STOP={stopped:true};
+    function check(){if((nodes&255)===0&&(performance.now()>deadline||nodes>maxNodes))throw STOP;}
+    function visit(p,s,h,alpha,beta){
+      nodes++;check();const key=boardKey(p,s,h);let e=tt.get(key),lo=e?e.lo:-INF,hi=e?e.hi:INF;
+      if(lo===hi)return lo;if(lo>=beta)return lo;if(hi<=alpha)return hi;
+      alpha=Math.max(alpha,lo);beta=Math.min(beta,hi);const a0=alpha,b0=beta;
+      const end=elimination(p);let value,best=null;
+      if(end!==null)value=end;
+      else {
+        const ms=moves(p,s);
+        if(!ms.length)value=0;
+        else if(!h)value=encode(features(p).v);
+        else{
+          const hint=e&&e.best;
+          ms.sort((a,c)=>order(c)-order(a)||a-c);
+          function order(m){return (m===hint?10000:0)+(p[to(m)]?100*VALUE[Math.abs(p[to(m)])]-VALUE[Math.abs(p[from(m)])]:0);}
+          value=s===1?-INF:INF;
+          for(const m of ms){const v=visit(apply(p,m),-s,h-1,alpha,beta);
+            if(best===null||(s===1?v>value:v<value)){value=v;best=m;}
+            if(s===1)alpha=Math.max(alpha,value);else beta=Math.min(beta,value);
+            if(alpha>=beta){cutoffs++;break;}
+          }
+        }
+      }
+      // Only an interior result certifies the move used for a displayed PV.
+      // Two meeting bounds can certify a value without certifying this move.
+      const pvBest=(best!==null&&value>a0&&value<b0)?best:null;
+      if(end!==null||!h||best===null)lo=hi=value;
+      else if(value<=a0)hi=Math.min(hi,value);
+      else if(value>=b0)lo=Math.max(lo,value);
+      else lo=hi=value;
+      if(lo>hi)throw Error('Inconsistent search bounds');
+      if(tt.size>160000)tt.clear();tt.set(key,{lo,hi,best,pvBest});return lo===hi?lo:value;
+    }
+    function line(p,s,h,score){
+      const out=[];while(h>0){const e=tt.get(boardKey(p,s,h));if(!e||e.lo!==e.hi||e.lo!==score||e.pvBest===null)break;
+        const m=e.pvBest;out.push(m);p=apply(p,m);s=-s;h--;const next=tt.get(boardKey(p,s,h));
+        if(next&&next.lo===next.hi)score=next.lo;else break;
+      }return out;
+    }
+    function run(target=10,progress=()=>{}){
+      const root=canonical(b,moves(b,side));if(terminal(b,side)!==null)return {depth:0,rows:[],nodes,terminal:terminal(b,side)};
+      let completed=null,previous=new Map();
+      for(let depth=1;depth<=target;depth++){
+        const ordered=root.slice().sort((a,c)=>(previous.has(a)&&previous.has(c)?side*(previous.get(c)-previous.get(a)):0)||root.indexOf(a)-root.indexOf(c));
+        const rows=[];
+        try{
+          // Always finish depth 1. Later iterations have a strict wall-clock/node budget.
+          if(depth===1)deadline=Infinity;else deadline=start+maxMs;
+          for(const m of ordered){const child=apply(b,m),score=visit(child,-side,depth-1,-INF,INF);rows.push({m,score,pv:[m,...line(child,-side,depth-1,score)]});}
+        }catch(err){if(err!==STOP)throw err;break;}
+        rows.sort((a,c)=>side*(c.score-a.score)||root.indexOf(a.m)-root.indexOf(c.m));
+        completed={depth,rows,nodes,cutoffs,ms:Math.round(performance.now()-start),target,complete:depth===target};
+        previous=new Map(rows.map(x=>[x.m,x.score]));progress(completed);
+        if(performance.now()>start+maxMs||nodes>maxNodes)break;
+      }
+      return {...completed,nodes,cutoffs,ms:Math.round(performance.now()-start)};
+    }
+    return {run,visit,tt,line,stats:()=>({nodes,cutoffs})};
+  }
+  return {VALUE,NAMES,MAT,MOB,COV,WIN,INF,sq,name,from,to,keyMove,board,control,moves,canonical,apply,features,encode,decode,elimination,terminal,evaluate,notation,attackers,boardKey,searcher};
+}
+if(typeof module!=='undefined')module.exports=createChessEngine;
+
+</script>
+<script>
+(() => {
+  'use strict';
+  const E=createChessEngine(),$=id=>document.getElementById(id);
+  const PIECES={1:'rook',2:'bishop',3:'knight'},SYMBOL=['','R','B','N'];
+  const base=[[1,'b1'],[2,'c2'],[3,'f2'],[-1,'g8'],[-2,'f7'],[-3,'c7']];
+  const PRESETS={
+    open:{entries:base,terrain:[],tip:'Open field: compare a rook’s clear files, a bishop’s diagonals, and a knight’s landing squares.'},
+    channels:{entries:base,terrain:['d3','d4','d5','e4','e5','e6'],tip:'Broken lines: the pawn wall closes sliding lanes. Look for an open file or a knight jump.'},
+    maze:{entries:base,terrain:['b3','d3','f3','c4','f4','c5','f5','c6','e6','g6'],tip:'Narrow passages: piece activity depends on reachable squares, not distance to the center.'},
+    trap:{entries:[[1,'d1'],[-2,'d4'],[-3,'f5']],terrain:[],tip:'Poisoned capture: Rd1×d4 wins a bishop, but Nf5×d4 can take the rook. Inspect the exchange before playing.'},
+    trade:{entries:[[2,'a1'],[3,'b1'],[-1,'d4'],[-3,'f5']],terrain:[],tip:'Favorable exchange: Ba1×d4 can trade a 3-point bishop for a 5-point rook, even when a recapture follows.'}
+  };
+  const BUDGET={fast:400,balanced:1500,deep:5000,patient:15000};
+  let position,initial,turn=1,selected=null,preview=null,analysis=null,busy=false,worker=null,serial=0;
+  let edit=false,editBackup=null,history=[],undoStack=[],lastMove=null,botNote='',toastTimer,ended=null,workerFallback=false;
+  const squares=[];
+  function pieceSVG(piece){
+    const t=Math.abs(piece),white=piece>0&&piece!==9,fill=piece===9?'#78836b':white?'#fff8df':'#263f33',stroke=piece===9?'#485d42':white?'#455d42':'#e4e9cb';
+    const shape=t===1?'<path d="M12 8h6v7h5V8h6v7h5V8h6v13l-5 4v13H17V25l-5-4Z"/><path d="M15 38h22v5H15zM17 27h18M17 21h18"/>':t===2?'<circle cx="26" cy="6" r="3"/><path d="M26 10C21 15 16 19 17 25c.6 4 4.5 6 9 6s8.4-2 9-6c1-6-4-10-9-15Z"/><path d="m28 15-6 10M22 31l-4 7h16l-4-7M16 38h20v5H16z"/>':t===3?'<path d="M14 39c-1-7 4-11 11-15l-5-2-6 5-6-4 8-14 9-3 3 5c10 4 15 13 13 28Z"/><path d="m18 10 1-7 8 6M13 39h29v5H13zM32 19c3 5 4 10 3 15"/><circle cx="21" cy="16" r="1.4" fill="'+stroke+'" stroke="none"/>':'<circle cx="26" cy="13" r="7"/><path d="M21 20c2 8 0 12-5 17h20c-5-5-7-9-5-17M14 37h24v6H14z"/>';
+    return '<svg viewBox="0 0 52 52" aria-hidden="true" fill="'+fill+'" stroke="'+stroke+'" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">'+shape+'</svg>';
+  }
+  function toast(text){$('toast').textContent=text;$('toast').classList.remove('hidden');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').classList.add('hidden'),3300);}
+  const signed=n=>(n>0?'+':'')+n;
+  const moveRow=m=>analysis&&analysis.rows.find(r=>r.m===m);
+  function quality(row){
+    if(!row||!analysis||!analysis.rows.length)return {key:'wait',label:'Awaiting analysis',mark:'·'};
+    const best=analysis.rows[0].score,a=E.decode(row.score),b=E.decode(best);
+    if(row.score===best)return row.score===-E.WIN?{key:'bad',label:'Best found · still losing',mark:'!'}:{key:'good',label:'Best found',mark:'★'};
+    if(b.win===1)return {key:'bad',label:'Misses a forced win',mark:'!'};
+    if(a.win===-1)return {key:'bad',label:'Losing line',mark:'!'};
+    if(a.v&&b.v&&a.v[0]<b.v[0])return {key:'bad',label:a.v[0]>=E.features(position).v[0]?'Misses a gain':'Material risk',mark:'!'};
+    if(a.v&&b.v&&a.v[1]>=b.v[1]-3)return {key:'good',label:'Sound alternative',mark:'+'};
+    return {key:'mid',label:'Positional trade-off',mark:'~'};
+  }
+  function shortOutcome(score){const d=E.decode(score);return d.win?(d.win===1?'White wins':'Black wins'):'material '+signed(d.v[0]);}
+  function cancelAnalysis(){serial++;if(worker)worker.terminate();worker=null;busy=false;}
+  function workerMain(){
+    const e=createChessEngine();self.onmessage=event=>{
+      const {board,side,ms,id}=event.data;
+      try{const result=e.searcher(new Int8Array(board),side,{ms,maxNodes:Math.max(400000,ms*1500)}).run(10,r=>self.postMessage({id,type:'progress',result:r}));self.postMessage({id,type:'done',result});}
+      catch(err){self.postMessage({id,type:'error',error:String(err)});}
+    };
+  }
+  function analyze(){
+    cancelAnalysis();analysis=null;workerFallback=false;ended=E.terminal(position,turn);if(edit||ended!==null){render();return;}
+    busy=true;const id=serial,b=position.slice(),side=turn,ms=BUDGET[$('strength').value];render();
+    function accept(data){if(id!==serial||edit)return;if(data.type==='error'){fallback();return;}
+      analysis=data.result;
+      if(data.type==='done'){
+        busy=false;if(worker){worker.terminate();worker=null;}render();
+        if(side===-1&&analysis&&analysis.rows.length)setTimeout(()=>{if(id===serial&&turn===-1&&!edit)playBot();},250);
+      }else render();
+    }
+    function fallback(){
+      if(id!==serial)return;if(worker){worker.terminate();worker=null;}workerFallback=true;
+      setTimeout(()=>{if(id!==serial)return;try{accept({type:'done',result:E.searcher(b,side,{ms:120,maxNodes:15000}).run(3)});}catch(err){busy=false;toast('Analysis could not start. Reset the board to retry.');render();}},20);
+    }
+    try{
+      const blob=new Blob([createChessEngine.toString(),'\n(',workerMain.toString(),')();'],{type:'text/javascript'}),url=URL.createObjectURL(blob);
+      worker=new Worker(url);URL.revokeObjectURL(url);worker.onmessage=e=>accept(e.data);worker.onerror=fallback;worker.postMessage({board:Array.from(b),side,ms,id});
+    }catch(err){fallback();}
+  }
+  function resetPreset(){const p=PRESETS[$('level').value];cancelAnalysis();position=E.board(p.entries,p.terrain);initial=position.slice();turn=1;selected=preview=null;history=[];undoStack=[];lastMove=null;botNote='';edit=false;analyze();}
+  function resetCurrent(){cancelAnalysis();position=initial.slice();turn=1;selected=preview=null;history=[];undoStack=[];lastMove=null;botNote='';edit=false;analyze();}
+  function explain(row,b=position,side=1){
+    const m=row.m,src=E.from(m),dst=E.to(m),type=Math.abs(b[src]),after=E.apply(b,m),beforeF=E.features(b),afterF=E.features(after);
+    const attacks=E.attackers(after,dst,-side),defenders=E.attackers(after,dst,side);
+    const ownBefore=E.moves(b,side).filter(x=>E.from(x)===src).length,ownAfter=E.moves(after,side).filter(x=>E.from(x)===dst).length;
+    const captured=Math.abs(b[dst]),reasons=[];
+    if(captured)reasons.push('Captures the '+PIECES[captured]+' on '+E.name(dst)+' ('+E.VALUE[captured]+' points). The '+PIECES[type]+' is worth '+E.VALUE[type]+'.');
+    else reasons.push('A quiet move: no material changes immediately. The '+PIECES[type]+' moves from '+E.name(src)+' to '+E.name(dst)+'.');
+    if(attacks.length)reasons.push('After the move, '+attacks.map(q=>SYMBOL[Math.abs(after[q])]+E.name(q)).join(', ')+' can capture on '+E.name(dst)+'. '+(defenders.length?'Supported by '+defenders.map(q=>SYMBOL[Math.abs(after[q])]+E.name(q)).join(', ')+'. A recapture is an option, not a guarantee.':'No friendly piece currently defends the landing square.'));
+    else reasons.push('No opposing piece can capture the '+PIECES[type]+' immediately on '+E.name(dst)+'. This says nothing about later threats.');
+    reasons.push('This '+PIECES[type]+' has '+ownAfter+' legal destinations after moving, '+(ownAfter===ownBefore?'unchanged from':ownAfter>ownBefore?'up from':'down from')+' '+ownBefore+'. '+(type===3?'Only the landing squares matter; intervening pieces and terrain do not block a jump.':'Counts follow the actual open '+(type===1?'ranks and files':'diagonals')+'; occupied squares and terrain stop the lines.'));
+    const opened=[];
+    for(let q=0;q<64;q++)if(b[q]*side>0&&b[q]!==9&&q!==src&&Math.abs(b[q])!==3){const old=E.control(b,q),now=E.control(after,q),gained=now.filter(x=>!old.includes(x));if(gained.length)opened.push(SYMBOL[Math.abs(b[q])]+E.name(q)+' gains '+gained.length+' controlled square'+(gained.length===1?'':'s'));}
+    if(opened.length)reasons.push('The changed occupancy also opens a line: '+opened.join('; ')+'.');
+    return {reasons,ownBefore,ownAfter,attacks,defenders,beforeF,afterF,captured};
+  }
+  function chooseMove(m,scroll=false){if(turn!==1||edit||ended!==null)return;selected=E.from(m);preview=m;render();if(scroll&&innerWidth<781)$('coachContent').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});}
+  function squareClick(q){
+    if(edit){if(position[q]===0)position[q]=9;else if(position[q]===9)position[q]=0;else{toast('Terrain can only occupy an empty square.');return;}render();return;}
+    if(ended!==null){toast('The round has ended. Reset opens another attempt.');return;}
+    if(turn!==1){toast('Black is considering its reply.');return;}
+    if(position[q]>0&&position[q]!==9){selected=selected===q?null:q;preview=null;render();return;}
+    if(selected!==null){const m=E.keyMove(selected,q);if(E.moves(position,1).includes(m)){chooseMove(m,true);return;}
+      toast(position[q]===9?'Fixed pawns are uncapturable terrain. A knight may jump over one, but cannot land here.':'This destination is not reachable: check the piece’s geometry and intervening blockers.');
+    }else toast(position[q]===9?'Fixed pawn terrain: an uncapturable obstacle.':'Select a White rook, bishop, or knight first.');
+  }
+  function playHuman(){
+    if(preview===null||turn!==1||edit||!E.moves(position,1).includes(preview))return;
+    undoStack.push({b:Array.from(position),history:history.slice(),lastMove,botNote});
+    cancelAnalysis();const m=preview;history.push({side:1,text:E.notation(position,m)});position=E.apply(position,m);lastMove=m;turn=-1;selected=preview=null;botNote='';analyze();
+    if(innerWidth<781)$('board').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'center'});
+  }
+  function playBot(){
+    if(!analysis||!analysis.rows.length)return;const row=analysis.rows[0],m=row.m,detail=explain(row,position,-1),label=E.notation(position,m),depth=analysis.depth;
+    botNote='Black chose '+label+' after '+depth+' pl'+(depth===1?'y':'ies')+'. '+(detail.captured?'It captures '+E.VALUE[detail.captured]+' points. ':'It changes its '+PIECES[Math.abs(position[E.from(m)])]+' mobility from '+detail.ownBefore+' to '+detail.ownAfter+'. ')+'The searched outcome is '+shortOutcome(row.score)+' (White’s perspective).';
+    history.push({side:-1,text:label});position=E.apply(position,m);lastMove=m;turn=1;selected=preview=null;analyze();
+  }
+  function undo(){if(!undoStack.length)return;cancelAnalysis();const old=undoStack.pop();position=new Int8Array(old.b);history=old.history;lastMove=old.lastMove;botNote=old.botNote;turn=1;selected=preview=null;edit=false;analyze();}
+  function editTerrain(){cancelAnalysis();editBackup={b:position.slice(),turn,selected,preview};edit=true;selected=preview=null;analysis=null;render();}
+  function applyTerrain(){initial=position.slice();turn=1;edit=false;selected=preview=null;history=[];undoStack=[];lastMove=null;botNote='';analyze();toast('Terrain applied. A fresh round starts with White.');}
+  function cancelTerrain(){position=editBackup.b;turn=editBackup.turn;selected=editBackup.selected;preview=editBackup.preview;edit=false;analyze();}
+  function lesson(type){return type===1?'A rook needs open ranks and files. On an empty board it has 14 destinations from every square; the center alone adds none.':type===2?'A bishop follows its diagonals. The center can offer longer diagonals, but blockers decide how much of that reach is usable.':'A knight has up to eight landing squares near the center, and only two in a corner. It jumps over obstacles; occupied landing squares still matter.';}
+  function lessonBox(type){return '<div class="piece-lesson"><div class="lesson-title">'+(type?PIECES[type]+' geometry':'The study')+'</div><p>'+(type?lesson(type):PRESETS[$('level').value].tip)+'</p></div>';}
+  function candidateList(rows,title){if(!rows.length)return '';return '<div class="candidates"><div class="candidates-title"><span>'+title+'</span><span>Inspect ↗</span></div>'+rows.slice(0,4).map(r=>{const q=quality(r);return '<button class="candidate '+(preview===r.m?'active':'')+'" data-move="'+r.m+'"><span><i class="qdot '+q.key+'"></i>'+E.notation(position,r.m)+'</span><small>'+shortOutcome(r.score)+'</small></button>';}).join('')+'</div>';}
+  function renderCoach(){
+    const focused=document.activeElement,inCoach=$('coachContent').contains(focused),focusId=inCoach?focused.id:null,focusMove=inCoach?focused.getAttribute('data-move'):null;
+    let html='';
+    if(edit){html='<span class="eyebrow">Shape the problem</span><h3>Build a landscape.</h3><p>Add or remove fixed pawns on the board. The pieces stay in place. Applying the layout starts a fresh round.</p><div class="instruction"><span class="step">R</span><div><b>Close a file</b><span>Place a pawn in a rook’s lane and watch its reach shrink.</span></div></div><div class="instruction"><span class="step">B</span><div><b>Break a diagonal</b><span>One blocker can hide several squares from a bishop.</span></div></div><div class="instruction"><span class="step">N</span><div><b>Leave a landing square</b><span>A knight jumps over the wall, but needs an unblocked destination.</span></div></div>';
+    }else if(ended!==null){html='<span class="eyebrow">Round complete</span><h3>'+(ended===E.WIN?'White takes the field.':ended===-E.WIN?'Black takes the field.':'A blocked position.')+'</h3><p>'+(ended===0?'The side to move has no legal destination. This round is a draw.':'Every opposing piece has been captured.')+'</p><p>Undo returns to the previous decision. Reset restores the starting position for another attempt.</p>'+lessonBox(null);
+    }else if(turn===-1){html='<span class="eyebrow">The other side of the line</span><h3>Black is thinking.</h3><p>The bot is comparing replies against White’s strongest continuations. All legal captures and quiet moves are included.</p>'+lessonBox(null);
+    }else if(preview!==null){
+      const row=moveRow(preview),q=quality(row),type=Math.abs(position[selected]),detail=explain(row||{m:preview}),d=row&&E.decode(row.score);
+      html='<div class="piece-heading"><div class="icon">'+pieceSVG(type)+'</div><div><small>'+PIECES[type].toUpperCase()+' / CANDIDATE MOVE</small><h3>'+E.notation(position,preview)+'</h3></div></div><span class="verdict '+q.key+'">'+q.mark+' '+q.label+'</span><div class="metric-grid"><div class="metric"><strong>'+detail.ownAfter+'</strong><span>piece destinations<br>was '+detail.ownBefore+'</span></div><div class="metric"><strong>'+(d?(d.win?(d.win===1?'Win':'Loss'):signed(d.v[0])):'—')+'</strong><span>'+(d&&d.win?'within searched horizon':'forecast material balance')+'<br>White − Black</span></div></div><ul class="reasons">'+detail.reasons.map(t=>'<li>'+t+'</li>').join('')+'</ul>';
+      if(row){
+        const best=analysis.rows[0],bd=E.decode(best.score);
+        let comparison='Ties the highest evaluation found across all White moves.';
+        if(row.score!==best.score){
+          if(d.v&&bd.v&&d.v[0]!==bd.v[0])comparison='Forecast material is '+signed(d.v[0])+', compared with '+signed(bd.v[0])+' after '+E.notation(position,best.m)+'. Material takes priority over extra mobility.';
+          else if(d.v&&bd.v)comparison='Same forecast material as the best move. Forecast mobility balance: '+signed(d.v[1])+' versus '+signed(bd.v[1])+'. Coverage and defended pieces break further ties.';
+          else comparison='The engine prefers '+E.notation(position,best.m)+' at this horizon.';
+        }
+        let p=position.slice(),s=1;const chips=row.pv.map((m,i)=>{const text=E.notation(p,m);p=E.apply(p,m);s=-s;return '<span class="'+(i%2?'bot':'')+'">'+(i+1)+'. '+text+'</span>';}).join('');
+        html+='<div class="forecast"><div class="forecast-label">One searched continuation</div><div class="variation">'+chips+'</div><p class="depth-note">'+comparison+'</p><p class="depth-note">'+analysis.depth+' pl'+(analysis.depth===1?'y':'ies')+' completed'+(row.pv.length<analysis.depth?' · '+row.pv.length+' verified step'+(row.pv.length===1?'':'s')+' shown':'')+'. '+(busy?'Still deepening; ratings may change.':'The line is a forecast, not a forced script.')+'</p></div>';
+      }else html+='<p>Search is starting. Immediate geometry is available; move rankings will appear shortly.</p>';
+      html+='<button class="primary play-button" id="playMove">Play this move <span aria-hidden="true">→</span></button>'+candidateList(analysis?analysis.rows.filter(r=>E.from(r.m)===selected):[],'Compare this piece');
+    }else if(selected!==null){
+      const type=Math.abs(position[selected]),legal=E.moves(position,1).filter(m=>E.from(m)===selected);
+      html='<div class="piece-heading"><div class="icon">'+pieceSVG(type)+'</div><div><small>SELECTED / '+E.name(selected).toUpperCase()+'</small><h3>'+E.NAMES[type]+'</h3></div></div><p>'+legal.length+' legal destination'+(legal.length===1?'':'s')+'. Click a highlighted square to examine its trade-offs before moving.</p>'+lessonBox(type)+candidateList(analysis?analysis.rows.filter(r=>E.from(r.m)===selected):[],'Candidate moves');
+    }else{
+      html='<span class="eyebrow">Observe. Compare. Play.</span><h3>A good move has a reason.</h3><p>Select a White piece to light up its possibilities. Every highlighted square opens a closer look.</p><div class="instruction"><span class="step">1</span><div><b>Find the open squares</b><span>Explore a rook’s lines, a bishop’s diagonals, or a knight’s jumps.</span></div></div><div class="instruction"><span class="step">2</span><div><b>Read the consequence</b><span>Compare the exchange and the opponent’s strongest reply.</span></div></div><div class="instruction"><span class="step">3</span><div><b>Put the idea into play</b><span>Confirm a move. The bot takes the other side.</span></div></div>'+lessonBox(null)+candidateList(analysis?analysis.rows:[],'Ideas to explore');
+    }
+    $('coachContent').innerHTML=html;
+    $('coachContent').querySelectorAll('[data-move]').forEach(button=>button.addEventListener('click',()=>chooseMove(+button.dataset.move,false)));
+    const play=$('playMove');if(play)play.onclick=playHuman;
+    const replacement=focusId?$(focusId):focusMove!==null?$('coachContent').querySelector('[data-move="'+focusMove+'"]'):null;if(replacement)replacement.focus({preventScroll:true});
+  }
+  function render(){
+    ended=edit?null:E.terminal(position,turn);const f=E.features(position),legal=selected===null?[]:E.moves(position,1).filter(m=>E.from(m)===selected),dest=new Map(legal.map(m=>[E.to(m),m]));
+    for(let q=0;q<64;q++){
+      const el=squares[q],p=position[q],m=dest.get(q),c=quality(m===undefined?null:moveRow(m)),isMove=m!==undefined;
+      el.className='square'+(((q>>3)+(q&7))%2===0?' dark':'')+(p?' occupied':'')+(p===9?' terrain':'')+(q===selected?' selected':'')+(lastMove!==null&&(q===E.from(lastMove)||q===E.to(lastMove))?' last':'')+(isMove?' quality-'+c.key:'')+(preview!==null&&q===E.to(preview)?' preview':'')+($('reach').checked&&f.maps[1][q]?' enemy-reach':'');
+      el.innerHTML=(p?pieceSVG(p):'')+(isMove?'<span class="mark">'+c.mark+'</span>':'')+($('reach').checked&&f.maps[1][q]?'<span class="reach-badge" title="Black attackers">'+f.maps[1][q]+'</span>':'');
+      const desc=p===9?'fixed pawn terrain':p?(p>0?'White ':'Black ')+PIECES[Math.abs(p)]:'empty';
+      el.setAttribute('aria-label',E.name(q)+', '+desc+(isMove?', legal move, '+c.label:''));el.setAttribute('aria-pressed',q===selected?'true':'false');
+    }
+    for(const [side,id] of [[1,'whiteMaterial'],[-1,'blackMaterial']]){let total=0,icons='';for(let t=1;t<=3;t++)for(const p of position)if(p===side*t){total+=E.VALUE[t];icons+='<span class="tiny-piece">'+pieceSVG(p)+'</span>';}$ (id).innerHTML=icons+'<span>'+total+' pts</span>';}
+    $('whiteStatus').textContent=edit?'Terrain workshop':ended!==null?'Round complete':turn===1?'White to move · inspect before playing':'Waiting for Black';
+    $('botStatus').textContent=edit?'Paused while editing':ended!==null?'Round complete':turn===-1?(busy?'Searching for a reply…':'Reply selected'):'Ready for the next move';
+    $('undoBtn').disabled=!undoStack.length||edit;$('hintBtn').disabled=edit||turn!==1||ended!==null||!analysis;$('terrainBtn').disabled=edit;
+    $('terrainBanner').classList.toggle('hidden',!edit);$('endBanner').classList.toggle('hidden',ended===null);
+    if(ended!==null)$('endBanner').innerHTML='<strong>'+(ended===E.WIN?'White wins':ended===-E.WIN?'Black wins':'Round drawn')+'</strong><span>'+(ended===0?'The side to move has no legal move.':'All opposing pieces have been captured.')+'</span>';
+    $('boardMessage').innerHTML=edit?'<strong>Click an empty square</strong> to place terrain. Click a fixed pawn to remove it.':ended!==null?'Round complete. Undo returns to the previous decision; Reset starts again.':turn===-1?'Black is considering a reply. Undo can return to the previous White turn.':preview!==null?'<strong>'+E.notation(position,preview)+'</strong> is being inspected. Confirm in the move coach to play.':selected!==null?'<strong>'+E.NAMES[Math.abs(position[selected])]+' on '+E.name(selected)+':</strong> click a colored destination to see why.':'Select a White piece, then click a highlighted square to inspect a move.';
+    $('searchLabel').textContent=edit?'Paused':ended!==null?'Complete':busy?'Thinking':'Ready';$('searchPill').classList.toggle('busy',busy);
+    const depth=analysis?analysis.depth:0;$('depthText').textContent=edit?'Terrain pauses analysis':ended!==null?'Round complete':depth+' / 10 plies completed';
+    $('nodeText').textContent=analysis?analysis.nodes.toLocaleString()+' nodes':'10-ply target';$('depthBars').innerHTML=Array.from({length:10},(_,i)=>'<i class="'+(i<depth?'on':'')+'"></i>').join('');
+    $('engineFoot').textContent=workerFallback?'Compact search: this browser could not start a background worker.':edit?'A fresh search follows every terrain change.':depth===10?'Full horizon: five White turns and five Black turns.':busy?'Target: five turns per side. Rankings update at each completed depth.':ended!==null?'Reset or undo to explore another line.':'Budget reached at '+depth+' plies. Later tactics can change the result.';
+    $('record').innerHTML=history.length?history.map((h,i)=>'<span class="record-move '+(h.side===-1?'bot':'')+'"><em>'+Math.floor(i/2+1)+(h.side===-1?'…':'.')+'</em>'+h.text+'</span>').join(''):'<p class="record-empty">A clean board. A new line of thought.</p>';
+    $('botReason').classList.toggle('hidden',!botNote);$('botReason').textContent=botNote;renderCoach();
+  }
+  for(let r=7;r>=0;r--)for(let c=0;c<8;c++){
+    const q=r*8+c,button=document.createElement('button');button.type='button';button.dataset.square=E.name(q);button.className='square';button.addEventListener('click',()=>squareClick(q));
+    button.addEventListener('keydown',event=>{const offsets={ArrowLeft:-1,ArrowRight:1,ArrowUp:8,ArrowDown:-8},offset=offsets[event.key];if(offset!==undefined){event.preventDefault();const next=q+offset;if(next>=0&&next<64&&(Math.abs(offset)===8||((next>>3)===(q>>3))))squares[next].focus();}if(event.key==='Escape'){selected=preview=null;render();}});
+    squares[q]=button;$('board').appendChild(button);
+  }
+  $('level').onchange=resetPreset;$('strength').onchange=()=>{if(!edit)analyze();};$('resetBtn').onclick=resetCurrent;$('undoBtn').onclick=undo;$('terrainBtn').onclick=editTerrain;$('applyTerrain').onclick=applyTerrain;$('cancelTerrain').onclick=cancelTerrain;
+  $('clearTerrain').onclick=()=>{for(let q=0;q<64;q++)if(position[q]===9)position[q]=0;render();};$('reach').onchange=render;
+  $('hintBtn').onclick=()=>{if(analysis&&analysis.rows.length)chooseMove(analysis.rows[0].m,true);};
+  $('helpBtn').onclick=()=>$('helpDialog').showModal();$('closeHelp').onclick=$('startPlaying').onclick=()=>$('helpDialog').close();
+  $('helpDialog').addEventListener('click',e=>{if(e.target===$('helpDialog')){const r=$('helpDialog').getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)$('helpDialog').close();}});
+  resetPreset();
+})();
+
+</script>
+</body></html>
